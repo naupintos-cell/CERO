@@ -1387,36 +1387,68 @@ function openSpotify(){
 /* ═══════════════════════════════════════
    POURING AI — WebRTC + Frame Analysis
 ═══════════════════════════════════════ */
-let paiStream=null,paiRAF=null,paiCtx=null,paiCanvas=null,paiVideo=null;
+let paiStream=null,paiRAF=null,paiCtx=null,paiCanvas=null,paiVideo=null,paiTiltX=null;
+window.addEventListener("deviceorientation",e=>{if(e.beta!==null)paiTiltX=Math.abs(e.beta)},{passive:true});
 
-async function openPourAI(onComplete){let _pourCallback=onComplete||null;
+async function openPourAI(onComplete){
+  let _pourCallback=onComplete||null;
   const overlay=document.getElementById('pour-ai');
   paiVideo=document.getElementById('pour-video');
   paiCanvas=document.getElementById('pour-canvas-overlay');
   overlay.classList.add('on');
 
+  // Timer-based unlock — 8 seconds
+  let elapsed=0;
+  const UNLOCK_SEC=8;
+  const btn=document.getElementById('pai-continue');
+  if(btn){btn.style.opacity='0.45';btn.disabled=true}
+
+  const timer=setInterval(()=>{
+    elapsed++;
+    const pct=Math.min(elapsed/UNLOCK_SEC,1);
+
+    // Update bar to show time progress
+    const bar=document.getElementById('pai-bar');
+    if(bar){bar.style.width=(pct*100)+'%';bar.style.background=pct>=1?'var(--bright)':'var(--green)'}
+
+    // Status messages timed
+    const msg=document.getElementById('pai-msg');
+    const sub=document.getElementById('pai-sub');
+    if(elapsed===1&&msg){msg.textContent='Tilt glass at 45° and start pouring';msg.style.color='var(--cream)'}
+    if(elapsed===3&&msg){msg.textContent='Keep the angle steady...';sub.textContent='Pour slowly along the side of the glass'}
+    if(elapsed===5&&msg){msg.textContent='Almost there...';sub.textContent='Let the foam rise naturally'}
+    if(elapsed>=UNLOCK_SEC){
+      clearInterval(timer);
+      if(msg){msg.textContent='✓ Perfect pour';msg.style.color='var(--bright)'}
+      if(sub){sub.textContent='The Heineken standard — ready to continue'}
+      if(btn){btn.style.opacity='1';btn.disabled=false}
+    }
+  },1000);
+
+  // Overlay paiTimer so we can clear it on close
+  overlay._timer=timer;
+
   // Request camera
   try{
     paiStream=await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}},
-      audio:false
+      video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}},audio:false
     });
     paiVideo.srcObject=paiStream;
     await paiVideo.play();
-    paiCanvas.width=paiVideo.videoWidth||window.innerWidth;
-    paiCanvas.height=paiVideo.videoHeight||window.innerHeight;
+    paiCanvas.width=window.innerWidth;
+    paiCanvas.height=window.innerHeight;
     paiCtx=paiCanvas.getContext('2d',{willReadFrequently:true});
     paiLoop();
   }catch(e){
-    // Fallback: skip straight to questions
-    document.getElementById('pai-msg').textContent='Camera unavailable';
-    document.getElementById('pai-sub').textContent='Skipping to next step...';
-    setTimeout(()=>{continuePour();},1200);
+    // No camera — still show guide with gyro only
+    document.getElementById('pai-msg').textContent='Tilt phone at 45° to pour';
+    document.getElementById('pai-sub').textContent='Gyroscope mode active';
   }
 }
 
 function closePourAI(){
   const overlay=document.getElementById('pour-ai');
+  if(overlay._timer){clearInterval(overlay._timer);overlay._timer=null}
   overlay.classList.remove('on');
   if(paiStream)paiStream.getTracks().forEach(t=>t.stop());
   paiStream=null;
@@ -1435,154 +1467,74 @@ let paiSmooth=0;
 function paiLoop(){
   paiRAF=requestAnimationFrame(paiLoop);
   if(!paiVideo||paiVideo.readyState<2)return;
-
-  const vw=paiVideo.videoWidth,vh=paiVideo.videoHeight;
   paiCanvas.width=window.innerWidth;paiCanvas.height=window.innerHeight;
   paiCtx.clearRect(0,0,paiCanvas.width,paiCanvas.height);
-
-  // Draw glass guide overlay
   drawGlassGuide(paiCtx,paiCanvas.width,paiCanvas.height);
-
-  // Sample a hidden canvas for pixel analysis
-  const sample=document.createElement('canvas');
-  sample.width=vw;sample.height=vh;
-  const sc=sample.getContext('2d',{willReadFrequently:true});
-  sc.drawImage(paiVideo,0,0,vw,vh);
-
-  // Analyse vertical strip in center (glass zone)
-  const stripX=Math.floor(vw*0.4);
-  const stripW=Math.floor(vw*0.2);
-  const imgData=sc.getImageData(stripX,0,stripW,vh);
-  const px=imgData.data;
-
-  // Scan from TOP: find first non-dark row (glass content starts)
-  // Then scan for foam (bright/white) vs beer (warm amber)
-  let foamRows=0,beerRows=0,totalRows=0;
-  const rowResults=[];
-
-  for(let y=0;y<vh;y++){
-    let rSum=0,gSum=0,bSum=0,cnt=0;
-    for(let x=0;x<stripW;x++){
-      const i=(y*stripW+x)*4;
-      rSum+=px[i];gSum+=px[i+1];bSum+=px[i+2];cnt++;
-    }
-    const r=rSum/cnt,g=gSum/cnt,b=bSum/cnt;
-    const brightness=(r+g+b)/3;
-    const warmth=r-b; // positive = warm/amber = beer
-    const isLight=brightness>140;
-    const isWarm=warmth>25&&brightness>60&&brightness<220;
-    const isFoam=brightness>190&&Math.abs(r-g)<35&&Math.abs(g-b)<35;
-
-    if(brightness>50){totalRows++;}
-    if(isFoam){foamRows++;rowResults.push('foam')}
-    else if(isWarm){beerRows++;rowResults.push('beer')}
-    else rowResults.push('other');
-  }
-
-  // Calculate foam ratio (foam / (foam+beer))
-  const contentRows=foamRows+beerRows;
-  const rawRatio=contentRows>20?foamRows/contentRows:0;
-  // Smooth
-  paiSmooth+=(rawRatio-paiSmooth)*0.15;
-  const foamPct=Math.min(1,paiSmooth);
-
-  // Heineken standard: 2 fingers ≈ 15-25% foam head
-  updatePourUI(foamPct,foamRows,beerRows);
 }
 
-function updatePourUI(foamPct,foamRows,beerRows){
-  const msg=document.getElementById('pai-msg');
-  const bar=document.getElementById('pai-bar');
-  const sub=document.getElementById('pai-sub');
-  const hasContent=foamRows+beerRows>15;
 
-  let pct,color,message,subMsg;
-
-  if(!hasContent){
-    pct=0;color='rgba(255,255,255,0.2)';
-    message='Point camera at your glass';
-    subMsg='Place the glass in the center of the frame';
-  } else if(foamPct<0.05){
-    pct=15;color='#C41E1E';
-    message='Keep pouring...';
-    subMsg='No foam detected yet — tilt the glass at 45°';
-  } else if(foamPct<0.12){
-    pct=40;color='#C8942A';
-    message='Getting there...';
-    subMsg='A little more — Heineken standard is 2 fingers';
-  } else if(foamPct>=0.12&&foamPct<=0.28){
-    pct=100;color='var(--bright)';
-    message='✓ Perfect foam';
-    subMsg='Heineken standard achieved — continue when ready';
-  } else if(foamPct>0.28&&foamPct<=0.4){
-    pct=80;color='#C8942A';
-    message='Slow down...';
-    subMsg='Too much foam forming — ease off';
-  } else {
-    pct=30;color='#C41E1E';
-    message='Stop! Over-foamed';
-    subMsg='Let the foam settle before adding more';
-  }
-
-  bar.style.width=pct+'%';bar.style.background=color;
-  msg.textContent=message;
-  msg.style.color=foamPct>=0.12&&foamPct<=0.28?'var(--bright)':foamPct>0.4?'#C41E1E':'var(--cream)';
-  sub.textContent=subMsg;
-  // Unlock Continue button when foam is perfect
-  const btn=document.getElementById('pai-continue');
-  if(btn){btn.style.opacity=foamPct>=0.08?'1':'0.4'}
-}
 
 function drawGlassGuide(c,w,h){
-  // Glass silhouette guide in center
-  const gx=w/2,gy=h*0.15,gh=h*0.6,gw=w*0.32;
-  const gtop=gw*0.55,gbot=gw*0.48;
+  const gx=w/2,gy=h*0.1,gh=h*0.62,gw=w*0.35;
+  const gtop=gw*0.52,gbot=gw*0.44;
+  const foamH=gh*0.2;
 
-  // Glass outline
   c.save();
-  c.strokeStyle='rgba(245,242,235,0.18)';c.lineWidth=1.5;
-  c.setLineDash([6,6]);
+
+  // Glass body fill — subtle frost
   c.beginPath();
   c.moveTo(gx-gtop,gy);c.lineTo(gx-gbot,gy+gh);
   c.lineTo(gx+gbot,gy+gh);c.lineTo(gx+gtop,gy);
-  c.stroke();
-  c.setLineDash([]);
+  c.closePath();
+  c.fillStyle='rgba(245,242,235,0.04)';c.fill();
 
-  // "2 finger" foam zone — top 20% of glass
-  const foamH=gh*0.22;
-  c.fillStyle='rgba(0,168,70,0.06)';
-  const foamTop=gy,foamBot=gy+foamH;
-  const fTopW=gtop,fBotW=gtop-(gtop-gbot)*(foamH/gh);
+  // Foam zone highlight
+  const fBotW=gtop-(gtop-gbot)*(foamH/gh);
   c.beginPath();
-  c.moveTo(gx-fTopW,foamTop);c.lineTo(gx-fBotW,foamBot);
-  c.lineTo(gx+fBotW,foamBot);c.lineTo(gx+fTopW,foamTop);
-  c.closePath();c.fill();
+  c.moveTo(gx-gtop,gy);c.lineTo(gx-fBotW,gy+foamH);
+  c.lineTo(gx+fBotW,gy+foamH);c.lineTo(gx+gtop,gy);
+  c.closePath();
+  c.fillStyle='rgba(0,168,70,0.08)';c.fill();
 
-  // Foam zone border
-  c.strokeStyle='rgba(0,168,70,0.35)';c.lineWidth=1;
-  c.setLineDash([4,4]);
-  c.beginPath();c.moveTo(gx-fBotW,foamBot);c.lineTo(gx+fBotW,foamBot);c.stroke();
+  // Animated foam level line
+  const pulse=0.5+0.5*Math.sin(Date.now()/600);
+  c.strokeStyle=`rgba(0,179,71,${0.5+pulse*0.4})`;
+  c.lineWidth=1.5;c.setLineDash([6,4]);
+  c.beginPath();c.moveTo(gx-fBotW,gy+foamH);c.lineTo(gx+fBotW,gy+foamH);c.stroke();
   c.setLineDash([]);
 
-  // Label
-  c.fillStyle='rgba(0,168,70,0.7)';
-  c.font='400 20px Inter,system-ui,sans-serif';c.textAlign='left';c.letterSpacing='2px';
-  c.fillText('FOAM ZONE',gx+gtop+12,foamBot-4);
-
-  c.textAlign='left';
-  c.fillStyle='rgba(245,242,235,0.25)';
-  c.font='300 18px Inter,system-ui,sans-serif';c.letterSpacing='1px';
-  c.fillText('2 FINGER',gx+gtop+12,foamTop+24);
+  // Glass outline
+  c.strokeStyle='rgba(245,242,235,0.2)';c.lineWidth=1;c.setLineDash([4,6]);
+  c.beginPath();
+  c.moveTo(gx-gtop,gy);c.lineTo(gx-gbot,gy+gh);
+  c.lineTo(gx+gbot,gy+gh);c.lineTo(gx+gtop,gy);
+  c.stroke();c.setLineDash([]);
 
   // Corner brackets
-  const bk=20;
-  [
-    [gx-gtop,gy,1,1],[gx+gtop,gy,-1,1],
-    [gx-gbot,gy+gh,1,-1],[gx+gbot,gy+gh,-1,-1]
-  ].forEach(([bx,by,sx,sy])=>{
-    c.strokeStyle='rgba(245,242,235,0.45)';c.lineWidth=2;
+  const bk=18;
+  [[gx-gtop,gy,1,1],[gx+gtop,gy,-1,1],[gx-gbot,gy+gh,1,-1],[gx+gbot,gy+gh,-1,-1]].forEach(([bx,by,sx,sy])=>{
+    c.strokeStyle='rgba(245,242,235,0.5)';c.lineWidth=2;c.setLineDash([]);
     c.beginPath();c.moveTo(bx+sx*bk,by);c.lineTo(bx,by);c.lineTo(bx,by+sy*bk);c.stroke();
   });
+
+  // Labels
+  c.fillStyle='rgba(0,179,71,0.75)';
+  c.font='500 18px Inter,system-ui';c.textAlign='left';c.letterSpacing='2px';
+  c.fillText('FOAM ZONE',gx+gtop+14,gy+foamH+6);
+
+  c.fillStyle='rgba(245,242,235,0.35)';
+  c.font='400 14px Inter,system-ui';c.letterSpacing='1px';
+  c.fillText('2 FINGER',gx+gtop+14,gy+22);
+
+  // Gyroscope tilt indicator
+  if(typeof paiTiltX!=='undefined'){
+    const tiltPct=Math.max(0,1-Math.abs(paiTiltX-45)/40);
+    const tiltColor=tiltPct>0.7?'rgba(0,179,71,0.8)':'rgba(196,152,48,0.7)';
+    c.fillStyle=tiltColor;
+    c.font='500 15px Inter,system-ui';c.textAlign='center';
+    const angle=Math.round(Math.abs(paiTiltX||0));
+    c.fillText(angle+'° '+(tiltPct>0.7?'✓ Perfect angle':'→ Tilt to 45°'),gx,h*0.88);
+  }
 
   c.restore();
 }
