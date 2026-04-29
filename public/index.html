@@ -639,6 +639,7 @@ dialog#rsm-dialog::backdrop{
   transition:width 600ms ease;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap');
 dialog#rsm-dialog{position:fixed!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;margin:0!important;background:#0a1a0a;border:1px solid rgba(0,179,71,.2);padding:0;max-width:360px;width:92vw;border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)}
 dialog#rsm-dialog::backdrop{background:rgba(0,0,0,.75);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 @keyframes dialog-in{from{opacity:0;transform:translate(-50%,-50%) scale(0.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
@@ -647,17 +648,21 @@ dialog#rsm-dialog[open]{animation:dialog-in 0.3s cubic-bezier(0.34,1.2,0.64,1) f
 .rsm-btn{width:100%;background:#007A33;color:#fff;border:none;padding:.9rem;font-family:Inter,system-ui,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:8px;margin-top:.25rem}
 .rsm-dot{width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,179,71,.25);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 400ms}
 .rsm-dot.on{background:rgba(0,122,51,.35);border-color:#00A846}
+#post-ritual{animation:fadein .6s ease both}
+@keyframes fadein{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
 function startLanding(){
   const l=document.getElementById('landing');
   if(!l)return;
-  l.style.opacity='0';
-  l.style.transform='scale(1.04)';
-  setTimeout(()=>{l.style.display='none';},600);
-  setTimeout(()=>{
-    if(typeof launchExperience==='function')launchExperience();
-  },400);
+  l.style.opacity='0';l.style.transform='scale(1.03)';
+  setTimeout(()=>{l.style.display='none';},500);
+  setTimeout(()=>{if(typeof launchExperience==='function')launchExperience();},350);
+}
+
+function showPostRitual(){
+  const p=document.getElementById('post-ritual');
+  if(p){p.style.display='block';p.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 </script>
 <script>
@@ -725,72 +730,54 @@ function rsmSave(){
 <body>
 
 <!-- ════ LANDING — PHYGITAL PITCH ════ -->
-<div id="landing" style="
-  position:fixed;inset:0;z-index:200;
-  background:#020802;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:32px 28px;
-  text-align:center;
-  transition:opacity .6s ease, transform .6s ease;
-">
+<div id="landing" style="position:fixed;inset:0;z-index:200;background:#020802;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;transition:opacity .5s ease,transform .5s ease">
 
-  <!-- top bar -->
+  <!-- NAV -->
   <div style="position:absolute;top:0;left:0;right:0;padding:20px 24px;display:flex;align-items:center;justify-content:space-between">
     <div style="display:flex;align-items:center;gap:8px">
-      <span style="color:#C41E1E;font-size:11px">★</span>
-      <span style="font-size:.5rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.5)">Your Heineken</span>
+      <span style="color:#C41E1E;font-size:11px;line-height:1">★</span>
+      <span style="font-size:.5rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.4)">Heineken × Kairo</span>
     </div>
-    <span style="font-size:.48rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(0,168,70,.6)">Built by Kairo</span>
+    <div id="lnd-welcome" style="display:none;font-size:.46rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:#00A846;background:rgba(0,122,51,.12);border:1px solid rgba(0,179,71,.18);padding:3px 12px;border-radius:20px"></div>
   </div>
 
-  <!-- greeting badge -->
-  <div id="user-greeting" style="display:none;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:#00A846;background:rgba(0,122,51,.12);border:1px solid rgba(0,179,71,.18);padding:.3rem 1rem;border-radius:20px;margin-bottom:1.5rem"></div>
+  <!-- CONTENT -->
+  <div style="max-width:340px">
 
-  <!-- kicker -->
-  <p style="font-size:.5rem;letter-spacing:5px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.3);margin-bottom:1.25rem">Heineken × Kairo</p>
+    <!-- hook -->
+    <p id="lnd-hook" style="
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(2.4rem,9vw,4rem);
+      font-weight:300;line-height:1.08;
+      color:#F5F2EB;
+      margin-bottom:1.5rem;
+      letter-spacing:-.01em;
+    ">Heineken knows<br>when they buy.<br><span style="color:#00A846;font-style:italic">Not when they drink.</span></p>
 
-  <!-- star -->
-  <div style="margin-bottom:1.5rem">
-    <svg width="44" height="44" viewBox="0 0 48 48" style="display:block;margin:0 auto">
-      <polygon points="24,3 28.5,17 43,17 31,26 35.5,40 24,31.5 12.5,40 17,26 5,17 19.5,17" fill="#C41E1E" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-linejoin="round"/>
-    </svg>
+    <!-- one line -->
+    <p id="lnd-sub" style="
+      font-size:.88rem;color:rgba(245,242,235,.4);
+      font-family:'DM Sans',Inter,system-ui,sans-serif;
+      font-weight:300;line-height:1.7;
+      margin-bottom:2.5rem;
+    ">We built what nobody did.<br>Live it.</p>
+
+    <!-- CTA -->
+    <button id="lnd-btn" onclick="startLanding()" style="
+      background:#007A33;color:#fff;border:none;
+      width:100%;padding:18px;border-radius:2px;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;
+      cursor:pointer;-webkit-appearance:none;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+    ">
+      <span>Live the ritual</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <p style="margin-top:1.25rem;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.18)">No download · 60 seconds</p>
   </div>
 
-  <!-- headline -->
-  <h1 id="landing-headline" style="
-    font-family:'Cormorant Garamond',Georgia,serif;
-    font-size:clamp(2.6rem,10vw,4.5rem);
-    font-weight:300;line-height:1.05;
-    color:#F5F2EB;margin-bottom:1.25rem;
-    letter-spacing:-.01em;
-  ">Most beers are sold.<br><em style="color:#00A846;font-style:italic">Few are lived.</em></h1>
-
-  <!-- sub -->
-  <p id="landing-sub" style="
-    font-size:.88rem;color:rgba(245,242,235,.42);
-    font-family:'DM Sans',Inter,system-ui,sans-serif;
-    font-weight:300;line-height:1.7;
-    max-width:300px;margin-bottom:2.5rem;
-  ">Your Heineken, recommended for this exact moment. 60 seconds.</p>
-
-  <!-- CTA -->
-  <button onclick="startLanding()" style="
-    background:#007A33;color:#fff;border:none;
-    padding:18px 36px;border-radius:2px;
-    font-family:Inter,system-ui,sans-serif;
-    font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;
-    cursor:pointer;
-    -webkit-appearance:none;
-    transition:background .2s, transform .15s;
-  " onmouseover="this.style.background='#00A846'" onmouseout="this.style.background='#007A33'">
-    Start Your Ritual
-  </button>
-
-  <!-- bottom hint -->
-  <p style="position:absolute;bottom:28px;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.18)">
-    NFC · No download · Instant activation
-  </p>
 </div>
 
 <div id="app">
@@ -1815,14 +1802,18 @@ startCityPulse();
       const u=new URLSearchParams(location.search).get('user');
       if(!u)return;
       const first=u.split(' ')[0];
+      // nav app header
       const hname=document.querySelector('.hname');
       if(hname)hname.textContent=first+"'s Heineken";
-      const g=document.getElementById('user-greeting');
-      if(g){g.textContent='Welcome, '+first;g.style.display='block';}
-      const lh=document.getElementById('landing-headline');
-      if(lh)lh.innerHTML='The right bottle,<br><em style="color:#00A846;font-style:italic">'+first+'.</em>';
-      const ls=document.getElementById('landing-sub');
-      if(ls)ls.textContent='Your Heineken — recommended for this exact moment.';
+      // landing welcome badge
+      const w=document.getElementById('lnd-welcome');
+      if(w){w.textContent='Welcome, '+first;w.style.display='block';}
+      // landing hook - personalized
+      const hook=document.getElementById('lnd-hook');
+      if(hook)hook.innerHTML=first+',<br>Heineken knows when<br>they buy. <span style="color:#00A846;font-style:italic">Not when they drink.</span>';
+      const sub=document.getElementById('lnd-sub');
+      if(sub)sub.innerHTML='We built what nobody did.<br>Live it.';
+      // app hero
       const ht=document.querySelector('.h-title');
       if(ht)ht.innerHTML='The right bottle,<br><em>'+first+'.</em>';
     }catch(e){}
@@ -1870,7 +1861,7 @@ window.addEventListener("load",()=>{
       <div id="rsm-d2" class="rsm-dot"><span style="font-size:.9rem">★</span><span style="font-size:.32rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">3rd</span></div>
     </div>
     <div id="rsm-p" style="font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.25);font-family:Inter,system-ui,sans-serif;margin-bottom:1.25rem"></div>
-    <button class="rsm-btn" onclick="document.getElementById('rsm-dialog').close()">Continue</button>
+    <button class="rsm-btn" onclick="document.getElementById('rsm-dialog').close();showPostRitual()">Continue</button>
     <div id="rsm-h" style="margin-top:.5rem;font-size:.42rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.15);font-family:Inter,system-ui,sans-serif"></div>
   </div>
 </dialog>
