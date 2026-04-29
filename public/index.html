@@ -528,44 +528,103 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .l-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:300;color:var(--cream);margin-bottom:.5rem}
 .l-sub{font-size:.78rem;color:var(--dim);line-height:1.65;max-width:300px;margin:0 auto;font-family:Inter,system-ui,sans-serif}
 
-#rsm{position:absolute;inset:0;z-index:500;background:rgba(2,8,2,.97);display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.rsm-inp{width:100%;background:rgba(245,242,235,.07);border:1px solid rgba(245,242,235,.15);border-radius:2px;color:#F5F2EB;padding:.75rem 1rem;font-size:1rem;font-family:"Cormorant Garamond",Georgia,serif;outline:none;-webkit-appearance:none;box-sizing:border-box;margin-bottom:.6rem}
-.rsm-btn-ok{width:100%;max-width:300px;background:#007A33;color:#fff;border:none;padding:.9rem;font-family:Inter,system-ui,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-top:.25rem}
-.rsm-dot-c{width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,179,71,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 400ms}
-.rsm-dot-c.on{background:rgba(0,122,51,.3);border-color:#00A846;box-shadow:0 0 20px rgba(0,179,71,.4)}
+dialog#rsm-dialog{
+  background:rgba(2,8,2,.97);
+  border:none;
+  padding:2rem 1.5rem;
+  max-width:340px;
+  width:90%;
+  border-radius:4px;
+  color:#F5F2EB;
+  text-align:center;
+}
+dialog#rsm-dialog::backdrop{
+  background:rgba(0,0,0,.85);
+}
+.rsm-inp{
+  width:100%;
+  background:rgba(245,242,235,.07);
+  border:1px solid rgba(245,242,235,.2);
+  border-radius:2px;
+  color:#F5F2EB;
+  padding:.75rem 1rem;
+  font-size:1rem;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  outline:none;
+  -webkit-appearance:none;
+  box-sizing:border-box;
+  margin-bottom:.65rem;
+  display:block;
+}
+.rsm-btn{
+  width:100%;
+  background:#007A33;
+  color:#fff;
+  border:none;
+  padding:.85rem;
+  font-family:Inter,system-ui,sans-serif;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:2px;
+  margin-top:.25rem;
+}
+.rsm-dot{
+  width:50px;height:50px;border-radius:50%;
+  border:1px solid rgba(0,179,71,.25);
+  display:inline-flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  transition:all 400ms;
+}
+.rsm-dot.on{background:rgba(0,122,51,.3);border-color:#00A846;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
 /* ── SAVE RITUAL MODAL ── */
+
+
+
+
+/* ── SAVE RITUAL DIALOG ── */
 function openSaveModal(){
-  const m=document.getElementById('rsm');if(!m)return;
-  document.getElementById('rsm-s1').style.display='flex';
+  const d=document.getElementById('rsm-dialog');
+  if(!d)return;
+  document.getElementById('rsm-s1').style.display='block';
   document.getElementById('rsm-s2').style.display='none';
   const p=document.getElementById('sf-p'),w=document.getElementById('sf-w');
   if(p)p.value='';if(w)w.value='';
-  m.style.display='flex';
+  d.showModal();
 }
 function rsmClose(){
-  const m=document.getElementById('rsm');if(m)m.style.display='none';
+  const d=document.getElementById('rsm-dialog');
+  if(d)d.close();
 }
 function rsmSave(){
   if(rec){
     const prod=PROD[rec.product]||PROD.original;
-    rits.unshift({ts:Date.now(),date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),product:prod.n,pk:rec.product,title:rec.title,where:ctx.neighborhood||ctx.city||'',who:ans[0],vibe:ans[1],temp:ctx.temp,weather:ctx.weather,place:document.getElementById('sf-p')?.value||'',with_:document.getElementById('sf-w')?.value||''});
+    rits.unshift({
+      ts:Date.now(),
+      date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
+      product:prod.n,pk:rec.product,title:rec.title,
+      where:ctx.neighborhood||ctx.city||'',
+      who:ans[0],vibe:ans[1],temp:ctx.temp,weather:ctx.weather,
+      place:document.getElementById('sf-p')?.value||'',
+      with_:document.getElementById('sf-w')?.value||''
+    });
     if(rits.length>12)rits.pop();
     localStorage.setItem('hk',JSON.stringify(rits));
   }
   updN();
-  // Switch to step 2
   document.getElementById('rsm-s1').style.display='none';
-  document.getElementById('rsm-s2').style.display='flex';
+  document.getElementById('rsm-s2').style.display='block';
   const n=rits.length,k=Math.min(n,3);
-  const T={1:'First ritual.<br><em style="color:#00A846">Two to go.</em>',2:'Second ritual.<br><em style="color:#00A846">One more.</em>',3:'Third ritual.<br><em style="color:#00A846">Reward unlocked.</em>'};
-  const S={1:'Two more rituals unlock your Heineken reward.',2:'One more ritual and The Sub or Draught Keg is yours.',3:'Choose your reward — delivered by Heineken.'};
-  const t=document.getElementById('rsm-t'),s=document.getElementById('rsm-s'),p=document.getElementById('rsm-p'),h=document.getElementById('rsm-h');
-  if(t)t.innerHTML=T[k]||'Ritual saved.';
-  if(s)s.textContent=S[k]||'';
-  if(p)p.textContent=n+' / 3 rituals completed';
-  if(h)h.textContent=k>=3?'★ Reward ready to claim':k===2?'1 ritual remaining':'2 rituals remaining';
+  const T={1:'First ritual.<br><em style="color:#00A846">Two to go.</em>',2:'Second ritual.<br><em style="color:#00A846">One more.</em>',3:'Third ritual.<br><em style="color:#00A846;font-style:italic">Reward unlocked.</em>'};
+  const S={1:'Two more rituals to unlock your Heineken reward.',2:'One more ritual and The Sub or Draught Keg is yours.',3:'Choose your reward — delivered by Heineken.'};
+  document.getElementById('rsm-t').innerHTML=T[k]||'Ritual saved.';
+  document.getElementById('rsm-s').textContent=S[k]||'';
+  document.getElementById('rsm-p').textContent=n+' / 3 rituals completed';
+  document.getElementById('rsm-h').textContent=k>=3?'★ Reward ready to claim':k===2?'1 ritual remaining':'2 rituals remaining';
   [0,1,2].forEach(i=>{
     const d=document.getElementById('rsm-d'+i);if(!d)return;
     d.classList.toggle('on',i<=n-1);
@@ -973,35 +1032,6 @@ function rsmSave(){
     <button class="sp-close" onclick="document.getElementById('spotify-modal').classList.remove('on')">✕ Close</button>
   </div>
 
-  <!-- SAVE RITUAL MODAL (position:absolute stays in app stacking ctx) -->
-  <div id="rsm">
-    <div id="rsm-s1" style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:320px">
-      <div style="font-size:2rem;margin-bottom:.5rem">★</div>
-      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.2rem;font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.35rem">Save this<br>ritual.</h2>
-      <p style="font-size:.75rem;color:rgba(245,242,235,.45);font-family:Inter,system-ui,sans-serif;margin-bottom:1.25rem">Two details to complete the moment.</p>
-      <label style="align-self:flex-start;font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.3);font-family:Inter,system-ui,sans-serif;margin-bottom:.3rem">Place</label>
-      <input id="sf-p" class="rsm-inp" placeholder="Bar, home, rooftop...">
-      <label style="align-self:flex-start;font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.3);font-family:Inter,system-ui,sans-serif;margin-bottom:.3rem">With</label>
-      <input id="sf-w" class="rsm-inp" placeholder="Friends, partner, solo...">
-      <button class="rsm-btn-ok" onclick="rsmSave()">Save Ritual →</button>
-      <button onclick="rsmClose()" style="margin-top:.6rem;background:none;border:none;color:rgba(245,242,235,.3);font-size:.46rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:Inter,system-ui,sans-serif">Cancel</button>
-    </div>
-    <div id="rsm-s2" style="display:none;flex-direction:column;align-items:center;width:100%;max-width:320px">
-      <div id="rsm-star" style="font-size:2rem;margin-bottom:.5rem;color:#00A846">★</div>
-      <h2 id="rsm-t" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.2rem;font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.35rem">Ritual saved.</h2>
-      <p id="rsm-s" style="font-size:.75rem;color:rgba(245,242,235,.45);font-family:Inter,system-ui,sans-serif;margin-bottom:1.5rem"></p>
-      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
-        <div id="rsm-d0" class="rsm-dot-c"><span style="font-size:1rem;line-height:1">★</span><span style="font-size:.36rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">1st</span></div>
-        <span style="color:rgba(245,242,235,.15);font-size:.7rem">—</span>
-        <div id="rsm-d1" class="rsm-dot-c"><span style="font-size:1rem;line-height:1">★</span><span style="font-size:.36rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">2nd</span></div>
-        <span style="color:rgba(245,242,235,.15);font-size:.7rem">—</span>
-        <div id="rsm-d2" class="rsm-dot-c"><span style="font-size:1rem;line-height:1">★</span><span style="font-size:.36rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">3rd</span></div>
-      </div>
-      <div id="rsm-p" style="font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.3);font-family:Inter,system-ui,sans-serif;margin-bottom:1.5rem"></div>
-      <button class="rsm-btn-ok" onclick="rsmClose()">Continue</button>
-      <div id="rsm-h" style="margin-top:.6rem;font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.18);font-family:Inter,system-ui,sans-serif"></div>
-    </div>
-  </div>
 </div><!-- /app -->
 
 <nav id="nav" class="off">
@@ -1848,5 +1878,37 @@ startCityPulse();
 /* ── INIT ── */
 window.addEventListener("load",()=>setTimeout(()=>go("hero"),1400));
 </script>
+
+<dialog id="rsm-dialog">
+  <!-- Step 1: form -->
+  <div id="rsm-s1">
+    <div style="font-size:2rem;margin-bottom:.5rem">★</div>
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:300;line-height:1.1;margin-bottom:.3rem">Save this ritual.</h2>
+    <p style="font-size:.75rem;color:rgba(245,242,235,.45);font-family:Inter,system-ui,sans-serif;margin-bottom:1.1rem">Two details to complete the moment.</p>
+    <label style="display:block;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.3);font-family:Inter,system-ui,sans-serif;margin-bottom:.3rem;text-align:left">Place</label>
+    <input id="sf-p" class="rsm-inp" placeholder="Bar, home, rooftop...">
+    <label style="display:block;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.3);font-family:Inter,system-ui,sans-serif;margin-bottom:.3rem;text-align:left">With</label>
+    <input id="sf-w" class="rsm-inp" placeholder="Friends, partner, solo...">
+    <button class="rsm-btn" onclick="rsmSave()">Save Ritual →</button>
+    <button onclick="rsmClose()" style="display:block;width:100%;margin-top:.6rem;background:none;border:none;color:rgba(245,242,235,.3);font-size:.44rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:Inter,system-ui,sans-serif;padding:.3rem">Cancel</button>
+  </div>
+  <!-- Step 2: progress -->
+  <div id="rsm-s2" style="display:none">
+    <div style="font-size:2rem;margin-bottom:.5rem;color:#00A846">★</div>
+    <h2 id="rsm-t" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:300;line-height:1.1;margin-bottom:.3rem">Ritual saved.</h2>
+    <p id="rsm-s" style="font-size:.75rem;color:rgba(245,242,235,.45);font-family:Inter,system-ui,sans-serif;margin-bottom:1.25rem"></p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.6rem">
+      <div id="rsm-d0" class="rsm-dot"><span style="font-size:.95rem">★</span><span style="font-size:.34rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">1st</span></div>
+      <span style="color:rgba(245,242,235,.15)">—</span>
+      <div id="rsm-d1" class="rsm-dot"><span style="font-size:.95rem">★</span><span style="font-size:.34rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">2nd</span></div>
+      <span style="color:rgba(245,242,235,.15)">—</span>
+      <div id="rsm-d2" class="rsm-dot"><span style="font-size:.95rem">★</span><span style="font-size:.34rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,.25)">3rd</span></div>
+    </div>
+    <div id="rsm-p" style="font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.28);font-family:Inter,system-ui,sans-serif;margin-bottom:1.25rem"></div>
+    <button class="rsm-btn" onclick="rsmClose()">Continue</button>
+    <div id="rsm-h" style="margin-top:.5rem;font-size:.42rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.18);font-family:Inter,system-ui,sans-serif"></div>
+  </div>
+</dialog>
+
 </body>
 </html>
