@@ -1387,11 +1387,11 @@ function openSpotify(){
 /* ═══════════════════════════════════════
    POURING AI — WebRTC + Frame Analysis
 ═══════════════════════════════════════ */
-let paiStream=null,paiRAF=null,paiCtx=null,paiCanvas=null,paiVideo=null,paiTiltX=null;
+let paiStream=null,paiRAF=null,paiCtx=null,paiCanvas=null,paiVideo=null,paiTiltX=null,_pourCallback=null;
 window.addEventListener("deviceorientation",e=>{if(e.beta!==null)paiTiltX=Math.abs(e.beta)},{passive:true});
 
 async function openPourAI(onComplete){
-  let _pourCallback=onComplete||null;
+  _pourCallback=onComplete||null;
   const overlay=document.getElementById('pour-ai');
   paiVideo=document.getElementById('pour-video');
   paiCanvas=document.getElementById('pour-canvas-overlay');
