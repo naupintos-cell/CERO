@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#020802">
+<title>Your Heineken × Kairo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{--g:#00A846;--gd:#007A33;--r:#C41E1E;--cr:#F5F2EB;--bg:#020802;--bg2:#040d04;--bg3:#0a1a0a;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cr);font-family:var(--sans);overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,8,2,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(245,242,235,.05)}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-star{color:var(--r);font-size:12px}
+.nav-brand{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;font-weight:500}
+.nav-live{display:flex;align-items:center;gap:6px;font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--g)}
+.ld{width:6px;height:6px;border-radius:50%;background:var(--g);animation:ld 2s ease-in-out infinite}
+@keyframes ld{0%,100%{opacity:.35}50%{opacity:1}}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+section{padding:88px 24px 72px}
+.sep{border:none;border-top:1px solid rgba(245,242,235,.07)}
+.kicker{font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:rgba(0,168,70,.6);margin-bottom:1rem;display:block}
+.big{font-family:var(--serif);font-size:clamp(2.8rem,11vw,5.5rem);font-weight:300;line-height:1.03;letter-spacing:-.01em}
+.big em{color:var(--g);font-style:italic}
+.med{font-family:var(--serif);font-size:clamp(1.9rem,6vw,3.2rem);font-weight:300;line-height:1.08}
+.med em{color:var(--g);font-style:italic}
+.body{font-size:.9rem;color:rgba(245,242,235,.48);font-weight:300;line-height:1.75}
+
+/* ── HERO ── */
+#s1{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:120px;padding-bottom:80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;right:-40px;bottom:-20px;font-size:300px;color:rgba(255,255,255,.016);font-family:var(--serif);line-height:1;pointer-events:none;user-select:none}
+.hero-pre{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.hero-line{width:32px;height:1px;background:rgba(0,168,70,.5)}
+.hero-pre-txt{font-size:.52rem;letter-spacing:4px;text-transform:uppercase;color:rgba(245,242,235,.28)}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;margin-top:2.5rem;font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:var(--cr);border:1px solid rgba(245,242,235,.18);padding:14px 24px;border-radius:2px;text-decoration:none;transition:border-color .2s}
+.hero-cta:hover{border-color:rgba(245,242,235,.4)}
+
+/* ── WHAT ── */
+#s2{padding-top:72px;padding-bottom:72px}
+.what-block{margin-top:44px;display:flex;flex-direction:column;gap:1px;background:rgba(245,242,235,.07);border-radius:4px;overflow:hidden}
+.wb{background:var(--bg);padding:28px 24px}
+.wb-q{font-family:var(--serif);font-size:1.25rem;font-weight:300;color:var(--cr);margin-bottom:.4rem;line-height:1.3}
+.wb-a{font-size:.8rem;color:rgba(245,242,235,.38);line-height:1.65}
+
+/* ── FLOW ── */
+#s3{padding-top:72px;padding-bottom:72px}
+.flow-steps{margin-top:48px;display:flex;flex-direction:column;gap:48px}
+.flow-step{display:flex;flex-direction:column;align-items:center;gap:24px}
+.flow-step-inner{width:100%;display:flex;gap:20px;align-items:flex-start}
+.fs-num{font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(0,168,70,.35);flex-shrink:0;padding-top:4px;min-width:24px}
+.fs-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--cr);margin-bottom:.25rem}
+.fs-desc{font-size:.8rem;color:rgba(245,242,235,.4);line-height:1.65}
+.flow-visual{display:flex;justify-content:center;width:100%}
+
+/* bottle */
+.bottle-w{height:200px;display:flex;align-items:flex-end;justify-content:center;position:relative}
+.bottle-w img{height:190px;width:auto;object-fit:contain;filter:drop-shadow(0 0 32px rgba(0,168,70,.12))}
+.nfc-b{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);background:#0a0a0a;border:1.5px solid var(--g);border-radius:4px;padding:3px 9px;font-size:7px;letter-spacing:2px;color:var(--g);font-weight:500;white-space:nowrap}
+.nfc-r{position:absolute;bottom:48px;right:-4px;border-radius:50%;border:1px solid rgba(0,168,70,.5);animation:nfcr 2s ease-out infinite}
+@keyframes nfcr{0%{width:8px;height:8px;opacity:.8;transform:translate(50%,50%)}100%{width:50px;height:50px;opacity:0;transform:translate(50%,50%)}}
+.nfc-r:nth-child(3){animation-delay:.65s}.nfc-r:nth-child(4){animation-delay:1.3s}
+
+/* phone */
+.phone{width:152px;height:280px;background:#0c0c0c;border-radius:28px;border:2px solid #1c1c1c;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),0 24px 48px rgba(0,0,0,.6);overflow:hidden;position:relative}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:8px;background:#0c0c0c;border-radius:0 0 8px 8px;z-index:5}
+.pscr{width:100%;height:100%;background:#040d04;display:flex;flex-direction:column}
+.phd{padding:14px 12px 6px;display:flex;align-items:center;justify-content:space-between}
+.phd-star{font-size:9px;color:var(--r)}.phd-t{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,242,235,.35)}.phd-n{font-size:6.5px;color:var(--g);background:rgba(0,168,70,.1);padding:2px 7px;border-radius:10px}
+.ph-geo{margin:0 10px 6px;background:rgba(0,168,70,.07);border:1px solid rgba(0,168,70,.18);border-radius:20px;padding:4px 10px;font-size:6.5px;color:rgba(245,242,235,.45);text-align:center}
+.ph-btl{flex:1;display:flex;align-items:center;justify-content:center;padding:4px 0}
+.ph-btl img{height:86px;width:auto;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,168,70,.18))}
+.ph-pn{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.28);text-align:center;padding:0 10px 3px}
+.ph-pt{font-family:var(--serif);font-size:10px;color:var(--cr);text-align:center;line-height:1.25;padding:0 10px 6px}
+.ph-btn{margin:0 10px 8px;background:var(--gd);border-radius:4px;padding:7px;text-align:center;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:500}
+.ph-nav{padding:5px 0 10px;border-top:1px solid rgba(245,242,235,.05);display:flex;justify-content:space-around}
+.ph-nav span{font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,242,235,.2)}
+.ph-nav span.a{color:var(--g)}
+.ph-home{width:30px;height:3px;background:rgba(245,242,235,.12);border-radius:2px;margin:4px auto 0}
+
+/* card */
+.sc{width:152px;background:var(--bg2);border-radius:12px;border:1px solid rgba(0,168,70,.2);overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.5)}
+.sc-top{background:linear-gradient(135deg,#005c1f,#00A846);padding:12px;display:flex;align-items:center;justify-content:center}
+.sc-top svg{width:20px;height:20px}
+.sc-k{font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.4);text-align:center;padding:7px 8px 3px}
+.sc-b{display:flex;justify-content:center;padding:3px 0 6px}
+.sc-b img{height:68px;width:auto;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,168,70,.15))}
+.sc-pn{font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.28);text-align:center;padding:0 8px 2px}
+.sc-tt{font-family:var(--serif);font-size:10.5px;color:var(--cr);text-align:center;line-height:1.3;padding:0 8px 7px}
+.sc-pills{display:flex;flex-wrap:wrap;gap:3px;padding:0 7px 8px;justify-content:center}
+.sc-pill{font-size:5px;padding:2px 6px;border:1px solid rgba(0,168,70,.28);border-radius:10px;color:rgba(245,242,235,.4)}
+.sc-ft{border-top:1px solid rgba(245,242,235,.05);padding:6px 8px;font-size:5px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.18);text-align:center}
+
+/* community */
+.comm{width:180px;height:180px;position:relative;display:flex;align-items:center;justify-content:center}
+.cr2{position:absolute;border-radius:50%;border:1px solid rgba(0,168,70,.1)}
+.cav{position:absolute;border-radius:50%;background:var(--bg3);border:1px solid rgba(0,168,70,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(245,242,235,.3)}
+.cvt{position:absolute;background:rgba(0,100,40,.9);border-radius:20px;padding:2px 7px;font-size:5.5px;color:rgba(245,242,235,.8);white-space:nowrap}
+.cc{width:52px;height:52px;border-radius:50%;background:rgba(0,168,70,.08);border:1.5px solid var(--g);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;animation:cg 3s ease-in-out infinite}
+@keyframes cg{0%,100%{box-shadow:0 0 16px rgba(0,168,70,.1)}50%{box-shadow:0 0 32px rgba(0,168,70,.2)}}
+.cc-n{font-size:14px;color:var(--g);font-weight:400;line-height:1}
+.cc-l{font-size:5px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,168,70,.6)}
+
+/* ── HEINEKEN GETS ── */
+#s4{padding-top:72px;padding-bottom:72px}
+.gets{margin-top:44px;display:flex;flex-direction:column;gap:0}
+.get{padding:32px 0;border-bottom:1px solid rgba(245,242,235,.07)}
+.get:last-child{border-bottom:none}
+.get-pre{font-size:.48rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,168,70,.5);margin-bottom:.6rem}
+.get-q{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--cr);line-height:1.2;margin-bottom:.5rem}
+.get-a{font-size:.82rem;color:rgba(245,242,235,.38);line-height:1.65}
+
+/* ── PROOF ── */
+#s5{padding-top:72px;padding-bottom:72px}
+.proof-box{margin-top:44px;background:var(--bg3);border:1px solid rgba(0,168,70,.15);border-radius:8px;padding:32px 24px}
+.proof-live{display:flex;align-items:center;gap:8px;margin-bottom:1.25rem}
+.proof-url{font-family:var(--serif);font-size:1.05rem;color:var(--cr);line-height:1.6;margin-bottom:.75rem}
+.proof-url span{color:var(--g)}
+.proof-hint{font-size:.75rem;color:rgba(245,242,235,.32);line-height:1.65;margin-bottom:1.5rem}
+.proof-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--g);color:#fff;padding:16px 24px;border-radius:2px;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;text-decoration:none}
+.proof-stack{margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(245,242,235,.07)}
+.proof-stack-label{font-size:.46rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.2);margin-bottom:.75rem}
+.proof-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pt{font-size:.56rem;padding:5px 10px;background:rgba(245,242,235,.03);border:1px solid rgba(245,242,235,.09);border-radius:2px;color:rgba(245,242,235,.32)}
+
+/* ── CTA ── */
+#s6{padding:80px 24px 100px;text-align:center}
+.cta-h{font-family:var(--serif);font-size:clamp(2.8rem,10vw,5rem);font-weight:300;line-height:1.05;margin-bottom:2rem}
+.cta-h em{color:rgba(245,242,235,.28);font-style:italic}
+.cta-actions{display:flex;flex-direction:column;gap:12px;margin-top:2.5rem}
+.btn-p{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--g);color:#fff;padding:18px 24px;border-radius:2px;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;font-weight:500;text-decoration:none}
+.btn-s{display:flex;align-items:center;justify-content:center;gap:10px;color:rgba(245,242,235,.42);padding:18px 24px;border-radius:2px;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(245,242,235,.12);text-decoration:none}
+.cta-credit{margin-top:48px;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.15)}
+
+footer{border-top:1px solid rgba(245,242,235,.07);padding:24px;display:flex;align-items:center;justify-content:space-between;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.18)}
+
+@media(min-width:768px){
+  section{padding:100px 48px 88px;max-width:860px;margin:0 auto}
+  #s6{max-width:860px;margin:0 auto}
+  .what-block{flex-direction:row}
+  .wb{flex:1}
+  .gets{display:grid;grid-template-columns:1fr 1fr;gap:0 1px;background:rgba(245,242,235,.07)}
+  .get{background:var(--bg);padding:32px 28px;border-bottom:none;border-right:none}
+  .cta-actions{flex-direction:row;justify-content:center}
+  .btn-p,.btn-s{width:auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <span class="nav-star">★</span>
+    <span class="nav-brand">Your Heineken × Kairo</span>
+  </div>
+  <div class="nav-live">
+    <div class="ld"></div>
+    <span>Live</span>
+  </div>
+</nav>
+
+<!-- ── 01. HERO ── -->
+<section id="s1">
+  <div class="hero-bg">★</div>
+  <div class="rv">
+    <div class="hero-pre">
+      <div class="hero-line"></div>
+      <span class="hero-pre-txt">Heineken × Kairo</span>
+    </div>
+    <h1 class="big">Nobody<br>owns the<br>ritual<br><em>itself.</em></h1>
+  </div>
+  <div class="rv d2">
+    <p class="body" style="margin-top:1.5rem;max-width:360px">Those 8 seconds between the tap and the first sip. The pour, the context, the moment. We built it.</p>
+    <a href="#s2" class="hero-cta">
+      See the product
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ── 02. WHAT ── -->
+<section id="s2">
+  <span class="kicker rv">What it is</span>
+  <h2 class="med rv d1">One tap.<br>Your Heineken.<br><em>60 seconds.</em></h2>
+  <div class="what-block rv d2">
+    <div class="wb">
+      <p class="wb-q">No download?</p>
+      <p class="wb-a">NFC chip on the bottle. Tap and the ritual opens instantly in any browser. Zero friction.</p>
+    </div>
+    <div class="wb" style="border-top:1px solid rgba(245,242,235,.07)">
+      <p class="wb-q">What does it know?</p>
+      <p class="wb-a">Your real barrio. The exact temperature. The time. Who you're with. Two questions and Claude recommends your ideal Heineken.</p>
+    </div>
+    <div class="wb" style="border-top:1px solid rgba(245,242,235,.07)">
+      <p class="wb-q">Then what?</p>
+      <p class="wb-a">A unique Story Card with your moment. You share it. Your community votes. The most voted ritual of the week wins a Heineken reward.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ── 03. FLOW ── -->
+<section id="s3">
+  <span class="kicker rv">The experience</span>
+  <h2 class="med rv d1">From the bottle<br>to the <em>complete ritual.</em></h2>
+
+  <div class="flow-steps">
+    <div class="flow-step rv d1">
+      <div class="flow-visual">
+        <div class="bottle-w">
+          <img src="/img/original.png" alt="Heineken Original">
+          <div class="nfc-b">NFC</div>
+          <div class="nfc-r"></div>
+          <div class="nfc-r"></div>
+          <div class="nfc-r"></div>
+        </div>
+      </div>
+      <div class="flow-step-inner">
+        <span class="fs-num">01</span>
+        <div>
+          <p class="fs-title">Touch</p>
+          <p class="fs-desc">Tap the chip. The ritual opens in any browser. No app. No download. The bottle is the key.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step rv d2">
+      <div class="flow-visual">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="pscr">
+            <div class="phd">
+              <span class="phd-star">★</span>
+              <span class="phd-t">Your Heineken</span>
+              <span class="phd-n">Rituals 3</span>
+            </div>
+            <div class="ph-geo">Villa Ortúzar · 21°C · Afternoon</div>
+            <div class="ph-btl"><img src="/img/original.png" alt="Heineken"></div>
+            <p class="ph-pn">Heineken Original</p>
+            <p class="ph-pt">Buenos Aires<br>Afternoon Balance</p>
+            <div class="ph-btn">★ Save This Ritual</div>
+            <div class="ph-nav"><span>Home</span><span class="a">Ritual</span><span>City</span></div>
+            <div class="ph-home"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step-inner">
+        <span class="fs-num">02</span>
+        <div>
+          <p class="fs-title">Ritual</p>
+          <p class="fs-desc">Two questions. Real context. The right bottle — for this moment, this barrio, this temperature.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step rv d3">
+      <div class="flow-visual">
+        <div class="sc">
+          <div class="sc-top">
+            <svg viewBox="0 0 48 48"><polygon points="24,3 28.5,17 43,17 31,26 35.5,40 24,31.5 12.5,40 17,26 5,17 19.5,17" fill="#C41E1E" stroke="rgba(255,255,255,.3)" stroke-width="1"/></svg>
+          </div>
+          <p class="sc-k">Heineken × Kairo</p>
+          <div class="sc-b"><img src="/img/original.png" alt="Heineken"></div>
+          <p class="sc-pn">Heineken Original</p>
+          <p class="sc-tt">Buenos Aires<br>Afternoon Balance</p>
+          <div class="sc-pills">
+            <span class="sc-pill">📍 Villa Ortúzar</span>
+            <span class="sc-pill">🌡 21°C</span>
+            <span class="sc-pill">👥 Friends</span>
+            <span class="sc-pill">✨ Balanced</span>
+          </div>
+          <p class="sc-ft">Your Heineken · Built by Kairo</p>
+        </div>
+      </div>
+      <div class="flow-step-inner">
+        <span class="fs-num">03</span>
+        <div>
+          <p class="fs-title">Story Card</p>
+          <p class="fs-desc">They share it. You didn't brief it. You didn't pay for it. Heineken appears inside their real life.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step rv d4">
+      <div class="flow-visual">
+        <div class="comm">
+          <div class="cr2" style="width:170px;height:170px"></div>
+          <div class="cr2" style="width:116px;height:116px"></div>
+          <div class="cr2" style="width:74px;height:74px"></div>
+          <div class="cav" style="width:34px;height:34px;top:6px;left:50%;transform:translateX(-50%)">AG</div>
+          <div class="cav" style="width:30px;height:30px;top:22px;right:10px">LU</div>
+          <div class="cav" style="width:26px;height:26px;bottom:24px;right:14px">MA</div>
+          <div class="cav" style="width:30px;height:30px;bottom:6px;left:50%;transform:translateX(-50%)">FR</div>
+          <div class="cav" style="width:26px;height:26px;bottom:24px;left:14px">PA</div>
+          <div class="cav" style="width:30px;height:30px;top:22px;left:10px">SO</div>
+          <div class="cvt" style="top:14px;right:2px">+1 vote</div>
+          <div class="cvt" style="bottom:14px;right:2px">+1 vote</div>
+          <div class="cc"><span class="cc-n">24h</span><span class="cc-l">Voting</span></div>
+        </div>
+      </div>
+      <div class="flow-step-inner">
+        <span class="fs-num">04</span>
+        <div>
+          <p class="fs-title">Community votes</p>
+          <p class="fs-desc">Their network votes. Three rituals and a Heineken reward unlocks. They come back every time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ── 04. WHAT HEINEKEN GETS ── -->
+<section id="s4">
+  <span class="kicker rv">What Heineken gets</span>
+  <h2 class="med rv d1">Things you didn't<br>have <em>before.</em></h2>
+
+  <div class="gets rv d2">
+    <div class="get">
+      <p class="get-pre">01</p>
+      <p class="get-q">You know when they drink.<br>Where. With who.</p>
+      <p class="get-a">Villa Ortúzar drinks Original at 6pm on weekdays. Palermo Soho drinks Silver on Friday nights. That data didn't exist before this.</p>
+    </div>
+    <div class="get">
+      <p class="get-pre">02</p>
+      <p class="get-q">They create content for you.<br>For free.</p>
+      <p class="get-a">Every Story Card shared is Heineken in someone's Instagram Stories — in the most credible context possible. Their real life. You didn't pay a cent for it.</p>
+    </div>
+    <div class="get">
+      <p class="get-pre">03</p>
+      <p class="get-q">The bottle becomes<br>a reason to come back.</p>
+      <p class="get-a">Three rituals unlock a reward. Every Heineken they open is a reason to return to the platform. That loop didn't exist before this either.</p>
+    </div>
+    <div class="get">
+      <p class="get-pre">04</p>
+      <p class="get-q">You're inside the moment<br>no other brand reaches.</p>
+      <p class="get-a">Sponsorships live before the bottle. Loyalty programs live after. This is the only touchpoint that happens while they drink. That space is empty. Until now.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ── 05. PROOF ── */
+<section id="s5">
+  <span class="kicker rv">The proof</span>
+  <h2 class="med rv d1">Not a pitch deck.<br><em>A live product.</em></h2>
+
+  <div class="proof-box rv d2">
+    <div class="proof-live">
+      <div class="ld"></div>
+      <span style="font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--g)">Running right now</span>
+    </div>
+    <p class="proof-url">heineken-production<br>.up.railway.app<br><span>/?user=YourName</span></p>
+    <p class="proof-hint">Open it from your phone. Real geolocation, real weather, real AI. The ritual reads your actual context and recommends your Heineken in 60 seconds.</p>
+    <a href="https://heineken-production.up.railway.app" class="proof-btn" target="_blank">Open the ritual →</a>
+    <div class="proof-stack">
+      <p class="proof-stack-label">Built with</p>
+      <div class="proof-tags">
+        <span class="pt">Claude AI</span>
+        <span class="pt">WebRTC</span>
+        <span class="pt">Open-Meteo</span>
+        <span class="pt">Canvas API</span>
+        <span class="pt">Railway</span>
+        <span class="pt">1 HTML file</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ── 06. CTA ── -->
+<section id="s6">
+  <h2 class="cta-h rv">
+    Does this<br>make sense<br>
+    <em>to talk?</em>
+  </h2>
+  <p class="body rv d1" style="max-width:320px;margin:0 auto">The product is live. The data is real. 20 minutes.</p>
+  <div class="cta-actions rv d2">
+    <a href="https://wa.me/5491100000000" class="btn-p" target="_blank">WhatsApp</a>
+    <a href="mailto:hola@kairoinc.lat?subject=Your%20Heineken%20×%20Kairo" class="btn-s">hola@kairoinc.lat</a>
+  </div>
+  <p class="cta-credit rv d3">Developed by Kairo · kairoinc.lat · Buenos Aires, 2026</p>
+</section>
+
+<footer>
+  <span>★ Your Heineken × Kairo</span>
+  <span>kairoinc.lat</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(els=>{
+  els.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
