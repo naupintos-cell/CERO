@@ -571,6 +571,42 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .rp-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,179,71,.3);background:transparent;transition:background 400ms,box-shadow 400ms}
 .rp-dot.done{background:#00A846;box-shadow:0 0 8px rgba(0,179,71,.5)}
 .rp-label{font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.5);font-family:Inter,system-ui,sans-serif}
+
+/* ── RITUAL SAVED MODAL ── */
+#ritual-saved-modal{
+  position:fixed;inset:0;z-index:960;
+  background:rgba(2,4,2,.95);
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 400ms ease;
+  padding:2rem;text-align:center;
+}
+#ritual-saved-modal.on{display:flex;opacity:1;pointer-events:all}
+.rsm-star{font-size:2.5rem;margin-bottom:1rem;animation:rsm-pop .5s var(--es) both}
+@keyframes rsm-pop{from{transform:scale(0)}to{transform:scale(1)}}
+.rsm-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.5rem}
+.rsm-title em{font-style:italic;color:#00A846}
+.rsm-sub{font-size:.78rem;color:rgba(245,242,235,0.5);line-height:1.65;font-family:Inter,system-ui,sans-serif;margin-bottom:2rem;max-width:280px}
+.rsm-dots{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:.75rem}
+.rsm-dot{
+  width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(0,179,71,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  transition:all 400ms ease;
+}
+.rsm-dot.done{background:rgba(0,122,51,.25);border-color:#00A846;box-shadow:0 0 16px rgba(0,179,71,.3)}
+.rsm-dot.current{background:rgba(0,122,51,.4);border-color:#00A846;box-shadow:0 0 24px rgba(0,179,71,.5);transform:scale(1.1)}
+.rsm-dot svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round}
+.rsm-dot.done svg,.rsm-dot.current svg{color:#00A846}
+.rsm-dot.empty svg{color:rgba(245,242,235,0.2)}
+.rsm-dot-lbl{font-size:.4rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif}
+.rsm-dot.done .rsm-dot-lbl,.rsm-dot.current .rsm-dot-lbl{color:#00A846}
+.rsm-dot.empty .rsm-dot-lbl{color:rgba(245,242,235,0.2)}
+.rsm-progress-txt{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.35);font-family:Inter,system-ui,sans-serif;margin-bottom:2rem}
+.rsm-progress-txt span{color:#00A846}
+.btn-rsm-continue{background:#007A33;color:#fff;padding:.82rem 2.5rem;font-family:Inter,system-ui,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;border:none;cursor:pointer;transition:background 200ms,transform 150ms ease;width:100%;max-width:280px}
+.btn-rsm-continue:hover{background:#00A846;transform:translateY(-1px)}
+.rsm-reward-hint{margin-top:.85rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,0.2);font-family:Inter,system-ui,sans-serif}
 </style>
 </head>
 <body>
@@ -1028,6 +1064,34 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
     <div class="rw-disclaimer">Reward redemption subject to Heineken availability in your region. One reward per user. Valid for 30 days.</div>
   </div>
 
+
+  <!-- RITUAL SAVED MODAL -->
+  <div id="ritual-saved-modal">
+    <div class="rsm-star">★</div>
+    <h2 class="rsm-title" id="rsm-title">Ritual saved.</h2>
+    <p class="rsm-sub" id="rsm-sub">Each ritual brings you closer to your reward.</p>
+
+    <div class="rsm-dots">
+      <div class="rsm-dot" id="rsm-d0">
+        <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span class="rsm-dot-lbl">1st</span>
+      </div>
+      <div style="font-size:.5rem;letter-spacing:2px;color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif">—</div>
+      <div class="rsm-dot" id="rsm-d1">
+        <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span class="rsm-dot-lbl">2nd</span>
+      </div>
+      <div style="font-size:.5rem;letter-spacing:2px;color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif">—</div>
+      <div class="rsm-dot" id="rsm-d2">
+        <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span class="rsm-dot-lbl">3rd</span>
+      </div>
+    </div>
+
+    <div class="rsm-progress-txt" id="rsm-progress-txt"></div>
+    <button class="btn-rsm-continue" onclick="closeRitualSaved()">Continue</button>
+    <div class="rsm-reward-hint" id="rsm-reward-hint"></div>
+  </div>
 </div><!-- /app -->
 
 <nav id="nav" class="off">
@@ -1377,7 +1441,7 @@ function saveR(){
   const p=PROD[rec.product]||PROD.original;
   rits.unshift({ts:Date.now(),date:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}),product:p.n,pk:rec.product,title:rec.title,where:ctx.neighborhood||ctx.city||"",who:ans[0],vibe:ans[1],temp:ctx.temp,weather:ctx.weather,place:document.getElementById("sf-p").value,with_:document.getElementById("sf-w").value});
   localStorage.setItem("hk",JSON.stringify(rits));
-  updN();updateRitualProgress();checkRewardUnlock();document.getElementById("sf").classList.remove("on");
+  updN();updateRitualProgress();document.getElementById("sf").classList.remove("on");showRitualSaved();
   document.getElementById("sf-p").value="";document.getElementById("sf-w").value="";
   toast("Ritual saved");
 }
