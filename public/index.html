@@ -417,11 +417,12 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 
 /* ── PERSONALIZED WELCOME ── */
 .user-greeting{
-  position:fixed;top:calc(var(--HDR) + .75rem);left:50%;transform:translateX(-50%);
+  display:inline-block;
   background:rgba(0,122,51,.15);border:1px solid rgba(0,168,70,.2);
-  padding:.45rem 1rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;
-  color:var(--bright);z-index:600;white-space:nowrap;
+  padding:.35rem .9rem;font-size:.48rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--bright);white-space:nowrap;
   animation:fu .8s .5s both;
+  position:relative;z-index:2;
 }
 
 /* toast + credit */
@@ -535,7 +536,6 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .l-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:300;color:var(--cream);margin-bottom:.5rem}
 .l-sub{font-size:.78rem;color:var(--dim);line-height:1.65;max-width:300px;margin:0 auto;font-family:Inter,system-ui,sans-serif}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -559,6 +559,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   <!-- ── S1: HERO PITCH ── -->
   <section class="l-section" id="ls0">
     <div class="lh-kicker">Heineken × Kairo</div>
+    <div class="user-greeting" id="user-greeting" style="display:none;margin-bottom:.75rem"></div>
     <h1 class="lh-title">
       Most beers are<br>
       <strong>sold.</strong><br>
@@ -747,9 +748,6 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
       </button>
     </div>
   </div>
-
-  <!-- USER GREETING (URL param) -->
-  <div class="user-greeting" id="user-greeting" style="display:none"></div>
 
 <div id="app">
 
@@ -1393,11 +1391,15 @@ function openSpotify(){
   document.getElementById('sp-title').textContent=pl+' — 30 min Ritual';
   document.getElementById('sp-sub').innerHTML=`Curated for <strong style="color:var(--bright)">${vibe}</strong> energy. The perfect soundtrack for a cold Heineken.`;
 
-  const trackHTML=tracks.map(t=>`
-    <div class="sp-playlist">
+  const trackHTML=tracks.map(t=>{
+    const q=encodeURIComponent(t.t+' '+t.a);
+    const spotifySearch=`https://open.spotify.com/search/${q}`;
+    return `<a href="${spotifySearch}" target="_blank" rel="noopener" class="sp-playlist" style="text-decoration:none;cursor:pointer">
       <div class="sp-pl-icon">${t.icon}</div>
-      <div><div class="sp-pl-name">${t.t}</div><div class="sp-pl-dur">${t.a} · ${t.d}</div></div>
-    </div>`).join('');
+      <div style="flex:1"><div class="sp-pl-name">${t.t}</div><div class="sp-pl-dur">${t.a} · ${t.d}</div></div>
+      <div style="font-size:.55rem;color:rgba(30,215,96,0.6);letter-spacing:1px;font-family:Inter,system-ui">▶</div>
+    </a>`;
+  }).join('');
 
   document.getElementById('sp-tracks').innerHTML=trackHTML+`
     <a href="${link}" target="_blank" rel="noopener" style="
@@ -1581,101 +1583,156 @@ function drawGlassGuide(c,w,h){
    STORY CARD — Canvas 1080×1920
 ═══════════════════════════════════════ */
 async function generateStoryCard(){
-  toast('Generating card...');
+  toast('Generating...');
+  const W=1080,H=1920;
+  const cv=document.createElement('canvas');
+  cv.width=W;cv.height=H;
+  const c=cv.getContext('2d');
 
-  // Target the result page content
-  const target=document.getElementById('pg-res');
-  if(!target){toast('No result to capture');return}
+  /* ── BACKGROUND ── */
+  c.fillStyle='#020802';
+  c.fillRect(0,0,W,H);
 
-  // Temporarily make it full-viewport for capture
-  const prev={
-    pos:target.style.position,
-    top:target.style.top,
-    left:target.style.left,
-    width:target.style.width,
-    height:target.style.height,
-    zIndex:target.style.zIndex,
-    overflow:target.style.overflow,
-    bg:target.style.background,
-  };
+  /* ── RADIAL GLOW ── */
+  const grd=c.createRadialGradient(W/2,860,0,W/2,860,500);
+  grd.addColorStop(0,'rgba(0,100,30,0.3)');
+  grd.addColorStop(1,'rgba(0,0,0,0)');
+  c.fillStyle=grd;
+  c.fillRect(0,0,W,H);
 
-  // Clone approach: capture the .body inner div
-  const body=target.querySelector('.body');
-  const inner=target.querySelector('.wrap');
-  if(!inner){toast('Nothing to capture');return}
+  /* ── RINGS ── */
+  [300,480,640].forEach((r,i)=>{
+    c.beginPath();c.arc(W/2,860,r,0,Math.PI*2);
+    c.strokeStyle=`rgba(0,150,60,${0.1-i*0.025})`;
+    c.lineWidth=1.5;c.stroke();
+  });
 
-  // Create a styled wrapper for capture
-  const wrapper=document.createElement('div');
-  wrapper.style.cssText=`
-    position:fixed;top:0;left:0;
-    width:390px;height:844px;
-    background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,60,20,0.22),#020802 65%);
-    overflow:hidden;
-    z-index:-1;opacity:0;
-    font-family:'Cormorant Garamond',Georgia,serif;
-    -webkit-font-smoothing:antialiased;
-    padding:2rem 1.5rem;
-    display:flex;flex-direction:column;
-    box-sizing:border-box;
-  `;
+  /* ── TOP LABEL ── */
+  c.textAlign='center';
+  c.fillStyle='rgba(245,242,235,0.2)';
+  c.font='400 26px Inter,Arial,sans-serif';
+  c.letterSpacing='8px';
+  c.fillText('YOUR HEINEKEN',W/2,88);
 
-  // Build the card content mirroring result screen
-  const pr=rec?PROD[rec.product]?.n:'Heineken Original';
-  const imgSrc=rec?IMGS[rec.product]:IMGS.original;
+  /* ── DIVIDER LINE ── */
+  c.strokeStyle='rgba(245,242,235,0.08)';c.lineWidth=1;
+  c.beginPath();c.moveTo(160,112);c.lineTo(920,112);c.stroke();
+
+  /* ── CONTEXT PILLS ── */
   const pills=[];
   if(ctx.neighborhood||ctx.city) pills.push('📍 '+(ctx.neighborhood||ctx.city));
-  if(ctx.temp)                   pills.push('🌡 '+ctx.temp);
+  if(ctx.temp)                   pills.push('🌡 '+ctx.temp+(ctx.weather?' · '+ctx.weather:''));
   if(ctx.timeLabel)              pills.push('🕐 '+ctx.dayLabel+' '+ctx.timeLabel);
+  if(ans[0])                     pills.push('👥 '+ans[0]);
+  if(ans[1])                     pills.push('✦ '+ans[1]);
 
-  wrapper.innerHTML=`
-    <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:#00B347;margin-bottom:.75rem;font-family:Inter,system-ui">YOUR HEINEKEN TONIGHT</div>
-    <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.25rem">
-      ${pills.map(p=>`<span style="font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.28);color:#00B347;padding:3px 9px;font-family:Inter,system-ui">${p}</span>`).join('')}
-    </div>
-    <div style="position:relative;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
-      <div style="position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(0,100,30,.28),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-      <img src="${imgSrc}" style="height:220px;width:auto;object-fit:contain;filter:drop-shadow(0 16px 32px rgba(0,168,70,.4));position:relative;z-index:2;margin-bottom:1rem">
-      <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:rgba(0,179,71,.85);font-family:Inter,system-ui;margin-bottom:.5rem">${pr.toUpperCase()}</div>
-      <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.6rem,7vw,2.2rem);font-weight:300;color:#F5F2EB;line-height:1.08;margin-bottom:.65rem;font-style:italic">${rec?rec.title:'Tonight Calls for Original'}</div>
-      <div style="font-size:.85rem;font-weight:300;color:rgba(245,242,235,.45);line-height:1.65;margin-bottom:.75rem;font-family:'Cormorant Garamond',Georgia,serif">${rec?rec.reason:''}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:.28rem;justify-content:center">
-        ${(rec&&rec.tags||[]).map(t=>`<span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.22);color:#00B347;padding:3px 7px;font-family:Inter,system-ui">${t}</span>`).join('')}
-      </div>
-    </div>
-    <div style="border-top:1px solid rgba(245,242,235,.08);padding-top:.75rem;margin-top:.75rem;display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:7px">
-        <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,.5 8.5,5 13.5,5 9.5,7.8 11,12 7,9.2 3,12 4.5,7.8 .5,5 5.5,5" fill="#C41E1E"/></svg>
-        <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,.4);font-family:Inter,system-ui">YOUR HEINEKEN</span>
-      </div>
-      <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(0,179,71,.5);font-family:Inter,system-ui">BY KAIRO</span>
-    </div>
-  `;
+  c.font='300 24px Inter,Arial,sans-serif';c.letterSpacing='1px';
+  c.fillStyle='rgba(245,242,235,0.38)';
+  const cols=2,pillW=460;
+  pills.forEach((p,i)=>{
+    const row=Math.floor(i/cols),col=i%cols;
+    const perRow=i===pills.length-1&&pills.length%cols===1?1:cols;
+    c.textAlign=perRow===1?'center':(col===0?'right':'left');
+    const xBase=perRow===1?W/2:(col===0?W/2-20:W/2+20);
+    c.fillText(p,xBase,158+row*46);
+  });
 
-  document.body.appendChild(wrapper);
-  // Brief wait for images to load
-  await new Promise(r=>setTimeout(r,600));
-
-  // Capture with html2canvas at 2x for retina
+  /* ── BOTTLE IMAGE ── */
+  const pr=rec?rec.product:'original';
+  const imgSrc=IMGS[pr]||IMGS.original;
   try{
-    const cv=await html2canvas(wrapper,{
-      scale:2.75,
-      useCORS:true,
-      allowTaint:true,
-      backgroundColor:'#020802',
-      width:390,height:844,
-      logging:false,
+    const img=await new Promise((res,rej)=>{
+      const im=new Image();
+      im.onload=()=>res(im);
+      im.onerror=rej;
+      im.src=imgSrc;
     });
-    const link=document.createElement('a');
-    link.download='heineken-ritual.png';
-    link.href=cv.toDataURL('image/png',0.95);
-    link.click();
-    toast('Story Card saved ★');
-  }catch(e){
-    console.error(e);
-    toast('Error generating card');
-  }finally{
-    document.body.removeChild(wrapper);
+    const ih=700,iw=ih*(img.naturalWidth/img.naturalHeight||0.4);
+    const ix=(W-iw)/2,iy=280;
+    /* Drop shadow */
+    c.shadowColor='rgba(0,168,70,0.4)';c.shadowBlur=60;c.shadowOffsetY=20;
+    c.drawImage(img,ix,iy,iw,ih);
+    c.shadowColor='transparent';c.shadowBlur=0;c.shadowOffsetY=0;
+  }catch(e){console.warn('Bottle image failed',e)}
+
+  /* ── DIVIDER ── */
+  c.strokeStyle='rgba(245,242,235,0.08)';c.lineWidth=1;
+  c.beginPath();c.moveTo(160,1040);c.lineTo(920,1040);c.stroke();
+
+  /* ── PRODUCT NAME ── */
+  c.textAlign='center';c.letterSpacing='5px';
+  c.font='400 30px Inter,Arial,sans-serif';
+  c.fillStyle='rgba(0,179,71,0.85)';
+  const pName=(rec?PROD[rec.product]?.n:'Heineken Original').toUpperCase();
+  c.fillText(pName,W/2,1092);
+
+  /* ── BIG TITLE (word wrap) ── */
+  c.font='300 italic 94px Georgia,serif';
+  c.fillStyle='#F5F2EB';c.letterSpacing='-0.5px';
+  const title=rec?rec.title:'Tonight Calls for Original';
+  const words=title.split(' ');
+  let line='',ty=1220,maxW=860;
+  c.textAlign='center';
+  words.forEach(w=>{
+    const test=line?line+' '+w:w;
+    if(c.measureText(test).width>maxW&&line){
+      c.fillText(line,W/2,ty);line=w;ty+=108;
+    } else line=test;
+  });
+  if(line)c.fillText(line,W/2,ty);
+
+  /* ── REASON (word wrap 2 lines max) ── */
+  if(rec&&rec.reason){
+    c.font='300 30px Georgia,serif';
+    c.fillStyle='rgba(245,242,235,0.42)';c.letterSpacing='0px';
+    const rWords=rec.reason.split(' ');
+    let rl='',ry=ty+90,rLines=0;
+    rWords.forEach(w=>{
+      if(rLines>=2)return;
+      const test=rl?rl+' '+w:w;
+      if(c.measureText(test).width>820&&rl){
+        c.fillText(rl,W/2,ry);rl=w;ry+=48;rLines++;
+      } else rl=test;
+    });
+    if(rl&&rLines<2)c.fillText(rl,W/2,ry);
+    ty=ry;
   }
+
+  /* ── META ROW ── */
+  const metaY=Math.max(ty+80,1640);
+  c.strokeStyle='rgba(245,242,235,0.06)';c.lineWidth=1;
+  c.beginPath();c.moveTo(120,metaY-24);c.lineTo(960,metaY-24);c.stroke();
+  const meta=[ctx.neighborhood||ctx.city,ctx.temp,ctx.timeLabel].filter(Boolean).join('  ·  ');
+  c.font='400 22px Inter,Arial,sans-serif';c.letterSpacing='3px';
+  c.fillStyle='rgba(245,242,235,0.2)';
+  c.fillText(meta.toUpperCase(),W/2,metaY);
+
+  /* ── BOTTOM BAR ── */
+  const barY=Math.max(metaY+80,1760);
+  c.fillStyle='rgba(0,80,25,0.35)';c.fillRect(0,barY,W,H-barY);
+  c.strokeStyle='rgba(0,168,70,0.18)';c.lineWidth=1;
+  c.beginPath();c.moveTo(0,barY);c.lineTo(W,barY);c.stroke();
+
+  /* red star */
+  c.save();c.translate(W/2,barY+46);
+  c.beginPath();
+  for(let i=0;i<10;i++){
+    const r=i%2===0?16:7;
+    const a=(i*Math.PI/5)-Math.PI/2;
+    i===0?c.moveTo(r*Math.cos(a),r*Math.sin(a)):c.lineTo(r*Math.cos(a),r*Math.sin(a));
+  }
+  c.closePath();c.fillStyle='#C41E1E';c.fill();c.restore();
+
+  c.font='500 22px Inter,Arial,sans-serif';c.letterSpacing='5px';
+  c.fillStyle='rgba(245,242,235,0.5)';c.textAlign='center';
+  c.fillText('YOUR HEINEKEN  ·  BY KAIRO',W/2,barY+90);
+
+  /* ── DOWNLOAD ── */
+  const link=document.createElement('a');
+  link.download='heineken-ritual.png';
+  link.href=cv.toDataURL('image/png',0.95);
+  link.click();
+  toast('Story Card saved ★');
 }
 
 /* ═══════════════════════════════════════
