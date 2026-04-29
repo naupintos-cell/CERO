@@ -536,6 +536,41 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .l-kicker{font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--bright);margin-bottom:.7rem;font-family:Inter,system-ui,sans-serif;font-weight:500}
 .l-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:300;color:var(--cream);margin-bottom:.5rem}
 .l-sub{font-size:.78rem;color:var(--dim);line-height:1.65;max-width:300px;margin:0 auto;font-family:Inter,system-ui,sans-serif}
+
+/* ── REWARD MODAL ── */
+#reward-modal{
+  position:fixed;inset:0;z-index:950;
+  background:rgba(2,4,2,.97);
+  display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 500ms ease;
+  padding:2rem;text-align:center;
+  overflow-y:auto;
+}
+#reward-modal.on{display:flex;opacity:1;pointer-events:all}
+.rw-kicker{font-size:.48rem;letter-spacing:5px;text-transform:uppercase;color:#00A846;margin-bottom:.75rem;font-family:Inter,system-ui,sans-serif;font-weight:500}
+.rw-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:300;color:#F5F2EB;line-height:1.08;margin-bottom:.5rem}
+.rw-title em{font-style:italic;color:#00A846}
+.rw-sub{font-size:.78rem;color:rgba(245,242,235,0.5);line-height:1.65;max-width:300px;margin:0 auto 1.5rem;font-family:Inter,system-ui,sans-serif}
+.rw-products{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:420px;margin-bottom:1.5rem}
+.rw-product{background:rgba(245,242,235,.04);border:1px solid rgba(0,179,71,.15);padding:1.25rem .75rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;cursor:pointer;transition:border-color 200ms,background 200ms}
+.rw-product:hover{border-color:rgba(0,179,71,.4);background:rgba(0,122,51,.08)}
+.rw-product.selected{border-color:#00A846;background:rgba(0,122,51,.15)}
+.rw-product img{height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,168,70,.3))}
+.rw-product-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:.95rem;color:#F5F2EB}
+.rw-product-sub{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,0.5);font-family:Inter,system-ui,sans-serif}
+.rw-product-tag{font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,179,71,.25);color:#00A846;padding:2px 8px;font-family:Inter,system-ui,sans-serif}
+.btn-claim{background:#007A33;color:#fff;padding:.9rem 2.5rem;font-family:Inter,system-ui,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;border:none;cursor:pointer;transition:background 200ms,transform 150ms ease,box-shadow 200ms;width:100%;max-width:320px}
+.btn-claim:hover{background:#00A846;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,168,70,.35)}
+.rw-close{margin-top:.85rem;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.4);padding:.4rem;background:none;border:none;cursor:pointer;font-family:Inter,system-ui,sans-serif;transition:color 200ms}
+.rw-close:hover{color:#F5F2EB}
+.rw-disclaimer{font-size:.5rem;color:rgba(245,242,235,.15);margin-top:1rem;line-height:1.6;font-family:Inter,system-ui,sans-serif;max-width:280px}
+/* ── RITUAL PROGRESS ── */
+.ritual-progress{display:flex;align-items:center;gap:.5rem}
+.rp-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,179,71,.3);background:transparent;transition:background 400ms,box-shadow 400ms}
+.rp-dot.done{background:#00A846;box-shadow:0 0 8px rgba(0,179,71,.5)}
+.rp-label{font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.5);font-family:Inter,system-ui,sans-serif}
 </style>
 </head>
 <body>
@@ -1171,8 +1206,13 @@ async function startScan(){
           {headers:{"Accept-Language":"en"}});
         const d=await r.json();
         const a=d.address||{};
-        neighborhood=a.neighbourhood||a.suburb||a.quarter||a.village||a.town||a.city_district||"";
-        city=a.city||a.town||a.municipality||"";
+        // Prefer specific neighbourhood, then suburb, then city_district
+        // For Greater Buenos Aires: use city (municipality) if neighbourhood empty
+        neighborhood=a.neighbourhood||a.quarter||a.suburb||a.city_district||a.village||"";
+        city=a.municipality||a.city||a.town||"";
+        // Special case: if city is Buenos Aires but we're in GBA, use municipality
+        if(!neighborhood&&city)neighborhood=city;
+        if(city===neighborhood)city="";
         country=a.country_code?.toUpperCase()||"";
       }catch{}
       res();
@@ -1885,17 +1925,33 @@ startCityPulse();
   const p=new URLSearchParams(location.search);
   const u=p.get('user');
   if(!u)return;
-  // Update header name
+  const first=u.split(' ')[0];
+  // Update header
   const hname=document.querySelector('.hname');
-  if(hname)hname.textContent=u.split(' ')[0]+"'s Heineken";
-  // Show greeting
+  if(hname)hname.textContent=first+"'s Heineken";
+  // Show greeting in landing
   const g=document.getElementById('user-greeting');
-  if(g){g.textContent='Welcome, '+u;g.style.display='block'}
-  // Update hero title after load
-  setTimeout(()=>{
-    const ht=document.querySelector('.h-title');
-    if(ht)ht.innerHTML=`The right bottle,<br><em>${u.split(' ')[0]}.</em>`;
-  },1600);
+  if(g){g.textContent='Welcome, '+first;g.style.display='block'}
+  // When landing launches — show personalized hero for 2s, THEN start ritual
+  const origLaunch=window.launchExperience;
+  window.launchExperience=function(){
+    const l=document.getElementById('landing');
+    l.classList.add('exit');
+    const sd=document.getElementById('sdots');
+    if(sd)sd.style.display='none';
+    setTimeout(()=>{l.style.display='none'},650);
+    // Show personalized hero first
+    setTimeout(()=>{
+      const ht=document.querySelector('.h-title');
+      if(ht)ht.innerHTML=`The right bottle,<br><em>${first}.</em>`;
+      // Show hero
+      document.getElementById('pg-ld')?.classList.remove('on');
+      const hero=document.getElementById('pg-hero');
+      if(hero)hero.classList.add('on');
+    },300);
+    // Then launch ritual after 2.5s
+    setTimeout(()=>startRitual(),2800);
+  };
 })();
 
 
