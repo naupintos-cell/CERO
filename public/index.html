@@ -581,7 +581,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   transition:opacity 400ms ease;
   padding:2rem;text-align:center;
 }
-#ritual-saved-modal.on{display:flex;opacity:1;pointer-events:all}
+#ritual-saved-modal.on{opacity:1;pointer-events:all}
 .rsm-star{font-size:2.5rem;margin-bottom:1rem;animation:rsm-pop .5s var(--es) both}
 @keyframes rsm-pop{from{transform:scale(0)}to{transform:scale(1)}}
 .rsm-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.5rem}
@@ -720,9 +720,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
         <div class="fstep-l"><div class="fstep-num">04</div><div class="fstep-conn"></div></div>
         <div class="fstep-r">
           <div class="fstep-tag">Reward</div>
-          <div class="fstep-name">Your Heineken + Reward</div>
-          <div class="fstep-desc">Downloadable Story Card, 30-min playlist. Three rituals completed = voucher for your next pack.</div>
-          <span class="fstep-badge">First-party data · Retention</span>
+          <div class="fstep-name">Your Heineken + Your Prize</div>
+          <div class="fstep-desc">Story Card for Stories, 30-min Spotify playlist. Complete 3 rituals and unlock a tangible reward: <strong style="color:rgba(0,179,71,0.8)">The Sub home draught machine or a 5L Heineken keg</strong> — delivered by the brand.</div>
+          <span class="fstep-badge">First-party data · Retention · Reward</span>
         </div>
       </div>
     </div>
@@ -2035,20 +2035,6 @@ window.addEventListener("load",()=>setTimeout(()=>go("hero"),1400));
       e.key==='F12'
     ){e.preventDefault();return false}
   });
-
-  // Detect devtools open (size method)
-  const threshold=160;
-  function check(){
-    if(window.outerWidth-window.innerWidth>threshold||
-       window.outerHeight-window.innerHeight>threshold){
-      document.body.style.filter='blur(8px)';
-      document.body.style.pointerEvents='none';
-    } else {
-      document.body.style.filter='';
-      document.body.style.pointerEvents='';
-    }
-  }
-  setInterval(check,1000);
 
   // Disable text selection on non-input elements
   document.addEventListener('selectstart',e=>{
