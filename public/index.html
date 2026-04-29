@@ -978,17 +978,13 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
         </div>
 
         <div class="res-acts">
-          <button class="btn-save" onclick="openSF()">★ Save This Ritual</button>
+          <button class="btn-save" onclick="openSaveModal()">★ Save This Ritual</button>
           <button class="btn-alt" onclick="startScan()">Try Again</button>
           <button class="btn-story" onclick="generateStoryCard()">↓ Save Story Card</button>
           <button class="btn-story" style="background:rgba(196,152,48,0.15);color:#C8942A;border:1px solid rgba(196,152,42,0.25)" onclick="openPourAI()">⬡ Pouring AI — Perfect Serve</button>
           <button class="btn-spotify" onclick="openSpotify()">♫ Get Spotify Playlist</button>
         </div>
-        <div class="sf" id="sf">
-          <div class="sf-row">
-            <div><label class="sf-l">Place</label><input class="sf-i" id="sf-p" placeholder="Bar, home..."></div>
-            <div><label class="sf-l">With</label><input class="sf-i" id="sf-w" placeholder="Friends..."></div>
-          </div>
+        </div>
           <button class="btn-ok" onclick="saveR()">Confirm →</button>
         </div>
 
@@ -2072,6 +2068,75 @@ window.addEventListener("load",()=>setTimeout(()=>go("hero"),1400));
       e.preventDefault();
   });
 })();
+
+/* ── SAVE MODAL FUNCTIONS ── */
+function openSaveModal(){
+  const modal=document.getElementById('ritual-saved-modal');
+  if(!modal)return;
+  // Show step1, hide step2
+  const s1=document.getElementById('rsm-step1');
+  const s2=document.getElementById('rsm-step2');
+  if(s1)s1.style.display='flex';
+  if(s2)s2.style.display='none';
+  // Clear inputs
+  const p=document.getElementById('sf-p');
+  const w=document.getElementById('sf-w');
+  if(p)p.value='';if(w)w.value='';
+  // Show modal
+  modal.style.display='flex';
+  modal.style.opacity='0';
+  modal.style.flexDirection='column';
+  modal.style.alignItems='center';
+  modal.style.justifyContent='center';
+  modal.style.pointerEvents='all';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    modal.style.opacity='1';
+  }));
+}
+
+function saveAndShowProgress(){
+  // Save ritual
+  saveR();
+  // Switch to step 2
+  const s1=document.getElementById('rsm-step1');
+  const s2=document.getElementById('rsm-step2');
+  if(s1)s1.style.display='none';
+  if(s2)s2.style.display='flex';
+  // Update dots
+  const n=rits.length;
+  const titles={1:'First ritual.<br><em>Two to go.</em>',2:'Second ritual.<br><em>One more.</em>',3:'Third ritual.<br><em>Reward unlocked.</em>'};
+  const subs={1:'Your ritual is saved. Two more and you unlock your Heineken reward.',2:'Getting close. One more ritual and The Sub or a Draught Keg is yours.',3:'You did it. Choose your reward — delivered by Heineken.'};
+  const hints={1:'2 rituals remaining for reward',2:'1 ritual remaining for reward',3:'★ Reward ready to claim'};
+  const key=Math.min(n,3);
+  const t=document.getElementById('rsm-title');
+  const s=document.getElementById('rsm-sub');
+  const pt=document.getElementById('rsm-progress-txt');
+  const rh=document.getElementById('rsm-reward-hint');
+  if(t)t.innerHTML=titles[key]||'Ritual saved.';
+  if(s)s.textContent=subs[key]||'';
+  if(pt)pt.innerHTML=`<span style="color:#00A846">${n}</span> / 3 rituals completed`;
+  if(rh)rh.textContent=hints[key]||'';
+  [0,1,2].forEach(i=>{
+    const d=document.getElementById('rsm-d'+i);
+    if(!d)return;
+    d.classList.remove('done','current','empty');
+    if(i<n-1)d.classList.add('done');
+    else if(i===n-1)d.classList.add('current');
+    else d.classList.add('empty');
+  });
+  updateRitualProgress();
+}
+
+function closeRitualSaved(){
+  const modal=document.getElementById('ritual-saved-modal');
+  if(!modal)return;
+  modal.style.opacity='0';
+  setTimeout(()=>{modal.style.display='none';},350);
+  // If 3 rituals done, open reward modal
+  if(rits.length>=3&&!localStorage.getItem('hk_reward_claimed')){
+    setTimeout(()=>{initRewardImages();document.getElementById('reward-modal').classList.add('on');},500);
+  }
+}
 </script>
 </body>
 </html>
