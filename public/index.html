@@ -1058,62 +1058,65 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   </div>
 
 
-  <!-- RITUAL SAVED MODAL — form + progress in one -->
-  <div id="ritual-saved-modal">
+  <!-- RITUAL SAVED MODAL -->
+  <div id="ritual-saved-modal" style="
+    position:fixed;inset:0;z-index:960;
+    background:rgba(2,8,2,0.97);
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:2rem 1.5rem;
+    text-align:center;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  ">
 
-    <!-- STEP 1: Fill data -->
-    <div id="rsm-step1">
-      <div class="rsm-star">★</div>
-      <h2 class="rsm-title">Save this ritual.</h2>
-      <p class="rsm-sub">Two details to complete the moment.</p>
+    <!-- STEP 1: form -->
+    <div id="rsm-step1" style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px">
+      <div style="font-size:2rem;margin-bottom:.75rem;line-height:1">★</div>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.2rem;font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.4rem">Save this<br>ritual.</h2>
+      <p style="font-size:.78rem;color:rgba(245,242,235,0.45);line-height:1.6;font-family:Inter,system-ui,sans-serif;margin-bottom:1.5rem">Two details to complete the moment.</p>
 
-      <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.25rem">
-        <div>
-          <label class="sf-l" style="font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.4);font-family:Inter,system-ui,sans-serif;display:block;margin-bottom:.3rem">Place</label>
-          <input class="sf-i" id="sf-p" placeholder="Bar, home, rooftop..."
-            style="width:100%;background:rgba(245,242,235,0.06);border:1px solid rgba(245,242,235,0.12);color:#F5F2EB;padding:.7rem .9rem;font-size:.95rem;font-family:'Cormorant Garamond',Georgia,serif;border-radius:1px;outline:none;transition:border-color 180ms"
-            onfocus="this.style.borderColor='rgba(0,179,71,0.5)'" onblur="this.style.borderColor='rgba(245,242,235,0.12)'">
-        </div>
-        <div>
-          <label class="sf-l" style="font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.4);font-family:Inter,system-ui,sans-serif;display:block;margin-bottom:.3rem">With</label>
-          <input class="sf-i" id="sf-w" placeholder="Friends, partner, team..."
-            style="width:100%;background:rgba(245,242,235,0.06);border:1px solid rgba(245,242,235,0.12);color:#F5F2EB;padding:.7rem .9rem;font-size:.95rem;font-family:'Cormorant Garamond',Georgia,serif;border-radius:1px;outline:none;transition:border-color 180ms"
-            onfocus="this.style.borderColor='rgba(0,179,71,0.5)'" onblur="this.style.borderColor='rgba(245,242,235,0.12)'">
-        </div>
+      <div style="width:100%;margin-bottom:.65rem">
+        <label style="display:block;font-size:.44rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.35);font-family:Inter,system-ui,sans-serif;margin-bottom:.35rem;text-align:left">Place</label>
+        <input id="sf-p" placeholder="Bar, home, rooftop..." style="width:100%;background:rgba(245,242,235,0.07);border:1px solid rgba(245,242,235,0.15);border-radius:2px;color:#F5F2EB;padding:.75rem 1rem;font-size:1rem;font-family:'Cormorant Garamond',Georgia,serif;outline:none;-webkit-appearance:none;box-sizing:border-box">
+      </div>
+      <div style="width:100%;margin-bottom:1.25rem">
+        <label style="display:block;font-size:.44rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.35);font-family:Inter,system-ui,sans-serif;margin-bottom:.35rem;text-align:left">With</label>
+        <input id="sf-w" placeholder="Friends, partner, solo..." style="width:100%;background:rgba(245,242,235,0.07);border:1px solid rgba(245,242,235,0.15);border-radius:2px;color:#F5F2EB;padding:.75rem 1rem;font-size:1rem;font-family:'Cormorant Garamond',Georgia,serif;outline:none;-webkit-appearance:none;box-sizing:border-box">
       </div>
 
-      <button class="btn-rsm-continue" onclick="saveAndShowProgress()" style="background:#007A33">
-        Save Ritual →
-      </button>
-      <button class="rw-close" onclick="closeRitualSaved()">Cancel</button>
+      <button onclick="saveAndShowProgress()" style="width:100%;background:#007A33;color:#fff;border:none;padding:.9rem;font-family:Inter,system-ui,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;-webkit-appearance:none">Save Ritual →</button>
+      <button onclick="closeRitualSaved()" style="margin-top:.75rem;background:none;border:none;color:rgba(245,242,235,0.3);font-size:.48rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:Inter,system-ui,sans-serif;padding:.4rem">Cancel</button>
     </div>
 
-    <!-- STEP 2: Progress reveal -->
-    <div id="rsm-step2" style="display:none">
-      <div class="rsm-star" id="rsm-star-icon">★</div>
-      <h2 class="rsm-title" id="rsm-title">Ritual saved.</h2>
-      <p class="rsm-sub" id="rsm-sub">Each ritual brings you closer to your reward.</p>
+    <!-- STEP 2: progress -->
+    <div id="rsm-step2" style="display:none;flex-direction:column;align-items:center;width:100%;max-width:340px">
+      <div id="rsm-star-icon" style="font-size:2rem;margin-bottom:.75rem;line-height:1;color:#00A846">★</div>
+      <h2 id="rsm-title" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.2rem;font-weight:300;color:#F5F2EB;line-height:1.1;margin-bottom:.4rem">Ritual saved.</h2>
+      <p id="rsm-sub" style="font-size:.78rem;color:rgba(245,242,235,0.45);line-height:1.6;font-family:Inter,system-ui,sans-serif;margin-bottom:1.5rem">Each ritual brings you closer.</p>
 
-      <div class="rsm-dots">
-        <div class="rsm-dot" id="rsm-d0">
-          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-          <span class="rsm-dot-lbl">1st</span>
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+        <div id="rsm-d0" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,179,71,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 400ms">
+          <span style="font-size:1rem;line-height:1">★</span>
+          <span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,0.3)">1st</span>
         </div>
-        <div style="font-size:.5rem;letter-spacing:2px;color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif">—</div>
-        <div class="rsm-dot" id="rsm-d1">
-          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-          <span class="rsm-dot-lbl">2nd</span>
+        <span style="color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif;font-size:.6rem">—</span>
+        <div id="rsm-d1" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,179,71,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 400ms">
+          <span style="font-size:1rem;line-height:1">★</span>
+          <span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,0.3)">2nd</span>
         </div>
-        <div style="font-size:.5rem;letter-spacing:2px;color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif">—</div>
-        <div class="rsm-dot" id="rsm-d2">
-          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-          <span class="rsm-dot-lbl">3rd</span>
+        <span style="color:rgba(245,242,235,0.15);font-family:Inter,system-ui,sans-serif;font-size:.6rem">—</span>
+        <div id="rsm-d2" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,179,71,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 400ms">
+          <span style="font-size:1rem;line-height:1">★</span>
+          <span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:rgba(245,242,235,0.3)">3rd</span>
         </div>
       </div>
 
-      <div class="rsm-progress-txt" id="rsm-progress-txt"></div>
-      <button class="btn-rsm-continue" onclick="closeRitualSaved()">Continue</button>
-      <div class="rsm-reward-hint" id="rsm-reward-hint"></div>
+      <div id="rsm-progress-txt" style="font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:rgba(245,242,235,0.3);font-family:Inter,system-ui,sans-serif;margin-bottom:1.5rem"></div>
+      <button onclick="closeRitualSaved()" style="width:100%;max-width:280px;background:#007A33;color:#fff;border:none;padding:.9rem;font-family:Inter,system-ui,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px">Continue</button>
+      <div id="rsm-reward-hint" style="margin-top:.75rem;font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,0.2);font-family:Inter,system-ui,sans-serif"></div>
     </div>
 
   </div>
@@ -2066,40 +2069,48 @@ window.addEventListener("load",()=>setTimeout(()=>go("hero"),1400));
 function openSaveModal(){
   const modal=document.getElementById('ritual-saved-modal');
   if(!modal)return;
-  // Show step1, hide step2
+  // Reset to step 1
   const s1=document.getElementById('rsm-step1');
   const s2=document.getElementById('rsm-step2');
   if(s1)s1.style.display='flex';
   if(s2)s2.style.display='none';
-  // Clear inputs
   const p=document.getElementById('sf-p');
   const w=document.getElementById('sf-w');
   if(p)p.value='';if(w)w.value='';
   // Show modal
   modal.style.display='flex';
-  modal.style.opacity='0';
-  modal.style.flexDirection='column';
-  modal.style.alignItems='center';
-  modal.style.justifyContent='center';
-  modal.style.pointerEvents='all';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    modal.style.opacity='1';
-  }));
 }
 
 function saveAndShowProgress(){
-  // Save ritual
-  saveR();
-  // Switch to step 2
+  // Save ritual data
+  const p=document.getElementById('sf-p')?.value||'';
+  const w=document.getElementById('sf-w')?.value||'';
+  if(rec){
+    const prod=PROD[rec.product]||PROD.original;
+    rits.unshift({
+      ts:Date.now(),
+      date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
+      product:prod.n,pk:rec.product,title:rec.title,
+      where:ctx.neighborhood||ctx.city||'',
+      who:ans[0],vibe:ans[1],temp:ctx.temp,weather:ctx.weather,
+      place:p,with_:w
+    });
+    if(rits.length>12)rits.pop();
+    localStorage.setItem('hk',JSON.stringify(rits));
+  }
+  updN();updateRitualProgress();
+
+  // Switch modal to step 2
   const s1=document.getElementById('rsm-step1');
   const s2=document.getElementById('rsm-step2');
   if(s1)s1.style.display='none';
-  if(s2)s2.style.display='flex';
-  // Update dots
+  if(s2){s2.style.display='flex';}
+
+  // Update content
   const n=rits.length;
-  const titles={1:'First ritual.<br><em>Two to go.</em>',2:'Second ritual.<br><em>One more.</em>',3:'Third ritual.<br><em>Reward unlocked.</em>'};
-  const subs={1:'Your ritual is saved. Two more and you unlock your Heineken reward.',2:'Getting close. One more ritual and The Sub or a Draught Keg is yours.',3:'You did it. Choose your reward — delivered by Heineken.'};
-  const hints={1:'2 rituals remaining for reward',2:'1 ritual remaining for reward',3:'★ Reward ready to claim'};
+  const titles={1:'First ritual.<br><em style="font-style:italic;color:#00A846">Two to go.</em>',2:'Second ritual.<br><em style="font-style:italic;color:#00A846">One more.</em>',3:'Third ritual.<br><em style="font-style:italic;color:#00A846">Reward unlocked.</em>'};
+  const subs={1:'Two more rituals and you unlock your Heineken reward.',2:'One more ritual and The Sub or a Draught Keg is yours.',3:'You did it. Choose your reward — delivered by Heineken.'};
+  const hints={1:'2 rituals remaining','2':'1 ritual remaining',3:'★ Reward ready to claim'};
   const key=Math.min(n,3);
   const t=document.getElementById('rsm-title');
   const s=document.getElementById('rsm-sub');
@@ -2107,17 +2118,20 @@ function saveAndShowProgress(){
   const rh=document.getElementById('rsm-reward-hint');
   if(t)t.innerHTML=titles[key]||'Ritual saved.';
   if(s)s.textContent=subs[key]||'';
-  if(pt)pt.innerHTML=`<span style="color:#00A846">${n}</span> / 3 rituals completed`;
+  if(pt)pt.innerHTML=n+' / 3 rituals completed';
   if(rh)rh.textContent=hints[key]||'';
+
+  // Update dots
   [0,1,2].forEach(i=>{
     const d=document.getElementById('rsm-d'+i);
     if(!d)return;
-    d.classList.remove('done','current','empty');
-    if(i<n-1)d.classList.add('done');
-    else if(i===n-1)d.classList.add('current');
-    else d.classList.add('empty');
+    const isDone=i<n-1,isCurrent=i===n-1;
+    d.style.background=isDone||isCurrent?'rgba(0,122,51,0.3)':'transparent';
+    d.style.borderColor=isDone||isCurrent?'#00A846':'rgba(0,179,71,0.25)';
+    d.style.boxShadow=isCurrent?'0 0 20px rgba(0,179,71,0.4)':'none';
+    const star=d.querySelector('span');
+    if(star)star.style.color=isDone||isCurrent?'#00A846':'rgba(245,242,235,0.2)';
   });
-  updateRitualProgress();
 }
 
 function closeRitualSaved(){
