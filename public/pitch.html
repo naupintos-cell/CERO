@@ -182,10 +182,14 @@ footer{border-top:1px solid rgba(245,242,235,.07);padding:24px;display:flex;alig
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <!-- VIDEO COMERCIAL -->
-    <div class="rv d3" style="margin-top:3rem;max-width:260px;border-radius:20px;overflow:hidden;border:1px solid rgba(0,168,70,.3);box-shadow:0 20px 50px rgba(0,0,0,.8),0 0 30px rgba(0,168,70,.15)">
-      <video width="100%" autoplay loop muted playsinline style="display:block">
-        <source src="/HEINEKEN.mp4" type="video/mp4">
-      </video>
+    <div class="rv d3" style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:1rem">
+      <p style="font-size:.52rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,168,70,.5);font-family:'DM Sans',sans-serif">The commercial — Built with AI</p>
+      <div style="width:100%;max-width:320px;border-radius:20px;overflow:hidden;border:1px solid rgba(0,168,70,.25);box-shadow:0 24px 60px rgba(0,0,0,.8),0 0 40px rgba(0,168,70,.1)">
+        <video width="100%" autoplay loop muted playsinline style="display:block">
+          <source src="/HEINEKEN.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p style="font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.2);font-family:'DM Sans',sans-serif">Generated with Gemini · Assembled with Claude Code</p>
     </div>
 
   </div>
@@ -322,18 +326,19 @@ footer{border-top:1px solid rgba(245,242,235,.07);padding:24px;display:flex;alig
         </div>
       
 
+</div>
+    </div>
+  </div>
+
+
   <!-- CTA EXPERIENCIA -->
-  <div style="margin-top:2.5rem;text-align:center">
-    <p style="font-size:.52rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,168,70,.6);font-family:'DM Sans',sans-serif;margin-bottom:1rem">Live it before reading about it</p>
-    <a href="https://heineken-production.up.railway.app/?user=Agustin" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#007A33;color:#fff;padding:16px 32px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;text-decoration:none">
+  <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px">
+    <p style="font-size:.52rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,168,70,.6);font-family:'DM Sans',sans-serif;margin-bottom:1.25rem">Live it before reading about it</p>
+    <a href="https://heineken-production.up.railway.app" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#007A33;color:#fff;padding:18px 24px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;text-decoration:none;width:100%;max-width:320px">
       Live the ritual
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
-    <p style="margin-top:1rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.2);font-family:'DM Sans',sans-serif">No download · 60 seconds</p>
-  </div>
-
-</div>
-    </div>
+    <p style="margin-top:.75rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.2);font-family:'DM Sans',sans-serif">No download · 60 seconds</p>
   </div>
 </section>
 
@@ -426,3 +431,13 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
+
+  <!-- CTA EXPERIENCIA -->
+  <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px">
+    <p style="font-size:.52rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,168,70,.6);font-family:'DM Sans',sans-serif;margin-bottom:1.25rem">Live it before reading about it</p>
+    <a href="https://heineken-production.up.railway.app" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#007A33;color:#fff;padding:18px 24px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;text-decoration:none;width:100%;max-width:320px">
+      Live the ritual
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p style="margin-top:.75rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.2);font-family:'DM Sans',sans-serif">No download · 60 seconds</p>
+  </div>
