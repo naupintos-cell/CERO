@@ -4,22 +4,22 @@
 
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Heineken Live × Kairo</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><polygon points='24,3 28.5,17 43,17 31,26 35.5,40 24,31.5 12.5,40 17,26 5,17 19.5,17' fill='%23C41E1E'/></svg>">
+<title>CERO° Live × Kairo</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='32' font-family='Georgia,serif' fill='%23C8A96E'>°</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#020402;--green:#007A33;--bright:#00B347;--cream:#F5F2EB;
-  --dim:rgba(245,242,235,0.55);--ghost:rgba(245,242,235,0.08);--line:rgba(245,242,235,0.09);
-  --glow:rgba(0,168,70,0.2);--glow2:rgba(0,168,70,0.42);
-  --red:#C41E1E;--gold:#C49830;--HDR:52px;--NAV:54px;
+  --black:#08080A;--green:#8B5E2A;--bright:#C8A96E;--cream:#E8E4DC;
+  --dim:rgba(232,228,220,0.55);--ghost:rgba(232,228,220,0.08);--line:rgba(232,228,220,0.09);
+  --glow:rgba(200,169,110,0.2);--glow2:rgba(200,169,110,0.42);
+  --copper:#A06830;--gold:#C8A96E;--HDR:52px;--NAV:54px;
   --inter:'Inter',system-ui,sans-serif;
   --serif:'Cormorant Garamond',Georgia,serif;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;color:var(--cream);
   font-family:var(--inter);-webkit-font-smoothing:antialiased;
-  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,60,20,0.18) 0%,var(--black) 65%)}
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(100,60,20,0.18) 0%,var(--black) 65%)}
 button{font-family:var(--inter);cursor:pointer;border:none;background:none;color:inherit;outline:none}
 .serif{font-family:var(--serif)}
 input{font-family:inherit;border:none;outline:none;background:none;color:inherit}
@@ -32,7 +32,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
 
 #dot,#ring{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
 #dot{width:6px;height:6px;background:var(--bright);mix-blend-mode:exclusion;transition:width 180ms,height 180ms}
-#ring{width:30px;height:30px;border:1px solid rgba(0,168,70,.35);transition:width 250ms,height 250ms}
+#ring{width:30px;height:30px;border:1px solid rgba(200,169,110,.35);transition:width 250ms,height 250ms}
 .hover #dot{width:12px;height:12px}
 .hover #ring{width:44px;height:44px}
 
@@ -54,7 +54,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .hsep{width:1px;height:12px;background:var(--line);margin:0 10px}
 .hby{font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--bright)}
 .hpill{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:5px}
-.hn{background:rgba(0,122,51,.2);color:var(--bright);width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-size:.48rem}
+.hn{background:rgba(139,94,42,.2);color:var(--bright);width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-size:.48rem}
 
 /* ── NAV ── */
 #nav{position:fixed;bottom:0;left:0;right:0;z-index:500;height:var(--NAV);display:flex;border-top:1px solid var(--line);background:rgba(3,6,3,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:opacity 300ms}
@@ -69,7 +69,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* ── LOADER ── */
 #pg-ld{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem}
 .ld-star{animation:sp 1.5s ease-in-out infinite}
-@keyframes sp{0%,100%{filter:drop-shadow(0 0 8px rgba(196,30,30,.4))}50%{filter:drop-shadow(0 0 24px rgba(196,30,30,.9))}}
+@keyframes sp{0%,100%{filter:drop-shadow(0 0 8px rgba(200,169,110,.4))}50%{filter:drop-shadow(0 0 24px rgba(200,169,110,.9))}}
 .ld-line{width:100px;height:1px;background:rgba(240,237,229,.08);position:relative;overflow:hidden}
 .ld-line::after{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;background:linear-gradient(90deg,transparent,var(--bright),transparent);animation:sc .9s ease-in-out infinite}
 @keyframes sc{to{left:150%}}
@@ -88,8 +88,8 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 .btn-main{background:var(--green);color:#ffffff;padding:.85rem 2.5rem;font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;transition:background 200ms,transform 150ms ease,box-shadow 200ms}
-.btn-main:hover{background:var(--bright);transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,168,70,.35)}
 .btn-main:active{transform:scale(.98)}
+@media(hover:hover){.btn-main:hover{background:#00A846;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,168,70,.35)}}
 .btn-text{font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim);padding:.4rem;transition:color 200ms}
 .btn-text:hover{color:var(--cream)}
 
@@ -98,20 +98,20 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 
 .scan-orb{
   width:120px;height:120px;border-radius:50%;
-  border:1px solid rgba(0,168,70,.15);
+  border:1px solid rgba(200,169,110,.15);
   display:flex;align-items:center;justify-content:center;
   position:relative;margin-bottom:2.5rem;
 }
 .scan-orb::before{
   content:'';position:absolute;
   width:100%;height:100%;border-radius:50%;
-  border:1px solid rgba(0,168,70,.08);
+  border:1px solid rgba(200,169,110,.08);
   animation:orb-ring 2s ease-in-out infinite;
 }
 .scan-orb::after{
   content:'';position:absolute;
   width:160%;height:160%;border-radius:50%;
-  border:1px solid rgba(0,168,70,.04);
+  border:1px solid rgba(200,169,110,.04);
   animation:orb-ring 2s ease-in-out infinite .4s;
 }
 @keyframes orb-ring{0%{transform:scale(.8);opacity:0}50%{opacity:1}100%{transform:scale(1.2);opacity:0}}
@@ -171,8 +171,8 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;margin-bottom:1.25rem}
 .opt{border:1px solid var(--line);padding:.8rem .75rem;display:flex;align-items:center;gap:.55rem;transition:border-color 160ms,background 160ms,box-shadow 160ms;animation:oc calc(var(--i)*40ms + 50ms) ease both;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(245,242,235,0.04)}
 @keyframes oc{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
-.opt:hover{border-color:rgba(0,179,71,.35);background:rgba(245,242,235,0.07)}
-.opt.sel{border-color:var(--bright);background:rgba(0,120,51,.16);box-shadow:0 0 0 1px rgba(0,179,71,.3) inset,0 4px 24px rgba(0,168,70,.12)}
+.opt:hover{border-color:rgba(200,169,110,.35);background:rgba(245,242,235,0.07)}
+.opt.sel{border-color:var(--bright);background:rgba(139,94,42,.16);box-shadow:0 0 0 1px rgba(200,169,110,.3) inset,0 4px 24px rgba(200,169,110,.12)}
 .opt-ic{flex-shrink:0;width:22px;display:flex;align-items:center;justify-content:center}
 .opt-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;opacity:.65;transition:opacity 180ms}
 .opt.sel .opt-ic svg{opacity:1;stroke:var(--bright)}
@@ -180,13 +180,13 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .opt-sl{font-size:.45rem;letter-spacing:1px;color:var(--dim);margin-top:1px;text-transform:uppercase}
 
 .btn-nxt{background:var(--green);color:#ffffff;padding:.72rem 1.75rem;font-size:.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;transition:background 180ms,transform 150ms ease,box-shadow 180ms;float:right}
-.btn-nxt:hover{background:var(--bright);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,70,.3)}
 .btn-nxt:active{transform:scale(.98)}
+@media(hover:hover){.btn-nxt:hover{background:#00A846;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,70,.3)}}
 
 /* ── AI ── */
 #pg-ai{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem}
-.ai-orb{width:64px;height:64px;border-radius:50%;border:1px solid rgba(0,168,70,.18);display:grid;place-items:center;animation:op 2.2s ease-in-out infinite}
-@keyframes op{0%,100%{box-shadow:0 0 0 0 transparent,0 0 0 6px rgba(0,168,70,.06)}50%{box-shadow:0 0 16px rgba(0,168,70,.2),0 0 0 12px rgba(0,168,70,.03)}}
+.ai-orb{width:64px;height:64px;border-radius:50%;border:1px solid rgba(200,169,110,.18);display:grid;place-items:center;animation:op 2.2s ease-in-out infinite}
+@keyframes op{0%,100%{box-shadow:0 0 0 0 transparent,0 0 0 6px rgba(200,169,110,.06)}50%{box-shadow:0 0 16px rgba(200,169,110,.2),0 0 0 12px rgba(200,169,110,.03)}}
 .ai-line{width:90px;height:1px;background:rgba(240,237,229,.06);overflow:hidden;position:relative}
 .ai-line::after{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;background:linear-gradient(90deg,transparent,var(--bright),transparent);animation:sc .85s ease-in-out infinite}
 .ai-lbl{font-size:.46rem;letter-spacing:5px;text-transform:uppercase;color:var(--dim)}
@@ -205,12 +205,12 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .res-title{font-family:var(--serif);font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:300;color:var(--cream);line-height:1.08;margin-bottom:.65rem;animation:fu .5s .25s both}
 .res-copy{font-size:.95rem;font-weight:300;color:var(--dim);line-height:1.65;margin-bottom:.85rem;animation:fu .5s .3s both}
 .res-tags{display:flex;flex-wrap:wrap;gap:.28rem;justify-content:center;margin-bottom:1.25rem;animation:fu .5s .35s both}
-.rt{font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.22);color:var(--bright);padding:3px 7px}
+.rt{font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);color:var(--bright);padding:3px 7px}
 
 .res-acts{display:flex;flex-direction:column;gap:.35rem;animation:fu .5s .4s both}
 .btn-save{background:var(--green);color:var(--cream);padding:.78rem;font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;border-radius:1px;text-align:center;transition:background 180ms,transform 150ms ease}
-.btn-save:hover{background:var(--bright);transform:translateY(-1px)}
 .btn-save:active{transform:scale(.98)}
+@media(hover:hover){.btn-save:hover{background:#00A846;transform:translateY(-1px)}}
 .btn-alt{text-align:center;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim);padding:.42rem;border:1px solid var(--line);transition:color 180ms,border-color 180ms}
 .btn-alt:hover{color:var(--cream);border-color:rgba(240,237,229,.18)}
 .sf{display:none;margin-top:.55rem;border:1px solid var(--line);padding:.85rem;animation:fu .3s ease both}
@@ -220,8 +220,8 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .sf-i{width:100%;background:rgba(240,237,229,.04);border:1px solid var(--line);color:var(--cream);padding:.52rem .6rem;font-size:.9rem;transition:border-color 180ms}
 .sf-i:focus{border-color:var(--green)}
 .sf-i::placeholder{color:rgba(240,237,229,.18)}
-.btn-ok{width:100%;background:rgba(0,122,51,.18);color:var(--bright);padding:.58rem;font-family:'Cormorant Garamond',serif;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.2);transition:background 180ms}
-.btn-ok:hover{background:rgba(0,122,51,.28)}
+.btn-ok{width:100%;background:rgba(139,94,42,.18);color:var(--bright);padding:.58rem;font-family:'Cormorant Garamond',serif;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.2);transition:background 180ms}
+.btn-ok:hover{background:rgba(139,94,42,.28)}
 
 .biz-strip{margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;animation:fu .5s .5s both}
 .bi{text-align:center}
@@ -231,7 +231,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* ── RITUALS ── */
 .sec-ttl{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2rem);font-weight:300;color:var(--cream);margin-bottom:.2rem}
 .sec-sub{font-size:.52rem;letter-spacing:1px;color:var(--dim);margin-bottom:1.5rem}
-.ins{border-left:1px solid var(--green);padding:.55rem .9rem;margin-bottom:1.4rem;background:rgba(0,122,51,.05)}
+.ins{border-left:1px solid var(--green);padding:.55rem .9rem;margin-bottom:1.4rem;background:rgba(139,94,42,.05)}
 .ins p{font-size:.88rem;font-weight:300;font-style:italic;color:var(--dim);line-height:1.6}
 .r-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:.38rem}
 .rc{background:rgba(240,237,229,.03);border:1px solid var(--line);padding:.82rem;transition:border-color 180ms}
@@ -413,7 +413,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* ── PERSONALIZED WELCOME ── */
 .user-greeting{
   position:fixed;top:calc(var(--HDR) + .75rem);left:50%;transform:translateX(-50%);
-  background:rgba(0,122,51,.15);border:1px solid rgba(0,168,70,.2);
+  background:rgba(139,94,42,.15);border:1px solid rgba(200,169,110,.2);
   padding:.45rem 1rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;
   color:var(--bright);z-index:600;white-space:nowrap;
   animation:fu .8s .5s both;
@@ -441,9 +441,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* mesh animated background */
 #landing-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:morph 12s ease-in-out infinite}
-.mesh-orb:nth-child(1){width:600px;height:600px;background:rgba(0,100,30,0.13);top:-10%;left:-15%;animation-delay:0s}
-.mesh-orb:nth-child(2){width:500px;height:500px;background:rgba(0,80,20,0.08);top:30%;right:-20%;animation-delay:-4s}
-.mesh-orb:nth-child(3){width:400px;height:400px;background:rgba(0,60,15,0.1);bottom:-10%;left:20%;animation-delay:-8s}
+.mesh-orb:nth-child(1){width:600px;height:600px;background:rgba(100,60,20,0.13);top:-10%;left:-15%;animation-delay:0s}
+.mesh-orb:nth-child(2){width:500px;height:500px;background:rgba(80,40,10,0.08);top:30%;right:-20%;animation-delay:-4s}
+.mesh-orb:nth-child(3){width:400px;height:400px;background:rgba(60,30,5,0.1);bottom:-10%;left:20%;animation-delay:-8s}
 @keyframes morph{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-40px) scale(1.08)}66%{transform:translate(-20px,30px) scale(.93)}}
 
 .l-section{
@@ -456,7 +456,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 
 /* hero */
 .lh-kicker{font-size:.52rem;letter-spacing:6px;text-transform:uppercase;color:var(--bright);margin-bottom:1.25rem;font-family:Inter,system-ui,sans-serif;font-weight:500;display:flex;align-items:center;gap:.6rem}
-.lh-kicker::before,.lh-kicker::after{content:'';flex:1;height:1px;background:rgba(0,179,71,.2);max-width:44px}
+.lh-kicker::before,.lh-kicker::after{content:'';flex:1;height:1px;background:rgba(200,169,110,.2);max-width:44px}
 .lh-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.4rem,7vw,4.5rem);font-weight:300;line-height:1.06;color:var(--cream);margin-bottom:1.25rem;max-width:580px}
 .lh-title strong{color:var(--bright);font-weight:400;font-style:normal}
 .lh-sub{font-size:.88rem;font-weight:300;color:var(--dim);line-height:1.75;max-width:320px;margin:0 auto 2rem;font-family:Inter,system-ui,sans-serif}
@@ -464,21 +464,21 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* NFC animation */
 .nfc-wrap{position:relative;margin:0 auto 1.5rem;width:130px;height:130px;display:grid;place-items:center}
 .nfc-ring{position:absolute;border-radius:50%;border:1px solid;animation:nfc-pulse 2.2s ease-out infinite}
-.nfc-ring:nth-child(1){width:130px;height:130px;border-color:rgba(0,179,71,.35);animation-delay:0s}
-.nfc-ring:nth-child(2){width:100px;height:100px;border-color:rgba(0,179,71,.25);animation-delay:.5s}
-.nfc-ring:nth-child(3){width:74px;height:74px;border-color:rgba(0,179,71,.18);animation-delay:1s}
+.nfc-ring:nth-child(1){width:130px;height:130px;border-color:rgba(200,169,110,.35);animation-delay:0s}
+.nfc-ring:nth-child(2){width:100px;height:100px;border-color:rgba(200,169,110,.25);animation-delay:.5s}
+.nfc-ring:nth-child(3){width:74px;height:74px;border-color:rgba(200,169,110,.18);animation-delay:1s}
 @keyframes nfc-pulse{0%{transform:scale(.8);opacity:0}50%{opacity:1}100%{transform:scale(1.2);opacity:0}}
-.nfc-core{width:54px;height:54px;border-radius:50%;background:rgba(0,122,51,.2);border:1px solid rgba(0,179,71,.4);display:grid;place-items:center;z-index:2;position:relative}
+.nfc-core{width:54px;height:54px;border-radius:50%;background:rgba(139,94,42,.2);border:1px solid rgba(200,169,110,.4);display:grid;place-items:center;z-index:2;position:relative}
 .nfc-icon{font-size:1.3rem}
 
 /* scroll hint */
-.scroll-hint{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:rgba(245,242,235,.2);display:flex;flex-direction:column;align-items:center;gap:.4rem;font-family:Inter,system-ui,sans-serif;animation:hint 2s ease-in-out infinite}
+.scroll-hint{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:rgba(232,228,220,.2);display:flex;flex-direction:column;align-items:center;gap:.4rem;font-family:Inter,system-ui,sans-serif;animation:hint 2s ease-in-out infinite}
 @keyframes hint{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(6px);opacity:.8}}
 
 /* 4 pillars */
 .pillars-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%;max-width:480px;margin-top:2rem}
 .pillar{background:rgba(245,242,235,0.04);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(245,242,235,0.08);padding:1.2rem 1rem;text-align:left;transition:border-color 220ms,background 220ms,transform 220ms}
-.pillar:hover{border-color:rgba(0,179,71,.3);background:rgba(0,120,40,.06);transform:translateY(-2px)}
+.pillar:hover{border-color:rgba(200,169,110,.3);background:rgba(100,60,10,.06);transform:translateY(-2px)}
 .pillar-num{font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:var(--bright);font-family:Inter,system-ui,sans-serif;font-weight:500;margin-bottom:.55rem}
 .pillar-icon{font-size:1.3rem;margin-bottom:.45rem;display:block}
 .pillar-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:.28rem;line-height:1.2}
@@ -489,14 +489,14 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .fstep{display:grid;grid-template-columns:44px 1fr;gap:.85rem;padding:.85rem 0;border-bottom:1px solid rgba(245,242,235,.06)}
 .fstep:last-child{border-bottom:none}
 .fstep-l{display:flex;flex-direction:column;align-items:center}
-.fstep-num{width:30px;height:30px;border-radius:50%;border:1px solid rgba(0,179,71,.3);display:grid;place-items:center;font-size:.52rem;font-weight:600;color:var(--bright);font-family:Inter,system-ui,sans-serif;flex-shrink:0}
-.fstep-conn{width:1px;flex:1;min-height:16px;background:linear-gradient(to bottom,rgba(0,179,71,.18),transparent);margin-top:4px}
+.fstep-num{width:30px;height:30px;border-radius:50%;border:1px solid rgba(200,169,110,.3);display:grid;place-items:center;font-size:.52rem;font-weight:600;color:var(--bright);font-family:Inter,system-ui,sans-serif;flex-shrink:0}
+.fstep-conn{width:1px;flex:1;min-height:16px;background:linear-gradient(to bottom,rgba(200,169,110,.18),transparent);margin-top:4px}
 .fstep:last-child .fstep-conn{display:none}
 .fstep-r{padding-top:3px;text-align:left}
 .fstep-tag{font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:var(--bright);font-family:Inter,system-ui,sans-serif;font-weight:500;margin-bottom:.2rem}
 .fstep-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:.18rem}
 .fstep-desc{font-size:.68rem;color:var(--dim);line-height:1.5;font-family:Inter,system-ui,sans-serif;font-weight:300}
-.fstep-badge{display:inline-block;margin-top:.3rem;font-size:.4rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,179,71,.2);color:var(--bright);padding:2px 6px;font-family:Inter,system-ui,sans-serif}
+.fstep-badge{display:inline-block;margin-top:.3rem;font-size:.4rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.2);color:var(--bright);padding:2px 6px;font-family:Inter,system-ui,sans-serif}
 
 /* final CTA */
 .fcta-sec{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1.5rem;text-align:center;scroll-snap-align:start}
@@ -516,8 +516,8 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   border-radius:1px;border:none;cursor:pointer;
   transition:background 200ms,transform 150ms ease,box-shadow 200ms;
 }
-.btn-launch:hover{background:var(--bright);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,168,70,.4)}
 .btn-launch:active{transform:scale(.98)}
+@media(hover:hover){.btn-launch:hover{background:#00A846;transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,168,70,.4)}}
 .fcta-note{margin-top:.85rem;font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.18);font-family:Inter,system-ui,sans-serif}
 
 /* scroll dots */
@@ -533,14 +533,14 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 /* ── USER GREETING ── */
 .user-greeting{
   position:fixed;top:calc(var(--HDR) + 8px);left:50%;transform:translateX(-50%);
-  background:rgba(0,122,51,.22);border:1px solid rgba(0,179,71,.25);
+  background:rgba(139,94,42,.22);border:1px solid rgba(200,169,110,.25);
   color:var(--bright);font-size:.46rem;letter-spacing:3px;text-transform:uppercase;
   padding:4px 14px;z-index:600;pointer-events:none;
   white-space:nowrap;
 }
 dialog#rsm-dialog{
   background:rgba(2,10,2,.98);
-  border:1px solid rgba(0,179,71,.15);
+  border:1px solid rgba(200,169,110,.15);
   padding:0;
   max-width:360px;
   width:92%;
@@ -563,7 +563,7 @@ dialog#rsm-dialog::backdrop{
   background:var(--green);
   padding:.55rem 0 .5rem;
   display:flex;align-items:center;justify-content:center;
-  border-bottom:1px solid rgba(0,179,71,.18);
+  border-bottom:1px solid rgba(200,169,110,.18);
 }
 .rsm-brand-bar svg{ width:90px; height:auto; display:block; }
 /* Modal body */
@@ -576,7 +576,7 @@ dialog#rsm-dialog::backdrop{
 .rsm-star svg{ width:28px;height:28px; }
 /* Divider line */
 .rsm-div{
-  width:32px;height:1px;background:rgba(0,179,71,.3);
+  width:32px;height:1px;background:rgba(200,169,110,.3);
   margin:.65rem auto .9rem;
 }
 .rsm-inp{
@@ -621,15 +621,15 @@ dialog#rsm-dialog::backdrop{
   margin-top:.2rem;
   transition:background 180ms;
 }
-.rsm-btn:hover{ background:var(--bright); }
+@media(hover:hover){.rsm-btn:hover{background:#00A846}}
 .rsm-dot{
   width:46px;height:46px;border-radius:50%;
-  border:1px solid rgba(0,179,71,.25);
+  border:1px solid rgba(200,169,110,.25);
   display:inline-flex;flex-direction:column;
   align-items:center;justify-content:center;gap:2px;
   transition:all 400ms;
 }
-.rsm-dot.on{background:rgba(0,122,51,.3);border-color:#00A846;}
+.rsm-dot.on{background:rgba(139,94,42,.3);border-color:#C8A96E;}
 /* Progress bar in modal */
 .rsm-progress{
   height:2px;background:rgba(245,242,235,.07);
@@ -647,7 +647,7 @@ const GLASS_IMG='/img/glass.png';
 const REWARD_SUB='/img/sub.png';
 const REWARD_KEG='/img/keg.png';
 const IMGS={original:'/img/original.png',silver:'/img/silver.png',zero:'/img/zero.png'};
-const PROD={original:{n:'Heineken Original',color:'#00A846'},silver:{n:'Heineken Silver',color:'#7FB3D3'},zero:{n:'Heineken 0.0',color:'#0047AB'}};
+const PROD={original:{n:'CERO° 8',color:'#C8A96E'},silver:{n:'CERO° 0',color:'#A8B8C4'},zero:{n:'CERO° 16',color:'#A06830'}};
 
 
 
@@ -689,8 +689,8 @@ function rsmSave(){
   // Update progress bar
   const pf=document.getElementById('rsm-pfill');
   if(pf)pf.style.width=(k/3*100)+'%';
-  const T={1:'First ritual.<br><em style="color:#00A846">Two to go.</em>',2:'Second ritual.<br><em style="color:#00A846">One more.</em>',3:'Third ritual.<br><em style="color:#00A846;font-style:italic">Reward unlocked.</em>'};
-  const S={1:'Two more rituals to unlock your Heineken reward.',2:'One more ritual and The Sub or Draught Keg is yours.',3:'Choose your reward — delivered by Heineken.'};
+  const T={1:'First ritual.<br><em style="color:#C8A96E">Two to go.</em>',2:'Second ritual.<br><em style="color:#C8A96E">One more.</em>',3:'Third ritual.<br><em style="color:#C8A96E;font-style:italic">Reward unlocked.</em>'};
+  const S={1:'Dos rituales más para desbloquear tu beneficio CERO°.',2:'Un ritual más y conseguís entradas para tu próximo show.',3:'Elegí tu beneficio — entradas o CERO° para tu grupo.'};
   document.getElementById('rsm-t').innerHTML=T[k]||'Ritual saved.';
   document.getElementById('rsm-s').textContent=S[k]||'';
   document.getElementById('rsm-p').textContent=n+' / 3 rituals completed';
@@ -698,7 +698,7 @@ function rsmSave(){
   [0,1,2].forEach(i=>{
     const d=document.getElementById('rsm-d'+i);if(!d)return;
     d.classList.toggle('on',i<=n-1);
-    const star=d.querySelector('span');if(star)star.style.color=i<=n-1?'#00A846':'rgba(245,242,235,.2)';
+    const star=d.querySelector('span');if(star)star.style.color=i<=n-1?'#C8A96E':'rgba(232,228,220,.2)';
   });
 }
 </script>
@@ -724,13 +724,13 @@ function rsmSave(){
 
   <!-- ── S1: HERO PITCH ── -->
   <section class="l-section" id="ls0">
-    <div class="lh-kicker">Heineken Live × Kairo</div>
+    <div class="lh-kicker">CERO° Live × Kairo</div>
 
-    <div id="user-greeting" style="display:none;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:#00A846;background:rgba(0,122,51,.12);border:1px solid rgba(0,179,71,.18);padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem"></div>
+    <div id="user-greeting" style="display:none;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:#C8A96E;background:rgba(139,94,42,.12);border:1px solid rgba(200,169,110,.18);padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem"></div>
 
     <div style="margin-bottom:1.25rem">
       <svg width="48" height="48" viewBox="0 0 48 48" style="display:block;margin:0 auto">
-        <polygon points="24,3 28.5,17 43,17 31,26 35.5,40 24,31.5 12.5,40 17,26 5,17 19.5,17" fill="#C41E1E" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-linejoin="round"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="36" font-family="Georgia,serif" fill="#C8A96E">°</text>
       </svg>
     </div>
 
@@ -771,7 +771,7 @@ function rsmSave(){
         <div class="pillar-num">02</div>
         <span class="pillar-icon">⬡</span>
         <div class="pillar-name">Perfect Pour</div>
-        <div class="pillar-desc">Camera + real-time visual AI. The two-finger foam of the Heineken standard, every time.</div>
+        <div class="pillar-desc">Camera + real-time visual AI. The two-finger foam of the CERO° standard, every time.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
@@ -816,7 +816,7 @@ function rsmSave(){
         <div class="fstep-r">
           <div class="fstep-tag">Experience</div>
           <div class="fstep-name">Real Context + AI</div>
-          <div class="fstep-desc">Geo, weather and moment auto-detected. Just two questions. AI recommends your ideal Heineken.</div>
+          <div class="fstep-desc">Geo, weather and moment auto-detected. Just two questions. AI recommends tu CERO° ideal.</div>
           <span class="fstep-badge">Claude AI · Open-Meteo</span>
         </div>
       </div>
@@ -824,7 +824,7 @@ function rsmSave(){
         <div class="fstep-l"><div class="fstep-num">04</div><div class="fstep-conn"></div></div>
         <div class="fstep-r">
           <div class="fstep-tag">Reward</div>
-          <div class="fstep-name">Your Heineken + Reward</div>
+          <div class="fstep-name">Tu CERO° + Beneficio</div>
           <div class="fstep-desc">Downloadable Story Card, 30-min playlist. Three rituals completed = voucher for your next pack.</div>
           <span class="fstep-badge">First-party data · Retention</span>
         </div>
@@ -859,12 +859,11 @@ function rsmSave(){
 <header id="hdr" class="off">
   <div class="hlogo">
     <div class="hstar">
-      <svg width="22" height="22" viewBox="0 0 214 221" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#E3000F" d="M91.2,79.4L76.6,124.5c0,.1,0,.2.1.2s.1.1.2.2.2.2.2.2c.1,0,.2,0,.2,0l38.3-27.9 38.3,27.9c.1.1.2.1.2,0s.1-.1.2-.2.2-.2.2-.2c.1-.1.1-.1.1-.2L140,79.4l38.4-27.8c.1-.1.1-.1.1-.2s0-.1-.1-.3-.1-.3-.1-.3c0-.1-.1-.1-.2-.1l-47.4.1L116.1,5.6c0-.1-.1-.1-.2-.1s-.1,0-.3,0-.3,0-.3,0c-.1,0-.2.1-.2.1L100.5,50.7l-47.4-.1c-.1,0-.2.1-.2.1s-.1.1-.1.3-.1.3-.1.3c0,.1,0,.2.1.2L91.2,79.4z"/>
-        <path fill="rgba(255,255,255,0.15)" d="M154.7,130.5c-.7,0-1.4-.2-2-.6s-1.5-1-3.9-2.6c-6.9-4.6-23.8-16.1-33.3-22.9-9.1,6.5-24.7,17.1-33.3,22.9-2.4,1.6-3.9,2.6-3.9,2.6c-.6.4-1.3.6-2,.6-.7,0-1.3-.2-1.9-.5-.5-.3-.9-.6-1-.7-.2-.1-.5-.3-.9-.7-.8-.7-1.5-2.2-1.1-3.7.4-1.5.4-1.7,1.2-4.5,2.9-9.9,8.1-28,11.5-38.7-9-6.7-23.9-18.3-32-24.6-2.3-1.8-3.6-2.9-3.7-2.9-1.2-.9-1.5-2.5-1.3-3.6.1-.5.3-1,.3-1.1.1-.2.2-.6.4-1.1.4-1,1.6-2.1,3.2-2.2 0,0,1.8-.1,4.7-.2,10.3-.4,29.2-1,40.4-1.1,3.6-10.6,10-28.3,13.5-38.1.9-2.7,1.7-4.4,1.7-4.4.5-1.4,1.9-2.2,3.1-2.3.4,0,.8,0,1,0h.3c.2,0,.6,0,1,.1,1.1.1,2.5.9,3.1,2.4.2.4.8,2,1.7,4.3,3.5,9.7,9.9,27.5,13.5,38.1,11.2.1,30,.7,40.4,1.1,2.9.1,4.7.2,4.7.2,1.6.1,2.7,1.2,3.2,2.2.2.4.3.9.4,1.1.1.3.2.6.3,1.1.3,1.1,0,2.7-1.3,3.6-.2.2-1.6,1.3-3.6,2.9-8.2,6.4-23.1,17.9-32,24.6,3.3,10.7,8.6,28.8,11.4,38.7.8,2.8,1.2,4.5,1.2,4.5.4,1.5-.3,3-1.1,3.7-.4.3-.7.6-.9.7-.2.2-.5.4-1,.7C156,130.3,155.4,130.5,154.7,130.5z"/>
+      <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#C8A96E" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
     </div>
-    <span class="hname">Heineken Live</span>
+    <span class="hname">CERO° Live</span>
     <div class="hsep"></div>
     <span class="hby">Built by KAIRO</span>
   </div>
@@ -887,7 +886,7 @@ function rsmSave(){
     <canvas id="pour-canvas-overlay"></canvas>
   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2;padding-bottom:200px"><img id="pour-glass-ghost" style="height:55vh;max-height:420px;width:auto;opacity:0.18;mix-blend-mode:screen" alt=""></div>
     <div class="pour-top-bar">
-      <span class="pour-top-title">⬡ Pouring AI — Heineken Standard</span>
+      <span class="pour-top-title">⬡ Pouring AI — CERO° Standard</span>
       <button class="btn-pour-close" onclick="closePourAI()">✕ Close</button>
     </div>
     <div class="pour-ui">
@@ -909,9 +908,9 @@ function rsmSave(){
 
   <!-- LOADER -->
   <div class="pg on" id="pg-ld">
-    <svg class="ld-star" width="40" height="40" viewBox="0 0 40 40"><polygon points="20,1.5 23.5,12 34.5,12 26,18 29,28.5 20,22.5 11,28.5 14,18 5.5,12 16.5,12" fill="#C41E1E"/></svg>
+    <svg class="ld-star" width="40" height="40" viewBox="0 0 40 40"><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="28" font-family="Georgia,serif" fill="#C8A96E">°</text></svg>
     <div class="ld-line"></div>
-    <div class="ld-txt">Opening your ritual</div>
+    <div class="ld-txt">Iniciando tu ritual</div>
   </div>
 
   <!-- HERO -->
@@ -1025,7 +1024,7 @@ function rsmSave(){
           </div>
         </div>
 
-        <button class="btn-nxt" onclick="discover()">Find My Heineken</button>
+        <button class="btn-nxt" onclick="discover()">Descubrir mi CERO°</button>
         <div style="clear:both"></div>
       </div>
     </div>
@@ -1042,7 +1041,7 @@ function rsmSave(){
   <div class="pg" id="pg-res">
     <div class="body">
       <div class="wrap">
-        <div class="res-label">Your Heineken Tonight</div>
+        <div class="res-label">Tu CERO° Esta Noche</div>
         <div class="res-ctx-mini" id="res-ctx-mini"></div>
 
         <div class="res-hero">
@@ -1103,7 +1102,7 @@ function rsmSave(){
           <div class="cs"><div class="cs-v">Social</div><div class="cs-l">City Mood</div></div>
         </div>
         <div class="nbs" id="nbs"></div>
-        <div class="cnote"><p>Live City Mode turns anonymous ritual data into real-time cultural intelligence — what Heineken could know at city scale, in every market.</p></div>
+        <div class="cnote"><p>Live City Mode turns anonymous ritual data into real-time cultural intelligence — lo que CERO° Live conoce en tiempo real, barrio por barrio.</p></div>
       </div>
     </div>
   </div>
@@ -1393,7 +1392,7 @@ async function discover(){
   else if(tempNum>=15)tempCtx="cool night";
   else tempCtx="cold conditions";
 
-  const prompt=`You are Heineken's master sommelier and cultural strategist.
+  const prompt=`You are experto en cervezas premium y cultura de festivales. La marca es CERO° Live, una cerveza argentina premium con tres variantes: CERO° 8 (lager ambar, momento equilibrado), CERO° 0 (lager clara, calor y energía), CERO° 16 (amber ale, noche fría o íntima).
 
 REAL-TIME CONTEXT (auto-detected):
 - Location: ${loc}${ctx.country?" ("+ctx.country+")":""}
@@ -1472,13 +1471,13 @@ function renderRit(){
 }
 
 /* ── CITY ── */
-function renderCity(){document.getElementById("nbs").innerHTML=[{n:"Palermo",m:"Wild Night",p:78,c:"#C8942A"},{n:"San Telmo",m:"Celebrating",p:68,c:"#007A33"},{n:"Recoleta",m:"Relaxed",p:54,c:"#5BA8AA"},{n:"Puerto Madero",m:"Silver Hour",p:46,c:"#8A9EA8"},{n:"Belgrano",m:"After Office",p:40,c:"#7A7A4A"},{n:"Villa Crespo",m:"Celebrating",p:72,c:"#007A33"},{n:"Microcentro",m:"After Office",p:34,c:"#7A7A4A"}].map(n=>`<div class="nb2"><div class="nb2-n">${n.n}</div><div class="nb2-bar"><div class="nb2-fill" style="width:${n.p}%;background:${n.c}"></div></div><div class="nb2-m" style="color:${n.c}">${n.m}</div></div>`).join("")}
+function renderCity(){document.getElementById("nbs").innerHTML=[{n:"Palermo",m:"Wild Night",p:78,c:"#C8942A"},{n:"San Telmo",m:"Celebrating",p:68,c:"#8B5E2A"},{n:"Recoleta",m:"Relaxed",p:54,c:"#5BA8AA"},{n:"Puerto Madero",m:"Silver Hour",p:46,c:"#8A9EA8"},{n:"Belgrano",m:"After Office",p:40,c:"#7A7A4A"},{n:"Villa Crespo",m:"Celebrating",p:72,c:"#8B5E2A"},{n:"Microcentro",m:"After Office",p:34,c:"#7A7A4A"}].map(n=>`<div class="nb2"><div class="nb2-n">${n.n}</div><div class="nb2-bar"><div class="nb2-fill" style="width:${n.p}%;background:${n.c}"></div></div><div class="nb2-m" style="color:${n.c}">${n.m}</div></div>`).join("")}
 
 /* ── TOAST ── */
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2400)}
 
 /* ── PARTICLES ── */
-(function(){const c=document.getElementById("cv"),x=c.getContext("2d");const r=()=>{c.width=innerWidth;c.height=innerHeight};r();addEventListener("resize",r);const pts=Array.from({length:14},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,dx:(Math.random()-.5)*.08,dy:(Math.random()-.5)*.08,r:Math.random()*.7+.2,o:Math.random()*.14+.03}));(function d(){x.clearRect(0,0,c.width,c.height);pts.forEach(p=>{x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(0,168,70,${p.o})`;x.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>c.width)p.dx*=-1;if(p.y<0||p.y>c.height)p.dy*=-1});requestAnimationFrame(d)})()})();
+(function(){const c=document.getElementById("cv"),x=c.getContext("2d");const r=()=>{c.width=innerWidth;c.height=innerHeight};r();addEventListener("resize",r);const pts=Array.from({length:14},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,dx:(Math.random()-.5)*.08,dy:(Math.random()-.5)*.08,r:Math.random()*.7+.2,o:Math.random()*.14+.03}));(function d(){x.clearRect(0,0,c.width,c.height);pts.forEach(p=>{x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(200,169,110,${p.o})`;x.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>c.width)p.dx*=-1;if(p.y<0||p.y>c.height)p.dy*=-1});requestAnimationFrame(d)})()})();
 
 /* ── CURSOR ── */
 const $d=document.getElementById("dot"),$r=document.getElementById("ring");let mx=0,my=0,rx=0,ry=0;
@@ -1616,7 +1615,7 @@ function paiLoop(){
   paiSmooth+=(rawRatio-paiSmooth)*0.15;
   const foamPct=Math.min(1,paiSmooth);
 
-  // Heineken standard: 2 fingers ≈ 15-25% foam head
+  // CERO° standard: 2 fingers ≈ 15-25% foam head
   updatePourUI(foamPct,foamRows,beerRows);
 }
 
@@ -1633,30 +1632,30 @@ function updatePourUI(foamPct,foamRows,beerRows){
     message='Point camera at your glass';
     subMsg='Place the glass in the center of the frame';
   } else if(foamPct<0.05){
-    pct=15;color='#C41E1E';
+    pct=15;color='#C8A96E';
     message='Keep pouring...';
     subMsg='No foam detected yet — tilt the glass at 45°';
   } else if(foamPct<0.12){
     pct=40;color='#C8942A';
     message='Getting there...';
-    subMsg='A little more — Heineken standard is 2 fingers';
+    subMsg='A little more — CERO° standard is 2 fingers';
   } else if(foamPct>=0.12&&foamPct<=0.28){
     pct=100;color='var(--bright)';
     message='✓ Perfect foam';
-    subMsg='Heineken standard achieved — continue when ready';
+    subMsg='CERO° standard achieved — continue when ready';
   } else if(foamPct>0.28&&foamPct<=0.4){
     pct=80;color='#C8942A';
     message='Slow down...';
     subMsg='Too much foam forming — ease off';
   } else {
-    pct=30;color='#C41E1E';
+    pct=30;color='#A06830';
     message='Stop! Over-foamed';
     subMsg='Let the foam settle before adding more';
   }
 
   bar.style.width=pct+'%';bar.style.background=color;
   msg.textContent=message;
-  msg.style.color=foamPct>=0.12&&foamPct<=0.28?'var(--bright)':foamPct>0.4?'#C41E1E':'var(--cream)';
+  msg.style.color=foamPct>=0.12&&foamPct<=0.28?'var(--bright)':foamPct>0.4?'#A06830':'var(--cream)';
   sub.textContent=subMsg;
   // Unlock Continue button when foam is perfect
   const btn=document.getElementById('pai-continue');
@@ -1680,7 +1679,7 @@ function drawGlassGuide(c,w,h){
 
   // "2 finger" foam zone — top 20% of glass
   const foamH=gh*0.22;
-  c.fillStyle='rgba(0,168,70,0.06)';
+  c.fillStyle='rgba(200,169,110,0.06)';
   const foamTop=gy,foamBot=gy+foamH;
   const fTopW=gtop,fBotW=gtop-(gtop-gbot)*(foamH/gh);
   c.beginPath();
@@ -1689,13 +1688,13 @@ function drawGlassGuide(c,w,h){
   c.closePath();c.fill();
 
   // Foam zone border
-  c.strokeStyle='rgba(0,168,70,0.35)';c.lineWidth=1;
+  c.strokeStyle='rgba(200,169,110,0.35)';c.lineWidth=1;
   c.setLineDash([4,4]);
   c.beginPath();c.moveTo(gx-fBotW,foamBot);c.lineTo(gx+fBotW,foamBot);c.stroke();
   c.setLineDash([]);
 
   // Label
-  c.fillStyle='rgba(0,168,70,0.7)';
+  c.fillStyle='rgba(200,169,110,0.7)';
   c.font='400 20px Inter,system-ui,sans-serif';c.textAlign='left';c.letterSpacing='2px';
   c.fillText('FOAM ZONE',gx+gtop+12,foamBot-4);
 
@@ -1760,7 +1759,7 @@ async function generateStoryCard(){
   `;
 
   // Build the card content mirroring result screen
-  const pr=rec?PROD[rec.product]?.n:'Heineken Original';
+  const pr=rec?PROD[rec.product]?.n:'CERO° 8';
   const imgSrc=rec?IMGS[rec.product]:IMGS.original;
   const pills=[];
   if(ctx.neighborhood||ctx.city) pills.push('📍 '+(ctx.neighborhood||ctx.city));
@@ -1768,25 +1767,25 @@ async function generateStoryCard(){
   if(ctx.timeLabel)              pills.push('🕐 '+ctx.dayLabel+' '+ctx.timeLabel);
 
   wrapper.innerHTML=`
-    <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:#00B347;margin-bottom:.75rem;font-family:Inter,system-ui">YOUR HEINEKEN TONIGHT</div>
+    <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:#C8A96E;margin-bottom:.75rem;font-family:Inter,system-ui">TU CERO° ESTA NOCHE</div>
     <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.25rem">
-      ${pills.map(p=>`<span style="font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.28);color:#00B347;padding:3px 9px;font-family:Inter,system-ui">${p}</span>`).join('')}
+      ${pills.map(p=>`<span style="font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.28);color:#C8A96E;padding:3px 9px;font-family:Inter,system-ui">${p}</span>`).join('')}
     </div>
     <div style="position:relative;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
       <div style="position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(0,100,30,.28),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-      <img src="${imgSrc}" style="height:220px;width:auto;object-fit:contain;filter:drop-shadow(0 16px 32px rgba(0,168,70,.4));position:relative;z-index:2;margin-bottom:1rem">
-      <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:rgba(0,179,71,.85);font-family:Inter,system-ui;margin-bottom:.5rem">${pr.toUpperCase()}</div>
+      <img src="${imgSrc}" style="height:220px;width:auto;object-fit:contain;filter:drop-shadow(0 16px 32px rgba(200,169,110,.4));position:relative;z-index:2;margin-bottom:1rem">
+      <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:rgba(200,169,110,.85);font-family:Inter,system-ui;margin-bottom:.5rem">${pr.toUpperCase()}</div>
       <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.6rem,7vw,2.2rem);font-weight:300;color:#F5F2EB;line-height:1.08;margin-bottom:.65rem;font-style:italic">${rec?rec.title:'Tonight Calls for Original'}</div>
       <div style="font-size:.85rem;font-weight:300;color:rgba(245,242,235,.45);line-height:1.65;margin-bottom:.75rem;font-family:'Cormorant Garamond',Georgia,serif">${rec?rec.reason:''}</div>
       <div style="display:flex;flex-wrap:wrap;gap:.28rem;justify-content:center">
-        ${(rec&&rec.tags||[]).map(t=>`<span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,168,70,.22);color:#00B347;padding:3px 7px;font-family:Inter,system-ui">${t}</span>`).join('')}
+        ${(rec&&rec.tags||[]).map(t=>`<span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);color:#C8A96E;padding:3px 7px;font-family:Inter,system-ui">${t}</span>`).join('')}
       </div>
     </div>
     <div style="border-top:1px solid rgba(245,242,235,.08);padding-top:.75rem;margin-top:.75rem;display:flex;align-items:center;justify-content:space-between">
       <div style="display:flex;align-items:center;gap:7px">
         
       </div>
-      <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(0,179,71,.5);font-family:Inter,system-ui">BUILT BY KAIRO</span>
+      <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(200,169,110,.5);font-family:Inter,system-ui">BUILT BY KAIRO</span>
     </div>
   `;
 
@@ -1805,7 +1804,7 @@ async function generateStoryCard(){
       logging:false,
     });
     const link=document.createElement('a');
-    link.download='heineken-ritual.png';
+    link.download='cero-ritual.png';
     link.href=cv.toDataURL('image/png',0.95);
     link.click();
     toast('Story Card saved ★');
@@ -1865,7 +1864,7 @@ function drawPour(angle){
 
   // Target zone indicator
   const perfect=Math.abs(angle-45)<8;
-  const col=perfect?'rgba(0,168,70,0.9)':'rgba(196,152,48,0.7)';
+  const col=perfect?'rgba(200,169,110,0.9)':'rgba(200,169,110,0.7)';
 
   // Glass silhouette at 45°
   c.save();c.translate(w/2,h/2);c.rotate((angle-45)*Math.PI/180);
@@ -1874,7 +1873,7 @@ function drawPour(angle){
   c.beginPath();
   c.moveTo(-28,60);c.lineTo(-20,-60);c.lineTo(20,-60);c.lineTo(28,60);c.closePath();
   c.strokeStyle=col;c.lineWidth=2;c.stroke();
-  c.fillStyle=perfect?'rgba(0,168,70,0.08)':'rgba(196,152,48,0.06)';c.fill();
+  c.fillStyle=perfect?'rgba(200,169,110,0.08)':'rgba(200,169,110,0.06)';c.fill();
 
   // Rim
   c.beginPath();c.moveTo(-22,-60);c.lineTo(22,-60);c.strokeStyle=col;c.lineWidth=1.5;c.stroke();
@@ -1928,7 +1927,7 @@ startCityPulse();
       if(!u)return;
       var first=u.split(' ')[0];
       var hname=document.querySelector('.hname');
-      if(hname)hname.textContent=first+"'s Heineken Live";
+      if(hname)hname.textContent=first+"'s CERO° Live";
       var g=document.getElementById('user-greeting');
       if(g){g.textContent='Welcome, '+first;g.style.display='block';}
       var ht=document.querySelector('.h-title');
@@ -1962,7 +1961,7 @@ window.addEventListener("load",()=>{
 
   <!-- Step 1: form -->
   <div id="rsm-s1" class="rsm-body">
-    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Save this ritual.</h2>
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Guardá este ritual.</h2>
     <div class="rsm-div"></div>
     <p style="font-size:.52rem;color:rgba(245,242,235,.35);font-family:Inter,system-ui,sans-serif;margin-bottom:1.2rem;letter-spacing:1.5px;text-transform:uppercase">Two details to complete the moment</p>
 
@@ -1972,7 +1971,7 @@ window.addEventListener("load",()=>{
     <label class="rsm-lbl">With</label>
     <input id="sf-w" class="rsm-inp" placeholder="Friends, partner, solo...">
 
-    <button class="rsm-btn" onclick="rsmSave()">★ &nbsp;Save Ritual</button>
+    <button class="rsm-btn" onclick="rsmSave()">° &nbsp;Guardar Ritual</button>
     <button onclick="rsmClose()" style="display:block;width:100%;margin-top:.7rem;background:none;border:none;color:rgba(245,242,235,.22);font-size:.4rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:Inter,system-ui,sans-serif;padding:.3rem;transition:color 180ms" onmouseover="this.style.color='rgba(245,242,235,.5)'" onmouseout="this.style.color='rgba(245,242,235,.22)'">Cancel</button>
   </div>
 
@@ -1980,7 +1979,7 @@ window.addEventListener("load",()=>{
   <div id="rsm-s2" class="rsm-body" style="display:none">
     <div class="rsm-star">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="12,2 14.9,8.6 22,9.3 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9.3 9.1,8.6" fill="#00A846"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="18" font-family="Georgia,serif" fill="#C8A96E">°</text>
       </svg>
     </div>
     <h2 id="rsm-t" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Ritual saved.</h2>
