@@ -846,9 +846,38 @@ function rsmSave(){
     </div>
   </section>
 
-  <!-- S2: 4 PILLARS -->
-  <section class="l-section" id="ls1">
-    <div class="l-kicker">The Ecosystem</div>
+  <!-- S2: COMERCIAL — emoción antes que racional -->
+  <section class="l-section" id="ls-film" style="padding:0;background:#000;min-height:100svh;justify-content:center;scroll-snap-align:start">
+    <div class="film-wrap">
+      <div class="film-kicker">The Film</div>
+      <div class="film-video-container">
+        <video
+          id="cero-film"
+          src="CERO.mp4"
+          playsinline
+          preload="metadata"
+          style="width:100%;height:100%;object-fit:cover;display:block"
+        ></video>
+        <div class="film-play-overlay" id="film-play-overlay" onclick="toggleFilm()">
+          <div class="film-play-btn" id="film-play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <polygon points="5,3 19,12 5,21" fill="#C8A96E"/>
+            </svg>
+          </div>
+        </div>
+        <div class="film-progress-wrap" id="film-progress-wrap">
+          <div class="film-progress-bar" id="film-progress-bar"></div>
+        </div>
+      </div>
+      <div class="film-meta">
+        <span class="film-title">CERO° Live</span>
+        <span class="film-dur" id="film-dur">0:35</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: 4 PILLARS -->
+  <section class="l-section" id="ls1">    <div class="l-kicker">The Ecosystem</div>
     <h2 class="l-title">Four pillars.<br>One complete ritual.</h2>
     <p class="l-sub" style="margin-bottom:0">Every bottle activates a unique, contextual, unrepeatable experience.</p>
     <div class="pillars-grid">
@@ -879,7 +908,7 @@ function rsmSave(){
     </div>
   </section>
 
-  <!-- S3: FLOW -->
+  <!-- S4: FLOW -->
   <section class="l-section" id="ls2">
     <div class="l-kicker">The Experience Flow</div>
     <h2 class="l-title">From the bottle<br>to the complete ritual.</h2>
@@ -919,39 +948,6 @@ function rsmSave(){
           <div class="fstep-desc">Downloadable Story Card, 30-min playlist. Three rituals completed = voucher for your next pack.</div>
           <span class="fstep-badge">First-party data · Retention</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- S4: COMERCIAL -->
-  <section class="l-section" id="ls-film" style="padding:0;background:#000;min-height:100svh;justify-content:center;scroll-snap-align:start">
-    <div class="film-wrap">
-      <div class="film-kicker">The Film</div>
-      <div class="film-video-container">
-        <video
-          id="cero-film"
-          src="CERO.mp4"
-          playsinline
-          preload="metadata"
-          poster=""
-          style="width:100%;height:100%;object-fit:cover;display:block"
-        ></video>
-        <!-- Play button overlay -->
-        <div class="film-play-overlay" id="film-play-overlay" onclick="toggleFilm()">
-          <div class="film-play-btn" id="film-play-btn">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <polygon points="5,3 19,12 5,21" fill="#C8A96E"/>
-            </svg>
-          </div>
-        </div>
-        <!-- Progress bar -->
-        <div class="film-progress-wrap" id="film-progress-wrap">
-          <div class="film-progress-bar" id="film-progress-bar"></div>
-        </div>
-      </div>
-      <div class="film-meta">
-        <span class="film-title">CERO° Live</span>
-        <span class="film-dur" id="film-dur">0:35</span>
       </div>
     </div>
   </section>
