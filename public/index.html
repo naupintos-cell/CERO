@@ -5,19 +5,14 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>CERO° Live × Kairo</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path fill='%23C8A96E' d='M24 6a15 15 0 1 0 10.6 25.6A12 12 0 1 1 24 6z'/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='32' font-family='Georgia,serif' fill='%23C8A96E'>°</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* FIX 1: --green es COBRE, no verde. Verde solo existe como --hover-green en hover states */
   --black:#08080A;--green:#8B5E2A;--bright:#C8A96E;--cream:#E8E4DC;
   --dim:rgba(232,228,220,0.55);--ghost:rgba(232,228,220,0.08);--line:rgba(232,228,220,0.09);
   --glow:rgba(200,169,110,0.2);--glow2:rgba(200,169,110,0.42);
   --copper:#A06830;--gold:#C8A96E;--HDR:52px;--NAV:54px;
-  /* FIX 1: --red definido correctamente para .btn-story */
-  --red:#8B5E2A;
-  /* FIX 1: hover cobre oscuro, NO verde */
-  --hover-copper:#A06830;
   --inter:'Inter',system-ui,sans-serif;
   --serif:'Cormorant Garamond',Georgia,serif;
 }
@@ -73,8 +68,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 
 /* ── LOADER ── */
 #pg-ld{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem}
-/* FIX 4: animación para la luna */
-.ld-moon{animation:sp 1.5s ease-in-out infinite}
+.ld-star{animation:sp 1.5s ease-in-out infinite}
 @keyframes sp{0%,100%{filter:drop-shadow(0 0 8px rgba(200,169,110,.4))}50%{filter:drop-shadow(0 0 24px rgba(200,169,110,.9))}}
 .ld-line{width:100px;height:1px;background:rgba(240,237,229,.08);position:relative;overflow:hidden}
 .ld-line::after{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;background:linear-gradient(90deg,transparent,var(--bright),transparent);animation:sc .9s ease-in-out infinite}
@@ -93,10 +87,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .h-cta{display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:2;animation:fu .9s .3s both}
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-/* FIX 1: btn-main hover → cobre oscuro, NO verde */
 .btn-main{background:var(--green);color:#ffffff;padding:.85rem 2.5rem;font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;transition:background 200ms,transform 150ms ease,box-shadow 200ms}
 .btn-main:active{transform:scale(.98)}
-@media(hover:hover){.btn-main:hover{background:var(--hover-copper);transform:translateY(-1px);box-shadow:0 8px 28px rgba(139,94,42,.35)}}
+@media(hover:hover){.btn-main:hover{background:#00A846;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,168,70,.35)}}
 .btn-text{font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim);padding:.4rem;transition:color 200ms}
 .btn-text:hover{color:var(--cream)}
 
@@ -186,10 +179,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .opt-lb{font-size:.88rem;font-weight:500;color:var(--cream);letter-spacing:.2px}
 .opt-sl{font-size:.45rem;letter-spacing:1px;color:var(--dim);margin-top:1px;text-transform:uppercase}
 
-/* FIX 1: btn-nxt hover → cobre oscuro */
 .btn-nxt{background:var(--green);color:#ffffff;padding:.72rem 1.75rem;font-size:.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:1px;transition:background 180ms,transform 150ms ease,box-shadow 180ms;float:right}
 .btn-nxt:active{transform:scale(.98)}
-@media(hover:hover){.btn-nxt:hover{background:var(--hover-copper);transform:translateY(-1px);box-shadow:0 6px 20px rgba(139,94,42,.3)}}
+@media(hover:hover){.btn-nxt:hover{background:#00A846;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,70,.3)}}
 
 /* ── AI ── */
 #pg-ai{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem}
@@ -216,11 +208,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .rt{font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);color:var(--bright);padding:3px 7px}
 
 .res-acts{display:flex;flex-direction:column;gap:.35rem;animation:fu .5s .4s both}
-
-/* FIX 1: btn-save hover → cobre oscuro */
 .btn-save{background:var(--green);color:var(--cream);padding:.78rem;font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;border-radius:1px;text-align:center;transition:background 180ms,transform 150ms ease}
 .btn-save:active{transform:scale(.98)}
-@media(hover:hover){.btn-save:hover{background:var(--hover-copper);transform:translateY(-1px)}}
+@media(hover:hover){.btn-save:hover{background:#00A846;transform:translateY(-1px)}}
 .btn-alt{text-align:center;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim);padding:.42rem;border:1px solid var(--line);transition:color 180ms,border-color 180ms}
 .btn-alt:hover{color:var(--cream);border-color:rgba(240,237,229,.18)}
 .sf{display:none;margin-top:.55rem;border:1px solid var(--line);padding:.85rem;animation:fu .3s ease both}
@@ -273,7 +263,6 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 
 
 /* ── STORY CARD ── */
-/* FIX 1: btn-story usa --red que ahora está definido en :root */
 .btn-story{
   background:var(--red);color:var(--cream);padding:.78rem;
   font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:400;
@@ -281,8 +270,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   transition:background 180ms,transform 150ms ease;
   display:flex;align-items:center;justify-content:center;gap:.5rem;
 }
-/* FIX 1: hover cobre, no verde */
-@media(hover:hover){.btn-story:hover{background:var(--hover-copper);transform:translateY(-1px)}}
+.btn-story:hover{background:#e02020;transform:translateY(-1px)}
 .btn-story:active{transform:scale(.98)}
 .btn-spotify{
   background:rgba(30,215,96,0.12);color:#1ED760;
@@ -334,7 +322,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   position:absolute;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  transform:scaleX(-1);
+  transform:scaleX(-1);/* mirror front cam */
 }
 #pour-canvas-overlay{
   position:absolute;inset:0;
@@ -450,6 +438,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 }
 #landing.exit{opacity:0;pointer-events:none;transform:scale(1.02)}
 
+/* mesh animated background */
 #landing-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:morph 12s ease-in-out infinite}
 .mesh-orb:nth-child(1){width:600px;height:600px;background:rgba(100,60,20,0.13);top:-10%;left:-15%;animation-delay:0s}
@@ -465,12 +454,14 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   scroll-snap-align:start;
 }
 
+/* hero */
 .lh-kicker{font-size:.52rem;letter-spacing:6px;text-transform:uppercase;color:var(--bright);margin-bottom:1.25rem;font-family:Inter,system-ui,sans-serif;font-weight:500;display:flex;align-items:center;gap:.6rem}
 .lh-kicker::before,.lh-kicker::after{content:'';flex:1;height:1px;background:rgba(200,169,110,.2);max-width:44px}
 .lh-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.4rem,7vw,4.5rem);font-weight:300;line-height:1.06;color:var(--cream);margin-bottom:1.25rem;max-width:580px}
 .lh-title strong{color:var(--bright);font-weight:400;font-style:normal}
 .lh-sub{font-size:.88rem;font-weight:300;color:var(--dim);line-height:1.75;max-width:320px;margin:0 auto 2rem;font-family:Inter,system-ui,sans-serif}
 
+/* NFC animation */
 .nfc-wrap{position:relative;margin:0 auto 1.5rem;width:130px;height:130px;display:grid;place-items:center}
 .nfc-ring{position:absolute;border-radius:50%;border:1px solid;animation:nfc-pulse 2.2s ease-out infinite}
 .nfc-ring:nth-child(1){width:130px;height:130px;border-color:rgba(200,169,110,.35);animation-delay:0s}
@@ -480,9 +471,11 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .nfc-core{width:54px;height:54px;border-radius:50%;background:rgba(139,94,42,.2);border:1px solid rgba(200,169,110,.4);display:grid;place-items:center;z-index:2;position:relative}
 .nfc-icon{font-size:1.3rem}
 
+/* scroll hint */
 .scroll-hint{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:rgba(232,228,220,.2);display:flex;flex-direction:column;align-items:center;gap:.4rem;font-family:Inter,system-ui,sans-serif;animation:hint 2s ease-in-out infinite}
 @keyframes hint{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(6px);opacity:.8}}
 
+/* 4 pillars */
 .pillars-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%;max-width:480px;margin-top:2rem}
 .pillar{background:rgba(245,242,235,0.04);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(245,242,235,0.08);padding:1.2rem 1rem;text-align:left;transition:border-color 220ms,background 220ms,transform 220ms}
 .pillar:hover{border-color:rgba(200,169,110,.3);background:rgba(100,60,10,.06);transform:translateY(-2px)}
@@ -491,6 +484,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .pillar-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:.28rem;line-height:1.2}
 .pillar-desc{font-size:.66rem;color:var(--dim);line-height:1.55;font-family:Inter,system-ui,sans-serif;font-weight:300}
 
+/* flow steps */
 .flow-steps{display:flex;flex-direction:column;width:100%;max-width:420px;margin-top:2rem}
 .fstep{display:grid;grid-template-columns:44px 1fr;gap:.85rem;padding:.85rem 0;border-bottom:1px solid rgba(245,242,235,.06)}
 .fstep:last-child{border-bottom:none}
@@ -504,6 +498,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .fstep-desc{font-size:.68rem;color:var(--dim);line-height:1.5;font-family:Inter,system-ui,sans-serif;font-weight:300}
 .fstep-badge{display:inline-block;margin-top:.3rem;font-size:.4rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.2);color:var(--bright);padding:2px 6px;font-family:Inter,system-ui,sans-serif}
 
+/* final CTA */
 .fcta-sec{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1.5rem;text-align:center;scroll-snap-align:start}
 .fcta-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,6vw,3.8rem);font-weight:300;color:var(--cream);line-height:1.06;margin-bottom:1rem}
 .fcta-title em{font-style:italic;color:var(--bright)}
@@ -513,7 +508,6 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
 .fstat-v{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.4rem;font-weight:300;color:var(--cream)}
 .fstat-l{font-size:.38rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-family:Inter,system-ui,sans-serif;margin-top:2px}
 
-/* FIX 1: btn-launch hover → cobre oscuro */
 .btn-launch{
   background:var(--green);color:#fff;
   padding:1rem 3rem;
@@ -523,13 +517,15 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   transition:background 200ms,transform 150ms ease,box-shadow 200ms;
 }
 .btn-launch:active{transform:scale(.98)}
-@media(hover:hover){.btn-launch:hover{background:var(--hover-copper);transform:translateY(-2px);box-shadow:0 10px 32px rgba(139,94,42,.4)}}
+@media(hover:hover){.btn-launch:hover{background:#00A846;transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,168,70,.4)}}
 .fcta-note{margin-top:.85rem;font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,242,235,.18);font-family:Inter,system-ui,sans-serif}
 
+/* scroll dots */
 .scroll-dots{position:fixed;right:.85rem;top:50%;transform:translateY(-50%);z-index:700;display:flex;flex-direction:column;gap:7px;pointer-events:none}
 .sdot{width:4px;height:4px;border-radius:50%;background:rgba(245,242,235,.18);transition:background 280ms,transform 280ms}
 .sdot.on{background:var(--bright);transform:scale(1.5)}
 
+/* section headings */
 .l-kicker{font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--bright);margin-bottom:.7rem;font-family:Inter,system-ui,sans-serif;font-weight:500}
 .l-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:300;color:var(--cream);margin-bottom:.5rem}
 .l-sub{font-size:.78rem;color:var(--dim);line-height:1.65;max-width:300px;margin:0 auto;font-family:Inter,system-ui,sans-serif}
@@ -542,13 +538,6 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   padding:4px 14px;z-index:600;pointer-events:none;
   white-space:nowrap;
 }
-
-/* ══════════════════════════════════════
-   FIX 2 — DIALOG CENTRADO
-   Eliminar position/top/left/transform custom.
-   Usar position:fixed + inset:0 + margin:auto.
-   Funciona en Safari, Chrome mobile y desktop.
-══════════════════════════════════════ */
 dialog#rsm-dialog{
   background:rgba(2,10,2,.98);
   border:1px solid rgba(200,169,110,.15);
@@ -559,19 +548,17 @@ dialog#rsm-dialog{
   color:#F5F2EB;
   text-align:center;
   overflow:hidden;
-  /* FIX 2: centrado correcto cross-browser */
-  position:fixed;
-  inset:0;
   margin:auto;
-  height:fit-content;
-  max-height:90vh;
-  overflow-y:auto;
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
 }
 dialog#rsm-dialog::backdrop{
   background:rgba(0,0,0,.88);
   backdrop-filter:blur(4px);
   -webkit-backdrop-filter:blur(4px);
 }
+/* Modal brand bar */
 .rsm-brand-bar{
   background:var(--green);
   padding:.55rem 0 .5rem;
@@ -579,12 +566,15 @@ dialog#rsm-dialog::backdrop{
   border-bottom:1px solid rgba(200,169,110,.18);
 }
 .rsm-brand-bar svg{ width:90px; height:auto; display:block; }
+/* Modal body */
 .rsm-body{ padding:1.6rem 1.5rem 1.4rem; }
+/* Modal star */
 .rsm-star{
   width:36px;height:36px;margin:0 auto .75rem;
   display:flex;align-items:center;justify-content:center;
 }
 .rsm-star svg{ width:28px;height:28px; }
+/* Divider line */
 .rsm-div{
   width:32px;height:1px;background:rgba(200,169,110,.3);
   margin:.65rem auto .9rem;
@@ -615,7 +605,6 @@ dialog#rsm-dialog::backdrop{
   color:rgba(245,242,235,.28);font-family:Inter,system-ui,sans-serif;
   margin-bottom:.2rem;text-align:left;
 }
-/* FIX 1: rsm-btn hover → cobre oscuro */
 .rsm-btn{
   width:100%;
   background:var(--green);
@@ -632,7 +621,7 @@ dialog#rsm-dialog::backdrop{
   margin-top:.2rem;
   transition:background 180ms;
 }
-@media(hover:hover){.rsm-btn:hover{background:var(--hover-copper)}}
+@media(hover:hover){.rsm-btn:hover{background:#00A846}}
 .rsm-dot{
   width:46px;height:46px;border-radius:50%;
   border:1px solid rgba(200,169,110,.25);
@@ -641,6 +630,7 @@ dialog#rsm-dialog::backdrop{
   transition:all 400ms;
 }
 .rsm-dot.on{background:rgba(139,94,42,.3);border-color:#C8A96E;}
+/* Progress bar in modal */
 .rsm-progress{
   height:2px;background:rgba(245,242,235,.07);
   border-radius:1px;margin-bottom:1.25rem;overflow:hidden;
@@ -648,91 +638,6 @@ dialog#rsm-dialog::backdrop{
 .rsm-progress-fill{
   height:100%;background:var(--bright);
   transition:width 600ms ease;
-}
-
-/* ════════════════════════════════════════
-   FILM SECTION
-════════════════════════════════════════ */
-.film-wrap{
-  width:100%;max-width:640px;
-  display:flex;flex-direction:column;
-  align-items:center;
-  padding:3rem 1.5rem;
-  gap:1rem;
-}
-.film-kicker{
-  font-size:.5rem;letter-spacing:5px;text-transform:uppercase;
-  color:var(--bright);font-family:Inter,system-ui,sans-serif;font-weight:500;
-  display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;
-}
-.film-kicker::before,.film-kicker::after{
-  content:'';flex:1;height:1px;
-  background:rgba(200,169,110,.2);max-width:44px;
-}
-.film-video-container{
-  width:100%;
-  aspect-ratio:16/9;
-  position:relative;
-  background:#000;
-  overflow:hidden;
-  /* borde cobre sutil */
-  box-shadow:0 0 0 1px rgba(200,169,110,.12),
-             0 24px 80px rgba(0,0,0,.8);
-}
-/* Play overlay — visible hasta que empiece */
-.film-play-overlay{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(8,8,10,.45);
-  cursor:pointer;
-  transition:background 300ms,opacity 300ms;
-  z-index:3;
-}
-.film-play-overlay.hidden{
-  opacity:0;pointer-events:none;
-}
-.film-play-btn{
-  width:64px;height:64px;border-radius:50%;
-  border:1px solid rgba(200,169,110,.5);
-  background:rgba(8,8,10,.6);
-  display:grid;place-items:center;
-  transition:transform 200ms,border-color 200ms,background 200ms;
-  backdrop-filter:blur(8px);
-}
-.film-play-overlay:hover .film-play-btn{
-  transform:scale(1.08);
-  border-color:var(--bright);
-  background:rgba(139,94,42,.25);
-}
-/* Pause icon (cuando está playing) */
-.film-play-btn.playing svg polygon{
-  /* se reemplaza por JS */
-}
-/* Progress bar — bottom del video */
-.film-progress-wrap{
-  position:absolute;bottom:0;left:0;right:0;
-  height:2px;background:rgba(245,242,235,.08);
-  z-index:4;cursor:pointer;
-}
-.film-progress-bar{
-  height:100%;width:0%;
-  background:var(--bright);
-  transition:width 250ms linear;
-}
-/* Meta row */
-.film-meta{
-  width:100%;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2px;
-}
-.film-title{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:1rem;font-weight:300;
-  color:var(--cream);letter-spacing:2px;
-}
-.film-dur{
-  font-size:.44rem;letter-spacing:3px;text-transform:uppercase;
-  color:var(--dim);font-family:Inter,system-ui,sans-serif;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -743,6 +648,9 @@ const REWARD_SUB='/img/sub.png';
 const REWARD_KEG='/img/keg.png';
 const IMGS={original:'/img/original.png',silver:'/img/silver.png',zero:'/img/zero.png'};
 const PROD={original:{n:'CERO° 8',color:'#C8A96E'},silver:{n:'CERO° 0',color:'#A8B8C4'},zero:{n:'CERO° 16',color:'#A06830'}};
+
+
+
 
 
 /* ── SAVE RITUAL DIALOG ── */
@@ -772,16 +680,17 @@ function rsmSave(){
       with_:document.getElementById('sf-w')?.value||''
     });
     if(rits.length>12)rits.pop();
-    localStorage.setItem('hk',JSON.stringify(rits));
+    localStorage.setItem('cero',JSON.stringify(rits));
   }
   updN();
   document.getElementById('rsm-s1').style.display='none';
   document.getElementById('rsm-s2').style.display='block';
   const n=rits.length,k=Math.min(n,3);
+  // Update progress bar
   const pf=document.getElementById('rsm-pfill');
   if(pf)pf.style.width=(k/3*100)+'%';
   const T={1:'First ritual.<br><em style="color:#C8A96E">Two to go.</em>',2:'Second ritual.<br><em style="color:#C8A96E">One more.</em>',3:'Third ritual.<br><em style="color:#C8A96E;font-style:italic">Reward unlocked.</em>'};
-  const S={1:'Dos rituales más para desbloquear tu beneficio CERO°.',2:'Un ritual más y conseguís entradas para tu próximo show.',3:'Elegí tu beneficio — entradas o CERO° para tu grupo.'};
+  const S={1:'Two more rituals to unlock your CERO° reward.',2:'One more ritual and tickets for your next show are yours.',3:'Choose your reward — tickets or CERO° for your group.'};
   document.getElementById('rsm-t').innerHTML=T[k]||'Ritual saved.';
   document.getElementById('rsm-s').textContent=S[k]||'';
   document.getElementById('rsm-p').textContent=n+' / 3 rituals completed';
@@ -798,30 +707,30 @@ function rsmSave(){
 
 <!-- ════ LANDING — PHYGITAL PITCH ════ -->
 <div id="landing">
+  <!-- Animated background -->
   <div id="landing-bg">
     <div class="mesh-orb"></div>
     <div class="mesh-orb"></div>
     <div class="mesh-orb"></div>
   </div>
 
+  <!-- Scroll position dots -->
   <div class="scroll-dots" id="sdots">
     <div class="sdot on"></div>
     <div class="sdot"></div>
     <div class="sdot"></div>
     <div class="sdot"></div>
-    <div class="sdot"></div>
   </div>
 
-  <!-- S1: HERO PITCH -->
+  <!-- ── S1: HERO PITCH ── -->
   <section class="l-section" id="ls0">
     <div class="lh-kicker">CERO° Live × Kairo</div>
 
     <div id="user-greeting" style="display:none;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-family:Inter,system-ui,sans-serif;color:#C8A96E;background:rgba(139,94,42,.12);border:1px solid rgba(200,169,110,.18);padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem"></div>
 
     <div style="margin-bottom:1.25rem">
-      <!-- FIX 4: Media luna SVG — identidad CERO° -->
       <svg width="48" height="48" viewBox="0 0 48 48" style="display:block;margin:0 auto">
-        <path fill="#C8A96E" d="M24 6a18 18 0 1 0 12.73 30.73A14 14 0 1 1 24 6z"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="36" font-family="Georgia,serif" fill="#C8A96E">°</text>
       </svg>
     </div>
 
@@ -846,46 +755,78 @@ function rsmSave(){
     </div>
   </section>
 
-  <!-- S2: COMERCIAL — emoción antes que racional -->
-  <section class="l-section" id="ls-film" style="padding:0;background:#000;min-height:100svh;justify-content:center;scroll-snap-align:start">
-    <div class="film-wrap">
-      <div class="film-kicker">The Film</div>
-      <div class="film-video-container">
+  <!-- ── FILM SECTION ── -->
+  <section id="ls-film" style="position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;background:#000;scroll-snap-align:start">
+    <div style="width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;padding:3rem 1.5rem;gap:1rem">
+
+      <div style="font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--bright);font-family:Inter,system-ui,sans-serif;font-weight:500;display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+        <span style="flex:1;height:1px;background:rgba(200,169,110,.2);max-width:44px;display:block"></span>
+        The Film
+        <span style="flex:1;height:1px;background:rgba(200,169,110,.2);max-width:44px;display:block"></span>
+      </div>
+
+      <!-- VIDEO CONTAINER -->
+      <div id="film-video-container" style="width:100%;aspect-ratio:16/9;position:relative;background:#08080A;overflow:hidden;box-shadow:0 0 0 1px rgba(200,169,110,.12),0 24px 80px rgba(0,0,0,.8)">
+
         <video
           id="cero-film"
           src="CERO.mp4"
+          poster="CERO-thumb.jpg"
           playsinline
           preload="metadata"
           style="width:100%;height:100%;object-fit:cover;display:block"
         ></video>
-        <div class="film-play-overlay" id="film-play-overlay" onclick="toggleFilm()">
-          <div class="film-play-btn" id="film-play-btn">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <polygon points="5,3 19,12 5,21" fill="#C8A96E"/>
+
+        <!-- THUMBNAIL OVERLAY — visible hasta que empiece -->
+        <div id="film-play-overlay" onclick="toggleFilm()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,8,10,.55);cursor:pointer;transition:background 300ms,opacity 300ms;z-index:3;gap:1rem">
+
+          <!-- Bottle silhouette como thumbnail hint -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+            <svg width="60" height="120" viewBox="0 0 60 120" fill="none" opacity=".08">
+              <path d="M22 0h16v18c6 3 12 10 12 22v68c0 6-4 12-10 12H20C14 120 10 114 10 108V40c0-12 6-19 12-22V0z" fill="#C8A96E"/>
             </svg>
           </div>
+
+          <!-- Kicker -->
+          <div style="font-size:.44rem;letter-spacing:5px;text-transform:uppercase;color:rgba(200,169,110,.7);font-family:Inter,system-ui,sans-serif;position:relative;z-index:2">CERO° LIVE · 0:35</div>
+
+          <!-- Play button -->
+          <div id="film-play-btn" style="width:72px;height:72px;border-radius:50%;border:1px solid rgba(200,169,110,.5);background:rgba(8,8,10,.7);display:grid;place-items:center;transition:transform 200ms,border-color 200ms,background 200ms;backdrop-filter:blur(8px);position:relative;z-index:2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <polygon points="6,3 20,12 6,21" fill="#C8A96E"/>
+            </svg>
+          </div>
+
+          <!-- Tagline bajo el botón -->
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem;font-weight:300;color:rgba(232,228,220,.5);font-style:italic;position:relative;z-index:2">The show starts before the first sip.</div>
         </div>
-        <div class="film-progress-wrap" id="film-progress-wrap">
-          <div class="film-progress-bar" id="film-progress-bar"></div>
+
+        <!-- PROGRESS BAR -->
+        <div id="film-progress-wrap" style="position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(245,242,235,.08);z-index:4;cursor:pointer" onclick="scrubFilm(event)">
+          <div id="film-progress-bar" style="height:100%;width:0%;background:var(--bright);transition:width 250ms linear"></div>
         </div>
       </div>
-      <div class="film-meta">
-        <span class="film-title">CERO° Live</span>
-        <span class="film-dur" id="film-dur">0:35</span>
+
+      <!-- META ROW -->
+      <div style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2px">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem;font-weight:300;color:var(--cream);letter-spacing:2px">CERO° Live</span>
+        <span id="film-dur" style="font-size:.44rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim);font-family:Inter,system-ui,sans-serif">0:35</span>
       </div>
+
     </div>
   </section>
 
-  <!-- S3: 4 PILLARS -->
-  <section class="l-section" id="ls1">    <div class="l-kicker">The Ecosystem</div>
+  <!-- ── S2: 4 PILLARS ── -->
+  <section class="l-section" id="ls1">
+    <div class="l-kicker">The Ecosystem</div>
     <h2 class="l-title">Four pillars.<br>One complete ritual.</h2>
-    <p class="l-sub" style="margin-bottom:0">Every bottle activates a unique, contextual, unrepeatable experience.</p>
+    <p class="l-sub" style="margin-bottom:0">Every wristband tap activates a unique, contextual, unrepeatable experience.</p>
     <div class="pillars-grid">
       <div class="pillar">
         <div class="pillar-num">01</div>
         <span class="pillar-icon">◈</span>
         <div class="pillar-name">Digital Ownership</div>
-        <div class="pillar-desc">Every ritual is a unique coordinate on the global map. Your consumption becomes a digital asset.</div>
+        <div class="pillar-desc">Every ritual is a unique coordinate. Your consumption becomes your own data.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
@@ -908,7 +849,7 @@ function rsmSave(){
     </div>
   </section>
 
-  <!-- S4: FLOW -->
+  <!-- ── S3: FLOW ── -->
   <section class="l-section" id="ls2">
     <div class="l-kicker">The Experience Flow</div>
     <h2 class="l-title">From the bottle<br>to the complete ritual.</h2>
@@ -918,7 +859,7 @@ function rsmSave(){
         <div class="fstep-r">
           <div class="fstep-tag">Touch</div>
           <div class="fstep-name">NFC Activation</div>
-          <div class="fstep-desc">The chip on the bottle opens the experience with zero downloads. Zero friction.</div>
+          <div class="fstep-desc">The NFC wristband opens the experience with zero downloads. Zero friction.</div>
           <span class="fstep-badge">Zero friction</span>
         </div>
       </div>
@@ -936,7 +877,7 @@ function rsmSave(){
         <div class="fstep-r">
           <div class="fstep-tag">Experience</div>
           <div class="fstep-name">Real Context + AI</div>
-          <div class="fstep-desc">Geo, weather and moment auto-detected. Just two questions. AI recommends tu CERO° ideal.</div>
+          <div class="fstep-desc">Geo, weather and moment auto-detected. Just two questions. AI recommends your ideal CERO°.</div>
           <span class="fstep-badge">Claude AI · Open-Meteo</span>
         </div>
       </div>
@@ -944,15 +885,15 @@ function rsmSave(){
         <div class="fstep-l"><div class="fstep-num">04</div><div class="fstep-conn"></div></div>
         <div class="fstep-r">
           <div class="fstep-tag">Reward</div>
-          <div class="fstep-name">Tu CERO° + Beneficio</div>
-          <div class="fstep-desc">Downloadable Story Card, 30-min playlist. Three rituals completed = voucher for your next pack.</div>
+          <div class="fstep-name">Tu CERO° + Reward</div>
+          <div class="fstep-desc">Downloadable Story Card, 30-min playlist. Three rituals = tickets for your next show.</div>
           <span class="fstep-badge">First-party data · Retention</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- S5: FINAL CTA -->
+  <!-- ── S4: FINAL CTA ── -->
   <section class="fcta-sec" id="ls3">
     <div class="l-kicker">Live Demo</div>
     <h2 class="fcta-title">
@@ -961,12 +902,12 @@ function rsmSave(){
     </h2>
     <p class="fcta-sub">Real geolocation, live weather, generative AI, active camera. One single HTML file.</p>
     <div class="fcta-stats">
-      <div class="fstat"><div class="fstat-v">+34%</div><div class="fstat-l">Portfolio Discovery</div></div>
+      <div class="fstat"><div class="fstat-v">+34%</div><div class="fstat-l">Rituals descubiertos</div></div>
       <div class="fstat"><div class="fstat-v">1:1</div><div class="fstat-l">First Party Data</div></div>
       <div class="fstat"><div class="fstat-v">0</div><div class="fstat-l">Downloads needed</div></div>
     </div>
     <button class="btn-launch" onclick="launchExperience()">Live the Experience</button>
-    <div class="fcta-note">Built by KAIRO · kairoinc.lat</div>
+    <div class="fcta-note">Developed Built by KAIRO · kairoinc.lat</div>
   </section>
 </div><!-- END LANDING -->
 
@@ -974,13 +915,12 @@ function rsmSave(){
 <canvas id="cv"></canvas>
 <div id="dot"></div><div id="ring"></div>
 <div id="toast"></div>
-<div id="credit"><a href="https://kairoinc.lat" target="_blank">Built by KAIRO</a></div>
+<div id="credit"><a href="https://kairoinc.lat" target="_blank">Developed Built by KAIRO</a></div>
 
 <header id="hdr" class="off">
   <div class="hlogo">
     <div class="hstar">
-      <!-- Media luna en header también -->
-      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path fill="#C8A96E" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
     </div>
@@ -991,7 +931,8 @@ function rsmSave(){
   <div class="hpill">Rituals <span class="hn" id="rn">0</span></div>
 </header>
 
-  <!-- POUR GUIDE OVERLAY -->
+
+  <!-- POUR GUIDE OVERLAY (gyro only, kept) -->
   <div id="pour-overlay">
     <div class="pour-title">The Perfect Pour</div>
     <div class="pour-sub">Tilt your phone to find the ideal angle</div>
@@ -1004,9 +945,7 @@ function rsmSave(){
   <div id="pour-ai">
     <video id="pour-video" autoplay playsinline muted></video>
     <canvas id="pour-canvas-overlay"></canvas>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2;padding-bottom:200px">
-      <img id="pour-glass-ghost" style="height:55vh;max-height:420px;width:auto;opacity:0.18;mix-blend-mode:screen" alt="">
-    </div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2;padding-bottom:200px"><img id="pour-glass-ghost" style="height:55vh;max-height:420px;width:auto;opacity:0.18;mix-blend-mode:screen" alt=""></div>
     <div class="pour-top-bar">
       <span class="pour-top-title">⬡ Pouring AI — CERO° Standard</span>
       <button class="btn-pour-close" onclick="closePourAI()">✕ Close</button>
@@ -1030,12 +969,9 @@ function rsmSave(){
 
   <!-- LOADER -->
   <div class="pg on" id="pg-ld">
-    <!-- FIX 4: Media luna SVG real, NO degree symbol -->
-    <svg class="ld-moon" width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#C8A96E" d="M24 4a20 20 0 1 0 14.14 34.14A15.5 15.5 0 1 1 24 4z"/>
-    </svg>
+    <svg class="ld-star" width="40" height="40" viewBox="0 0 40 40"><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="28" font-family="Georgia,serif" fill="#C8A96E">°</text></svg>
     <div class="ld-line"></div>
-    <div class="ld-txt">Iniciando tu ritual</div>
+    <div class="ld-txt">Starting your ritual</div>
   </div>
 
   <!-- HERO -->
@@ -1080,8 +1016,10 @@ function rsmSave(){
   <div class="pg" id="pg-ctx">
     <div class="body">
       <div class="wrap">
+
+        <!-- Detected context card -->
         <div class="ctx-card">
-          <div class="ctx-label">Context Detected</div>
+          <div class="ctx-label">Context detected</div>
           <div class="ctx-headline" id="ctx-headline"></div>
           <div class="ctx-data">
             <div class="cd"><div class="cd-icon" id="cd-loc-ic">📍</div><div class="cd-val" id="cd-loc">—</div><div class="cd-lbl">Location</div></div>
@@ -1091,6 +1029,7 @@ function rsmSave(){
           <div class="ctx-note" id="ctx-note"></div>
         </div>
 
+        <!-- Q1: Who -->
         <div class="ctx-q">
           <div class="q-n">One thing we can't detect —</div>
           <div class="q-t">Who's with you?</div>
@@ -1118,6 +1057,7 @@ function rsmSave(){
           </div>
         </div>
 
+        <!-- Q2: Vibe -->
         <div class="ctx-q">
           <div class="q-n">And the energy —</div>
           <div class="q-t">What's the vibe?</div>
@@ -1162,7 +1102,7 @@ function rsmSave(){
   <div class="pg" id="pg-res">
     <div class="body">
       <div class="wrap">
-        <div class="res-label">Tu CERO° Esta Noche</div>
+        <div class="res-label">Your CERO° Tonight</div>
         <div class="res-ctx-mini" id="res-ctx-mini"></div>
 
         <div class="res-hero">
@@ -1178,7 +1118,7 @@ function rsmSave(){
           <button class="btn-save" onclick="openSaveModal()">★ Save This Ritual</button>
           <button class="btn-alt" onclick="startScan()">Try Again</button>
           <button class="btn-story" onclick="generateStoryCard()">↓ Save Story Card</button>
-          <button class="btn-story" style="background:rgba(139,94,42,0.15);color:#C8A96E;border:1px solid rgba(200,169,110,0.25)" onclick="openPourAI()">⬡ Pouring AI — Perfect Serve</button>
+          <button class="btn-story" style="background:rgba(196,152,48,0.15);color:#C8942A;border:1px solid rgba(196,152,42,0.25)" onclick="openPourAI()">⬡ Pouring AI — Perfect Pour</button>
           <button class="btn-spotify" onclick="openSpotify()">♫ Get Spotify Playlist</button>
         </div>
         <div class="sf" id="sf">
@@ -1190,9 +1130,9 @@ function rsmSave(){
         </div>
 
         <div class="biz-strip">
-          <div class="bi"><div class="bi-v">+34%</div><div class="bi-l">Portfolio Discovery</div></div>
+          <div class="bi"><div class="bi-v">+34%</div><div class="bi-l">Rituals descubiertos</div></div>
           <div class="bi"><div class="bi-v">1:1</div><div class="bi-l">First Party Data</div></div>
-          <div class="bi"><div class="bi-v">∞</div><div class="bi-l">Repeat Engagement</div></div>
+          <div class="bi"><div class="bi-v">∞</div><div class="bi-l">Show to Show Retention</div></div>
         </div>
       </div>
     </div>
@@ -1223,7 +1163,7 @@ function rsmSave(){
           <div class="cs"><div class="cs-v">Social</div><div class="cs-l">City Mood</div></div>
         </div>
         <div class="nbs" id="nbs"></div>
-        <div class="cnote"><p>Live City Mode turns anonymous ritual data into real-time cultural intelligence — lo que CERO° Live conoce en tiempo real, barrio por barrio.</p></div>
+        <div class="cnote"><p>City Mode turns anonymous ritual data into real-time cultural intelligence — what CERO° Live knows, neighborhood by neighborhood.</p></div>
       </div>
     </div>
   </div>
@@ -1252,7 +1192,8 @@ function rsmSave(){
 let ans=[null,null];
 let ctx={neighborhood:"",city:"",country:"",temp:"",weather:"",timeLabel:"",dayLabel:"",lat:null,lon:null};
 let rec=null;
-let rits=JSON.parse(localStorage.getItem("hk")||"[]");
+let rits=JSON.parse(localStorage.getItem("cero")||"[]");
+
 
 
 /* ════════════════════════════════════════
@@ -1265,6 +1206,7 @@ function launchExperience(){
   setTimeout(()=>startRitual(),400);
 }
 
+// Scroll indicator update
 (function(){
   const landing=document.getElementById('landing');
   const sections=document.querySelectorAll('.l-section,.fcta-section');
@@ -1288,6 +1230,7 @@ function launchExperience(){
   },{passive:true});
 })();
 
+// Pillar hover tilt (desktop)
 document.querySelectorAll('.pillar').forEach(p=>{
   p.addEventListener('mousemove',e=>{
     const r=p.getBoundingClientRect();
@@ -1299,15 +1242,20 @@ document.querySelectorAll('.pillar').forEach(p=>{
 });
 
 /* ═══════════════════════════════════════
-   RITUAL FLOW
+   RITUAL FLOW ORCHESTRATION
+   Hero → Pour AI → Geo Scan → Questions → Result
 ═══════════════════════════════════════ */
 function startRitual(){
+  // Reset state
   ans=[null,null];
   document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  
+  // Step 1: Pour AI
   openPourAI(afterPour);
 }
 
 function afterPour(){
+  // Step 2: Geo scan → Questions
   startScan();
 }
 
@@ -1327,7 +1275,7 @@ function go(id){
   document.getElementById("pg-"+id)?.querySelector(".body")?.scrollTo(0,0);
 }
 
-/* ── WEATHER CODES ── */
+/* ── WEATHER CODES → description ── */
 function weatherDesc(code){
   if(code===0)return{label:"Clear Sky",icon:"✨"};
   if(code<=3)return{label:"Partly Cloudy",icon:"⛅"};
@@ -1366,6 +1314,7 @@ function getTimeCtx(){
 async function startScan(){
   ans=[null,null];
   document.querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));
+  
   go("scan");
 
   const step=i=>document.getElementById("ss"+i);
@@ -1381,6 +1330,7 @@ async function startScan(){
   };
   const setActive=i=>{step(i).classList.add("active")};
 
+  // Step 0: Geolocation
   setActive(0);
   let lat=null,lon=null,neighborhood="Unknown",city="City",country="";
 
@@ -1407,6 +1357,7 @@ async function startScan(){
   setDone(0,locDisplay);
   await delay(300);
 
+  // Step 1: Weather
   setActive(1);
   let temp="—",weatherLabel="",weatherIcon="🌡";
   if(lat!==null){
@@ -1420,7 +1371,8 @@ async function startScan(){
       }
     }catch{}
   } else {
-    temp="22°C";weatherLabel="Clear Sky";weatherIcon="✨";
+    // Fallback demo data
+    temp="22ndC";weatherLabel="Clear Sky";weatherIcon="✨";
     neighborhood="Palermo";city="Buenos Aires";country="AR";
     ctx.neighborhood=neighborhood;ctx.city=city;ctx.country=country;
   }
@@ -1428,6 +1380,7 @@ async function startScan(){
   setDone(1,`${temp} · ${weatherLabel}`);
   await delay(300);
 
+  // Step 2: Time analysis
   setActive(2);
   await delay(600);
   const tc=getTimeCtx();
@@ -1435,6 +1388,7 @@ async function startScan(){
   setDone(2,tc.timeStr);
   await delay(500);
 
+  // Build context card & go
   buildCtxCard();
   go("ctx");
 }
@@ -1446,16 +1400,18 @@ function buildCtxCard(){
   const city=ctx.city;
   const loc=nb?`${nb}${city?", "+city:""}`:(city||"Your location");
 
+  // Dynamic headline
   const greetings={
-    "Night":`It's ${ctx.dayLabel} night in ${loc}`,
-    "Evening":`${ctx.dayLabel} evening in ${loc}`,
-    "Afternoon":`${ctx.dayLabel} afternoon in ${loc}`,
-    "Morning":`${ctx.dayLabel} morning in ${loc}`,
-    "Noon":`Noon on ${ctx.dayLabel} in ${loc}`,
+    "Night":`It's ${ctx.dayLabel} in ${loc}`,
+    "Evening":`${ctx.dayLabel} in ${loc}`,
+    "Afternoon":`${ctx.dayLabel} in ${loc}`,
+    "Morning":`${ctx.dayLabel} in ${loc}`,
+    "Noon":`Mediodía del ${ctx.dayLabel} in ${loc}`,
     "Late Night":`Late night in ${loc}`
   };
   const headline=greetings[ctx.timeLabel]||`Right now in ${loc}`;
 
+  // Temp vibe
   const tempNum=parseInt(ctx.temp)||22;
   let tempVibe="";
   if(tempNum>=28)tempVibe="Hot night ahead.";
@@ -1539,6 +1495,7 @@ function renderRes(){
   document.getElementById("res-copy").textContent=rec.reason;
   document.getElementById("res-tags").innerHTML=(rec.tags||[]).map(t=>`<span class="rt">${t}</span>`).join("");
 
+  // Mini context tags
   const mini=[];
   if(ctx.neighborhood||ctx.city)mini.push("📍 "+(ctx.neighborhood||ctx.city));
   if(ctx.temp)mini.push("🌡 "+ctx.temp);
@@ -1550,7 +1507,7 @@ function renderRes(){
 function openSF(){
   const p=PROD[rec.product]||PROD.original;
   rits.unshift({ts:Date.now(),date:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}),product:p.n,pk:rec.product,title:rec.title,where:ctx.neighborhood||ctx.city||"",who:ans[0],vibe:ans[1],temp:ctx.temp,weather:ctx.weather,place:document.getElementById("sf-p").value,with_:document.getElementById("sf-w").value});
-  localStorage.setItem("hk",JSON.stringify(rits));
+  localStorage.setItem("cero",JSON.stringify(rits));
   updN();
   document.getElementById("sf-p").value="";document.getElementById("sf-w").value="";
   toast("Ritual saved");
@@ -1561,14 +1518,14 @@ updN();
 /* ── RITUALS ── */
 function renderRit(){
   const g=document.getElementById("rg"),ins=document.getElementById("ins");
-  if(!rits.length){g.innerHTML=`<div class="empty"><p>No rituals yet.<br>Find your first moment.</p><button class="btn-main" onclick="startScan()">Find Yours</button></div>`;ins.style.display="none";return}
+  if(!rits.length){g.innerHTML=`<div class="empty"><p>No rituals yet.<br>Find your first moment.</p><button class="btn-main" onclick="startScan()">Find Mine</button></div>`;ins.style.display="none";return}
   g.innerHTML=rits.map(r=>`<div class="rc"><div class="rc-dt">${r.date}</div><div class="rc-pr">${r.product}</div><div class="rc-ti">${r.title}</div><div class="rc-mt">${[r.where,r.who,r.temp].filter(Boolean).join(" · ")}</div></div>`).join("");
   if(rits.length>=2){
     const cnt={};rits.forEach(r=>{cnt[r.pk]=(cnt[r.pk]||0)+1});
     const fav=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
     const vs=rits.map(r=>r.vibe).filter(Boolean);
     const tv=vs.sort((a,b)=>vs.filter(v=>v===b).length-vs.filter(v=>v===a).length)[0];
-    const vm={Relaxed:"slow moments",Wild:"wild nights",Celebrating:"celebrations",Balanced:"balanced days",Curious:"curious evenings"};
+    const vm={Relaxed:"momentos tranquilos",Wild:"noches salvajes",Celebrating:"celebrations",Balanced:"balanced days",Curious:"curious evenings"};
     document.getElementById("ins-p").textContent=`You consistently reach for ${PROD[fav[0]].n}${tv?", especially during "+(vm[tv]||tv.toLowerCase()):""}. That pattern says something.`;
     ins.style.display="block";
   }else{ins.style.display="none"}
@@ -1596,8 +1553,10 @@ window.addEventListener("deviceorientation",e=>{tx=(e.beta||0)/14;ty=(e.gamma||0
 (function a(){cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;img&&(img.style.transform=`rotate3d(1,0,0,${cx}deg) rotate3d(0,1,0,${cy}deg)`);requestAnimationFrame(a)})()})();
 
 
+
+
 /* ═══════════════════════════════════════
-   SPOTIFY PLAYLIST
+   SPOTIFY PLAYLIST — Simulated by vibe
 ═══════════════════════════════════════ */
 const PLAYLISTS={
   Celebrating:{name:"Loud Nights",tracks:[{icon:"🎉",t:"Blinding Lights",a:"The Weeknd",d:"3:20"},{icon:"⚡",t:"Levitating",a:"Dua Lipa",d:"3:23"},{icon:"🔊",t:"As It Was",a:"Harry Styles",d:"2:37"}]},
@@ -1620,15 +1579,13 @@ function openSpotify(){
 let paiStream=null,paiRAF=null,paiCtx=null,paiCanvas=null,paiVideo=null;
 let _pourCallback=null;
 
-async function openPourAI(onComplete){
-  _pourCallback=onComplete||null;
+async function openPourAI(onComplete){_pourCallback=onComplete||null;
   const overlay=document.getElementById('pour-ai');
   paiVideo=document.getElementById('pour-video');
   paiCanvas=document.getElementById('pour-canvas-overlay');
-  overlay.classList.add('on');
-  const gg=document.getElementById('pour-glass-ghost');
-  if(gg)gg.src=GLASS_IMG||'';
+  overlay.classList.add('on');const gg=document.getElementById('pour-glass-ghost');if(gg)gg.src=GLASS_IMG||'';
 
+  // Request camera
   try{
     paiStream=await navigator.mediaDevices.getUserMedia({
       video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}},
@@ -1641,6 +1598,7 @@ async function openPourAI(onComplete){
     paiCtx=paiCanvas.getContext('2d',{willReadFrequently:true});
     paiLoop();
   }catch(e){
+    // Fallback: skip straight to questions
     document.getElementById('pai-msg').textContent='Camera unavailable';
     document.getElementById('pai-sub').textContent='Skipping to next step...';
     setTimeout(()=>{continuePour();},1200);
@@ -1672,19 +1630,25 @@ function paiLoop(){
   paiCanvas.width=window.innerWidth;paiCanvas.height=window.innerHeight;
   paiCtx.clearRect(0,0,paiCanvas.width,paiCanvas.height);
 
+  // Draw glass guide overlay
   drawGlassGuide(paiCtx,paiCanvas.width,paiCanvas.height);
 
+  // Sample a hidden canvas for pixel analysis
   const sample=document.createElement('canvas');
   sample.width=vw;sample.height=vh;
   const sc=sample.getContext('2d',{willReadFrequently:true});
   sc.drawImage(paiVideo,0,0,vw,vh);
 
+  // Analyse vertical strip in center (glass zone)
   const stripX=Math.floor(vw*0.4);
   const stripW=Math.floor(vw*0.2);
   const imgData=sc.getImageData(stripX,0,stripW,vh);
   const px=imgData.data;
 
-  let foamRows=0,beerRows=0;
+  // Scan from TOP: find first non-dark row (glass content starts)
+  // Then scan for foam (bright/white) vs beer (warm amber)
+  let foamRows=0,beerRows=0,totalRows=0;
+  const rowResults=[];
 
   for(let y=0;y<vh;y++){
     let rSum=0,gSum=0,bSum=0,cnt=0;
@@ -1694,18 +1658,25 @@ function paiLoop(){
     }
     const r=rSum/cnt,g=gSum/cnt,b=bSum/cnt;
     const brightness=(r+g+b)/3;
-    const warmth=r-b;
+    const warmth=r-b; // positive = warm/amber = beer
+    const isLight=brightness>140;
     const isWarm=warmth>25&&brightness>60&&brightness<220;
     const isFoam=brightness>190&&Math.abs(r-g)<35&&Math.abs(g-b)<35;
-    if(isFoam)foamRows++;
-    else if(isWarm)beerRows++;
+
+    if(brightness>50){totalRows++;}
+    if(isFoam){foamRows++;rowResults.push('foam')}
+    else if(isWarm){beerRows++;rowResults.push('beer')}
+    else rowResults.push('other');
   }
 
+  // Calculate foam ratio (foam / (foam+beer))
   const contentRows=foamRows+beerRows;
   const rawRatio=contentRows>20?foamRows/contentRows:0;
+  // Smooth
   paiSmooth+=(rawRatio-paiSmooth)*0.15;
   const foamPct=Math.min(1,paiSmooth);
 
+  // CERO° standard: 2 fingers ≈ 15-25% foam head
   updatePourUI(foamPct,foamRows,beerRows);
 }
 
@@ -1724,7 +1695,7 @@ function updatePourUI(foamPct,foamRows,beerRows){
   } else if(foamPct<0.05){
     pct=15;color='#C8A96E';
     message='Keep pouring...';
-    subMsg='No foam detected yet — tilt the glass at 45°';
+    subMsg='No foam yet — tilt the glass at 45°';
   } else if(foamPct<0.12){
     pct=40;color='#C8942A';
     message='Getting there...';
@@ -1747,14 +1718,17 @@ function updatePourUI(foamPct,foamRows,beerRows){
   msg.textContent=message;
   msg.style.color=foamPct>=0.12&&foamPct<=0.28?'var(--bright)':foamPct>0.4?'#A06830':'var(--cream)';
   sub.textContent=subMsg;
+  // Unlock Continue button when foam is perfect
   const btn=document.getElementById('pai-continue');
   if(btn){btn.style.opacity=foamPct>=0.08?'1':'0.4'}
 }
 
 function drawGlassGuide(c,w,h){
+  // Glass silhouette guide in center
   const gx=w/2,gy=h*0.15,gh=h*0.6,gw=w*0.32;
   const gtop=gw*0.55,gbot=gw*0.48;
 
+  // Glass outline
   c.save();
   c.strokeStyle='rgba(245,242,235,0.18)';c.lineWidth=1.5;
   c.setLineDash([6,6]);
@@ -1764,6 +1738,7 @@ function drawGlassGuide(c,w,h){
   c.stroke();
   c.setLineDash([]);
 
+  // "2 finger" foam zone — top 20% of glass
   const foamH=gh*0.22;
   c.fillStyle='rgba(200,169,110,0.06)';
   const foamTop=gy,foamBot=gy+foamH;
@@ -1773,21 +1748,28 @@ function drawGlassGuide(c,w,h){
   c.lineTo(gx+fBotW,foamBot);c.lineTo(gx+fTopW,foamTop);
   c.closePath();c.fill();
 
+  // Foam zone border
   c.strokeStyle='rgba(200,169,110,0.35)';c.lineWidth=1;
   c.setLineDash([4,4]);
   c.beginPath();c.moveTo(gx-fBotW,foamBot);c.lineTo(gx+fBotW,foamBot);c.stroke();
   c.setLineDash([]);
 
+  // Label
   c.fillStyle='rgba(200,169,110,0.7)';
-  c.font='400 20px Inter,system-ui,sans-serif';c.textAlign='left';
+  c.font='400 20px Inter,system-ui,sans-serif';c.textAlign='left';c.letterSpacing='2px';
   c.fillText('FOAM ZONE',gx+gtop+12,foamBot-4);
 
+  c.textAlign='left';
   c.fillStyle='rgba(245,242,235,0.25)';
-  c.font='300 18px Inter,system-ui,sans-serif';
+  c.font='300 18px Inter,system-ui,sans-serif';c.letterSpacing='1px';
   c.fillText('2 FINGER',gx+gtop+12,foamTop+24);
 
+  // Corner brackets
   const bk=20;
-  [[gx-gtop,gy,1,1],[gx+gtop,gy,-1,1],[gx-gbot,gy+gh,1,-1],[gx+gbot,gy+gh,-1,-1]].forEach(([bx,by,sx,sy])=>{
+  [
+    [gx-gtop,gy,1,1],[gx+gtop,gy,-1,1],
+    [gx-gbot,gy+gh,1,-1],[gx+gbot,gy+gh,-1,-1]
+  ].forEach(([bx,by,sx,sy])=>{
     c.strokeStyle='rgba(245,242,235,0.45)';c.lineWidth=2;
     c.beginPath();c.moveTo(bx+sx*bk,by);c.lineTo(bx,by);c.lineTo(bx,by+sy*bk);c.stroke();
   });
@@ -1796,102 +1778,91 @@ function drawGlassGuide(c,w,h){
 }
 
 /* ═══════════════════════════════════════
-   FIX 3 — STORY CARD
-   Cambios clave:
-   1. wrapper fuera de pantalla con left:-9999px en vez de opacity:0
-   2. opacity:1 para que html2canvas lo renderice
-   3. backgroundColor correcto en options
-   4. Espera 800ms para carga de imágenes
-   5. crossOrigin en img tags
+   STORY CARD — Canvas 1080×1920
 ═══════════════════════════════════════ */
 async function generateStoryCard(){
   toast('Generating card...');
 
+  // Target the result page content
   const target=document.getElementById('pg-res');
   if(!target){toast('No result to capture');return}
 
-  const imgSrc=rec?IMGS[rec.product]:IMGS.original;
+  // Temporarily make it full-viewport for capture
+  const prev={
+    pos:target.style.position,
+    top:target.style.top,
+    left:target.style.left,
+    width:target.style.width,
+    height:target.style.height,
+    zIndex:target.style.zIndex,
+    overflow:target.style.overflow,
+    bg:target.style.background,
+  };
+
+  // Clone approach: capture the .body inner div
+  const body=target.querySelector('.body');
+  const inner=target.querySelector('.wrap');
+  if(!inner){toast('Nothing to capture');return}
+
+  // Create a styled wrapper for capture
+  const wrapper=document.createElement('div');
+  wrapper.style.cssText=`
+    position:fixed;top:0;left:0;
+    width:390px;height:844px;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,60,20,0.22),#020802 65%);
+    overflow:hidden;
+    z-index:-1;opacity:0;
+    font-family:'Cormorant Garamond',Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+    padding:2rem 1.5rem;
+    display:flex;flex-direction:column;
+    box-sizing:border-box;
+  `;
+
+  // Build the card content mirroring result screen
   const pr=rec?PROD[rec.product]?.n:'CERO° 8';
+  const imgSrc=rec?IMGS[rec.product]:IMGS.original;
   const pills=[];
   if(ctx.neighborhood||ctx.city) pills.push('📍 '+(ctx.neighborhood||ctx.city));
   if(ctx.temp)                   pills.push('🌡 '+ctx.temp);
   if(ctx.timeLabel)              pills.push('🕐 '+ctx.dayLabel+' '+ctx.timeLabel);
 
-  // FIX 3: wrapper FUERA de pantalla pero VISIBLE (no opacity:0)
-  const wrapper=document.createElement('div');
-  wrapper.style.cssText=`
-    position:fixed;
-    top:0;
-    left:-9999px;
-    width:390px;
-    height:844px;
-    background:#08080A;
-    overflow:hidden;
-    z-index:99999;
-    opacity:1;
-    font-family:'Cormorant Garamond',Georgia,serif;
-    -webkit-font-smoothing:antialiased;
-    padding:2rem 1.5rem;
-    display:flex;
-    flex-direction:column;
-    box-sizing:border-box;
-  `;
-
-  // FIX 3: img tag con crossOrigin para evitar taint
   wrapper.innerHTML=`
-    <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:#C8A96E;margin-bottom:.75rem;font-family:Inter,system-ui,sans-serif">TU CERO° ESTA NOCHE</div>
+    <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:#C8A96E;margin-bottom:.75rem;font-family:Inter,system-ui">YOUR CERO° TONIGHT</div>
     <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.25rem">
-      ${pills.map(p=>`<span style="font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.28);color:#C8A96E;padding:3px 9px;font-family:Inter,system-ui,sans-serif">${p}</span>`).join('')}
+      ${pills.map(p=>`<span style="font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.28);color:#C8A96E;padding:3px 9px;font-family:Inter,system-ui">${p}</span>`).join('')}
     </div>
     <div style="position:relative;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
-      <div style="position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(139,94,42,.28),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-      <img crossorigin="anonymous" src="${imgSrc}" style="height:220px;width:auto;object-fit:contain;filter:drop-shadow(0 16px 32px rgba(200,169,110,.4));position:relative;z-index:2;margin-bottom:1rem">
-      <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:rgba(200,169,110,.85);font-family:Inter,system-ui,sans-serif;margin-bottom:.5rem">${pr.toUpperCase()}</div>
-      <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:300;color:#F5F2EB;line-height:1.08;margin-bottom:.65rem;font-style:italic">${rec?rec.title:'Tonight Calls for Original'}</div>
-      <div style="font-size:.85rem;font-weight:300;color:rgba(245,242,235,.55);line-height:1.65;margin-bottom:.75rem;font-family:'Cormorant Garamond',Georgia,serif;max-width:300px">${rec?rec.reason:''}</div>
+      <div style="position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(0,100,30,.28),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <img src="${imgSrc}" style="height:220px;width:auto;object-fit:contain;filter:drop-shadow(0 16px 32px rgba(200,169,110,.4));position:relative;z-index:2;margin-bottom:1rem">
+      <div style="font-size:.42rem;letter-spacing:5px;text-transform:uppercase;color:rgba(200,169,110,.85);font-family:Inter,system-ui;margin-bottom:.5rem">${pr.toUpperCase()}</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.6rem,7vw,2.2rem);font-weight:300;color:#F5F2EB;line-height:1.08;margin-bottom:.65rem;font-style:italic">${rec?rec.title:'Tonight Calls for Original'}</div>
+      <div style="font-size:.85rem;font-weight:300;color:rgba(245,242,235,.45);line-height:1.65;margin-bottom:.75rem;font-family:'Cormorant Garamond',Georgia,serif">${rec?rec.reason:''}</div>
       <div style="display:flex;flex-wrap:wrap;gap:.28rem;justify-content:center">
-        ${(rec&&rec.tags||[]).map(t=>`<span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);color:#C8A96E;padding:3px 7px;font-family:Inter,system-ui,sans-serif">${t}</span>`).join('')}
+        ${(rec&&rec.tags||[]).map(t=>`<span style="font-size:.38rem;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);color:#C8A96E;padding:3px 7px;font-family:Inter,system-ui">${t}</span>`).join('')}
       </div>
     </div>
     <div style="border-top:1px solid rgba(245,242,235,.08);padding-top:.75rem;margin-top:.75rem;display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:8px">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#C8A96E" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <span style="font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:#C8A96E;font-family:Inter,system-ui,sans-serif;font-weight:600">CERO° LIVE</span>
+      <div style="display:flex;align-items:center;gap:7px">
+        
       </div>
-      <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(200,169,110,.4);font-family:Inter,system-ui,sans-serif">BUILT BY KAIRO</span>
+      <span style="font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(200,169,110,.5);font-family:Inter,system-ui">BUILT BY KAIRO</span>
     </div>
   `;
 
   document.body.appendChild(wrapper);
+  // Brief wait for images to load
+  await new Promise(r=>setTimeout(r,600));
 
-  // FIX 3: esperar que la imagen cargue realmente
-  const cardImg=wrapper.querySelector('img');
-  await new Promise(resolve=>{
-    if(cardImg.complete&&cardImg.naturalHeight!==0){resolve();return}
-    cardImg.onload=resolve;
-    cardImg.onerror=resolve;
-    setTimeout(resolve,2000);// fallback máximo
-  });
-
-  // Pausa adicional para renderizado
-  await new Promise(r=>setTimeout(r,200));
-
+  // Capture with html2canvas at 2x for retina
   try{
     const cv=await html2canvas(wrapper,{
-      scale:2.5,
+      scale:2.75,
       useCORS:true,
-      allowTaint:false,
-      // FIX 3: backgroundColor explícito, nunca transparente
-      backgroundColor:'#08080A',
-      width:390,
-      height:844,
+      allowTaint:true,
+      backgroundColor:'#020802',
+      width:390,height:844,
       logging:false,
-      imageTimeout:3000,
-      onclone:(doc)=>{
-        // Asegurar que el fondo se mantenga en el clone
-        const cloned=doc.body.querySelector('div[style*="left:-9999px"]');
-        if(cloned)cloned.style.background='#08080A';
-      }
     });
     const link=document.createElement('a');
     link.download='cero-ritual.png';
@@ -1899,7 +1870,7 @@ async function generateStoryCard(){
     link.click();
     toast('Story Card saved ★');
   }catch(e){
-    console.error('html2canvas error:',e);
+    console.error(e);
     toast('Error generating card');
   }finally{
     document.body.removeChild(wrapper);
@@ -1915,6 +1886,7 @@ function openPour(){
   const ov=document.getElementById('pour-overlay');
   ov.classList.add('on');pourActive=true;
   drawPour(0);
+  // Request permission on iOS
   if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
     DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')startPourListener()}).catch(()=>{});
   } else{startPourListener()}
@@ -1929,7 +1901,8 @@ function closePour(){
 function startPourListener(){window.addEventListener('deviceorientation',handlePour)}
 
 function handlePour(e){
-  const beta=e.beta||0;
+  const beta=e.beta||0;// -180 to 180, 0 = flat, 90 = upright
+  // Perfect pour angle ≈ 45°
   const angle=Math.abs(beta);
   drawPour(angle);
   const status=document.getElementById('pour-status');
@@ -1944,44 +1917,58 @@ function drawPour(angle){
   if(!cv)return;
   const c=cv.getContext('2d'),w=260,h=320;
   c.clearRect(0,0,w,h);
-  c.fillStyle='rgba(240,237,229,0.04)';
-  c.fillRect(0,0,w,h);
 
+  // Background
+  c.fillStyle='rgba(240,237,229,0.04)';
+  c.roundRect?c.roundRect(0,0,w,h,8):c.fillRect(0,0,w,h);
+  c.fill();
+
+  // Target zone indicator
   const perfect=Math.abs(angle-45)<8;
   const col=perfect?'rgba(200,169,110,0.9)':'rgba(200,169,110,0.7)';
 
+  // Glass silhouette at 45°
   c.save();c.translate(w/2,h/2);c.rotate((angle-45)*Math.PI/180);
+
+  // Glass body
   c.beginPath();
   c.moveTo(-28,60);c.lineTo(-20,-60);c.lineTo(20,-60);c.lineTo(28,60);c.closePath();
   c.strokeStyle=col;c.lineWidth=2;c.stroke();
   c.fillStyle=perfect?'rgba(200,169,110,0.08)':'rgba(200,169,110,0.06)';c.fill();
-  c.beginPath();c.moveTo(-22,-60);c.lineTo(22,-60);c.strokeStyle=col;c.lineWidth=1.5;c.stroke();
-  c.restore();
 
-  c.save();c.translate(w/2,h/2);
+  // Rim
+  c.beginPath();c.moveTo(-22,-60);c.lineTo(22,-60);c.strokeStyle=col;c.lineWidth=1.5;c.stroke();
+
+  // Target line (45°)
+  c.restore();
+  c.save();c.translate(w/2,h/2);c.rotate(0);
   c.setLineDash([4,4]);c.strokeStyle='rgba(240,237,229,0.15)';c.lineWidth=1;
   c.beginPath();c.moveTo(-50,0);c.lineTo(50,0);c.stroke();
   c.setLineDash([]);c.restore();
 
+  // Angle readout
   c.fillStyle=col;c.font='300 14px Georgia';c.textAlign='center';
   c.fillText(Math.round(angle)+'°  (target: 45°)',w/2,h-14);
 
+  // Progress arc
   const norm=Math.max(0,1-Math.abs(angle-45)/45);
   c.beginPath();c.arc(w/2,h-30,8,0,Math.PI*2*norm);
   c.strokeStyle=col;c.lineWidth=2;c.stroke();
 }
 
 /* ═══════════════════════════════════════
-   CITY LIVE PULSE
+   CITY LIVE PULSE — every 5s
 ═══════════════════════════════════════ */
 let liveCount=1847;
 function startCityPulse(){
   setInterval(()=>{
     if(!document.getElementById('pg-city').classList.contains('on'))return;
+    // Nudge counter
     liveCount+=Math.floor(Math.random()*7)-3;
     liveCount=Math.max(1400,Math.min(2400,liveCount));
     const el=document.getElementById('live-counter');
     if(el)el.textContent=liveCount.toLocaleString();
+    // Pulse bars
     document.querySelectorAll('.nb2-fill').forEach(bar=>{
       const curr=parseInt(bar.style.width)||50;
       const next=Math.max(25,Math.min(96,curr+(Math.random()*10-5)));
@@ -1992,7 +1979,7 @@ function startCityPulse(){
 startCityPulse();
 
 /* ═══════════════════════════════════════
-   URL PERSONALIZATION
+   URL PERSONALIZATION — ?user=Name
 ═══════════════════════════════════════ */
 (function(){
   function applyUser(){
@@ -2020,91 +2007,99 @@ startCityPulse();
    FILM PLAYER
 ════════════════════════════════════════ */
 (function(){
-  const video=document.getElementById('cero-film');
-  const overlay=document.getElementById('film-play-overlay');
-  const playBtn=document.getElementById('film-play-btn');
-  const progressBar=document.getElementById('film-progress-bar');
-  const progressWrap=document.getElementById('film-progress-wrap');
-  const durEl=document.getElementById('film-dur');
-  if(!video)return;
+  const video = document.getElementById('cero-film');
+  const overlay = document.getElementById('film-play-overlay');
+  const playBtn = document.getElementById('film-play-btn');
+  const progressBar = document.getElementById('film-progress-bar');
+  const durEl = document.getElementById('film-dur');
+  if(!video) return;
 
   function fmt(s){
-    const m=Math.floor(s/60),sec=Math.floor(s%60);
-    return m+':'+(sec<10?'0':'')+sec;
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + (sec<10?'0':'') + sec;
   }
 
-  // Update duration once metadata loads
-  video.addEventListener('loadedmetadata',()=>{
-    if(video.duration&&isFinite(video.duration))
-      durEl.textContent=fmt(video.duration);
+  video.addEventListener('loadedmetadata', ()=>{
+    if(video.duration && isFinite(video.duration))
+      durEl.textContent = fmt(video.duration);
   });
 
-  // Progress update
-  video.addEventListener('timeupdate',()=>{
-    if(!video.duration)return;
-    const pct=(video.currentTime/video.duration)*100;
-    progressBar.style.width=pct+'%';
-    durEl.textContent=fmt(video.currentTime)+' / '+fmt(video.duration);
+  video.addEventListener('timeupdate', ()=>{
+    if(!video.duration) return;
+    progressBar.style.width = (video.currentTime/video.duration*100) + '%';
+    durEl.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
   });
 
-  // Ended — reset
-  video.addEventListener('ended',()=>{
-    overlay.classList.remove('hidden');
-    playBtn.classList.remove('playing');
-    playBtn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#C8A96E"/></svg>';
-    progressBar.style.width='0%';
-    video.currentTime=0;
+  video.addEventListener('ended', ()=>{
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
+    playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
+    progressBar.style.width = '0%';
+    video.currentTime = 0;
   });
 
-  // Scrub on progress bar click
-  progressWrap.addEventListener('click',e=>{
-    if(!video.duration)return;
-    const rect=progressWrap.getBoundingClientRect();
-    const pct=(e.clientX-rect.left)/rect.width;
-    video.currentTime=pct*video.duration;
+  // Hover effect on play button
+  overlay.addEventListener('mouseenter', ()=>{
+    playBtn.style.transform = 'scale(1.08)';
+    playBtn.style.borderColor = 'var(--bright)';
+    playBtn.style.background = 'rgba(139,94,42,.35)';
+  });
+  overlay.addEventListener('mouseleave', ()=>{
+    playBtn.style.transform = '';
+    playBtn.style.borderColor = 'rgba(200,169,110,.5)';
+    playBtn.style.background = 'rgba(8,8,10,.7)';
   });
 
-  // Intersection Observer — autoplay when 60% visible, pause when leaving
-  const observer=new IntersectionObserver(entries=>{
+  // Autoplay on scroll into view
+  const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
-      if(entry.intersectionRatio>=0.6&&video.paused){
+      if(entry.intersectionRatio >= 0.6 && video.paused){
         video.play().then(()=>{
-          overlay.classList.add('hidden');
-          playBtn.classList.add('playing');
-          playBtn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
+          overlay.style.opacity = '0';
+          overlay.style.pointerEvents = 'none';
+          playBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
         }).catch(()=>{});
-      } else if(entry.intersectionRatio<0.3&&!video.paused){
+      } else if(entry.intersectionRatio < 0.3 && !video.paused){
         video.pause();
-        overlay.classList.remove('hidden');
-        playBtn.classList.remove('playing');
-        playBtn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#C8A96E"/></svg>';
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
+        playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
       }
     });
-  },{threshold:[0.3,0.6]});
+  }, {threshold:[0.3, 0.6]});
   observer.observe(video);
 })();
 
 function toggleFilm(){
-  const video=document.getElementById('cero-film');
-  const overlay=document.getElementById('film-play-overlay');
-  const playBtn=document.getElementById('film-play-btn');
-  if(!video)return;
+  const video = document.getElementById('cero-film');
+  const overlay = document.getElementById('film-play-overlay');
+  const playBtn = document.getElementById('film-play-btn');
+  if(!video) return;
   if(video.paused){
     video.play().then(()=>{
-      overlay.classList.add('hidden');
-      playBtn.classList.add('playing');
-      playBtn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      playBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
     }).catch(()=>{});
   } else {
     video.pause();
-    overlay.classList.remove('hidden');
-    playBtn.classList.remove('playing');
-    playBtn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#C8A96E"/></svg>';
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
+    playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
   }
+}
+
+function scrubFilm(e){
+  const video = document.getElementById('cero-film');
+  const wrap = document.getElementById('film-progress-wrap');
+  if(!video || !video.duration) return;
+  const rect = wrap.getBoundingClientRect();
+  video.currentTime = ((e.clientX - rect.left) / rect.width) * video.duration;
 }
 
 /* ── INIT ── */
 window.addEventListener("load",()=>{
+  // Give loader time to show, then transition to hero
   setTimeout(()=>{
     const ld=document.getElementById('pg-ld');
     if(ld){ld.style.transition='opacity 400ms ease';ld.style.opacity='0';}
@@ -2114,16 +2109,14 @@ window.addEventListener("load",()=>{
 </script>
 
 <dialog id="rsm-dialog">
+  <!-- Brand bar top -->
   <div class="rsm-brand-bar">
-    <!-- Media luna + CERO° LIVE en la barra del modal -->
-    <svg width="100" height="28" viewBox="0 0 100 28" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#C8A96E" d="M14 4a10 10 0 1 0 7.07 17.07A7.5 7.5 0 1 1 14 4z"/>
-      <text x="30" y="19" font-family="Georgia,serif" font-size="13" font-weight="300" letter-spacing="2" fill="#C8A96E">CERO° LIVE</text>
-    </svg>
+    
   </div>
 
+  <!-- Step 1: form -->
   <div id="rsm-s1" class="rsm-body">
-    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Guardá este ritual.</h2>
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Save this ritual.</h2>
     <div class="rsm-div"></div>
     <p style="font-size:.52rem;color:rgba(245,242,235,.35);font-family:Inter,system-ui,sans-serif;margin-bottom:1.2rem;letter-spacing:1.5px;text-transform:uppercase">Two details to complete the moment</p>
 
@@ -2133,14 +2126,15 @@ window.addEventListener("load",()=>{
     <label class="rsm-lbl">With</label>
     <input id="sf-w" class="rsm-inp" placeholder="Friends, partner, solo...">
 
-    <button class="rsm-btn" onclick="rsmSave()">° &nbsp;Guardar Ritual</button>
+    <button class="rsm-btn" onclick="rsmSave()">° &nbsp;Save Ritual</button>
     <button onclick="rsmClose()" style="display:block;width:100%;margin-top:.7rem;background:none;border:none;color:rgba(245,242,235,.22);font-size:.4rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:Inter,system-ui,sans-serif;padding:.3rem;transition:color 180ms" onmouseover="this.style.color='rgba(245,242,235,.5)'" onmouseout="this.style.color='rgba(245,242,235,.22)'">Cancel</button>
   </div>
 
+  <!-- Step 2: progress -->
   <div id="rsm-s2" class="rsm-body" style="display:none">
     <div class="rsm-star">
-      <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#C8A96E" d="M14 2a12 12 0 1 0 8.49 20.49A9 9 0 1 1 14 2z"/>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="18" font-family="Georgia,serif" fill="#C8A96E">°</text>
       </svg>
     </div>
     <h2 id="rsm-t" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-weight:300;line-height:1.08;margin-bottom:.2rem;color:#F5F2EB">Ritual saved.</h2>
