@@ -214,7 +214,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   top:32%;left:50%;
   transform:translate(-50%,-50%);
   pointer-events:none;
-  filter:blur(8px);
+  filter:blur(60px);
   z-index:0;
 }
 .res-bottle{height:clamp(160px,27vh,230px);display:flex;align-items:flex-end;justify-content:center;position:relative;z-index:2;margin-bottom:1rem;animation:br .65s .05s ease both}
@@ -680,7 +680,7 @@ dialog#rsm-dialog::backdrop{
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   opacity:0;pointer-events:none;
   transition:opacity 380ms ease;
-  padding:clamp(1rem, 5vh, 2.5rem) 1.25rem 1.5rem;
+  padding:max(clamp(1rem,5vh,2.5rem), env(safe-area-inset-top, 1rem)) 1.25rem max(1.5rem, env(safe-area-inset-bottom, 1rem));
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
 }
@@ -969,9 +969,16 @@ function rsmSave(){
           data-desktop-src="CERO.mp4"
           poster="CERO-thumb.png"
           playsinline
+          webkit-playsinline
+          muted
           preload="metadata"
           style="width:100%;height:100%;object-fit:cover;display:block"
         ></video>
+
+        <!-- SOUND TOGGLE -->
+        <button id="film-sound-btn" onclick="toggleFilmSound(event)" style="display:none;position:absolute;top:.6rem;right:.6rem;z-index:5;background:rgba(8,8,10,.7);border:1px solid rgba(200,169,110,.35);border-radius:50%;width:36px;height:36px;align-items:center;justify-content:center;backdrop-filter:blur(8px);cursor:pointer;transition:border-color 200ms">
+          <svg id="film-sound-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#C8A96E" stroke="none"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
 
         <!-- THUMBNAIL OVERLAY — visible hasta que empiece -->
         <div id="film-play-overlay" onclick="toggleFilm()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,8,10,.55);cursor:pointer;transition:background 300ms,opacity 300ms;z-index:3;gap:1rem">
@@ -2113,8 +2120,8 @@ async function generateStoryCard(){
   // 1080×1920 — Instagram Stories format
   const wrapper = document.createElement('div');
   wrapper.style.cssText = `
-    position:fixed;
-    top:0;
+    position:absolute;
+    top:${window.scrollY || 0}px;
     left:-99999px;
     width:1080px;
     height:1920px;
@@ -2145,8 +2152,7 @@ async function generateStoryCard(){
     </div>
 
     <!-- BOTTLE + NAME — center anchor -->
-    <div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px">
-      <div style="position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle, rgba(200,169,110,.22), transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;background:radial-gradient(circle at 50% 50%, rgba(200,169,110,0.15) 0%, transparent 65%)">
       <img crossorigin="anonymous" src="${imgSrc}" style="height:660px;width:auto;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(200,169,110,.4));position:relative;z-index:2">
       <div style="position:relative;z-index:2;text-align:center">
         <div style="font-family:Inter,system-ui;font-size:14px;letter-spacing:6px;text-transform:uppercase;color:rgba(200,169,110,.7);margin-bottom:14px">${pr}</div>
@@ -2195,6 +2201,10 @@ async function generateStoryCard(){
       backgroundColor: '#020802',
       width: 1080,
       height: 1920,
+      windowWidth: 1080,
+      windowHeight: 1920,
+      scrollX: 0,
+      scrollY: 0,
       logging: false,
       imageTimeout: 3000,
       onclone: (doc) => {
@@ -2473,42 +2483,65 @@ startCityPulse();
     playBtn.style.background = 'rgba(8,8,10,.7)';
   });
 
-  // Autoplay on scroll into view
+  // Autoplay on scroll into view (muted — works on all mobile browsers)
+  const soundBtn = document.getElementById('film-sound-btn');
   const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.intersectionRatio >= 0.6 && video.paused){
+        video.muted = true; // ensure muted for autoplay
         video.play().then(()=>{
           overlay.style.opacity = '0';
           overlay.style.pointerEvents = 'none';
           playBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
+          if(soundBtn) soundBtn.style.display = 'flex';
         }).catch(()=>{});
       } else if(entry.intersectionRatio < 0.3 && !video.paused){
         video.pause();
         overlay.style.opacity = '1';
         overlay.style.pointerEvents = 'auto';
         playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
+        if(soundBtn) soundBtn.style.display = 'none';
       }
     });
   }, {threshold:[0.3, 0.6]});
   observer.observe(video);
 })();
 
+function toggleFilmSound(e){
+  e.stopPropagation();
+  const video = document.getElementById('cero-film');
+  const icon = document.getElementById('film-sound-icon');
+  if(!video) return;
+  video.muted = !video.muted;
+  icon.innerHTML = video.muted
+    ? '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#C8A96E" stroke="none"/><line x1="23" y1="9" x2="17" y2="15" stroke="#C8A96E"/><line x1="17" y1="9" x2="23" y2="15" stroke="#C8A96E"/>'
+    : '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#C8A96E" stroke="none"/><path d="M19 5a9 9 0 0 1 0 14M15.5 8.5a5 5 0 0 1 0 7" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" fill="none"/>';
+}
+
 function toggleFilm(){
   const video = document.getElementById('cero-film');
   const overlay = document.getElementById('film-play-overlay');
   const playBtn = document.getElementById('film-play-btn');
+  const soundBtn = document.getElementById('film-sound-btn');
   if(!video) return;
   if(video.paused){
+    // Ensure src is loaded before playing
+    if(video.readyState === 0 && video.src) video.load();
     video.play().then(()=>{
       overlay.style.opacity = '0';
       overlay.style.pointerEvents = 'none';
       playBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
-    }).catch(()=>{});
+      if(soundBtn) soundBtn.style.display = 'flex';
+    }).catch((err)=>{
+      console.warn('Video play failed:', err);
+      toast('Tap again to play');
+    });
   } else {
     video.pause();
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'auto';
     playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
+    if(soundBtn) soundBtn.style.display = 'none';
   }
 }
 
