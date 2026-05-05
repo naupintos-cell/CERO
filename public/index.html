@@ -438,6 +438,11 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
   animation:fu .8s .5s both;
 }
 
+/* ── MOBILE VIDEO (vertical) ── */
+@media(max-width:600px){
+  #film-video-container{aspect-ratio:9/16 !important;max-height:85svh}
+}
+
 /* toast + credit */
 #toast{position:fixed;bottom:calc(var(--NAV) + .6rem);left:50%;transform:translateX(-50%) translateY(5px);background:var(--green);color:var(--cream);padding:.42rem .88rem;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;opacity:0;z-index:1000;white-space:nowrap;pointer-events:none;transition:opacity 240ms,transform 240ms ease}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -960,6 +965,8 @@ function rsmSave(){
         <video
           id="cero-film"
           src="CERO.mp4"
+          data-mobile-src="CEROMOBILE.mp4"
+          data-desktop-src="CERO.mp4"
           poster="CERO-thumb.png"
           playsinline
           preload="metadata"
@@ -2515,6 +2522,17 @@ function scrubFilm(e){
 
 /* ── INIT ── */
 window.addEventListener("load",()=>{
+  // Mobile video swap: serve vertical version on narrow screens
+  (function(){
+    const video = document.getElementById('cero-film');
+    if(!video) return;
+    const isMobile = window.matchMedia('(max-width:600px)').matches;
+    const src = isMobile ? (video.dataset.mobileSrc || video.src) : (video.dataset.desktopSrc || video.src);
+    if(video.src !== src && src){
+      video.src = src;
+      video.load();
+    }
+  })();
   // Give loader time to show, then transition to hero
   setTimeout(()=>{
     const ld=document.getElementById('pg-ld');
