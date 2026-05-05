@@ -971,7 +971,7 @@ function rsmSave(){
           playsinline
           webkit-playsinline
           muted
-          preload="metadata"
+          preload="auto"
           style="width:100%;height:100%;object-fit:cover;display:block"
         ></video>
 
@@ -2440,71 +2440,102 @@ startCityPulse();
    FILM PLAYER
 ════════════════════════════════════════ */
 (function(){
-  const video = document.getElementById('cero-film');
-  const overlay = document.getElementById('film-play-overlay');
-  const playBtn = document.getElementById('film-play-btn');
-  const progressBar = document.getElementById('film-progress-bar');
-  const durEl = document.getElementById('film-dur');
-  if(!video) return;
-
-  function fmt(s){
-    const m = Math.floor(s/60), sec = Math.floor(s%60);
-    return m + ':' + (sec<10?'0':'') + sec;
+  // ── Src swap: ejecutar lo antes posible ──
+  function swapVideoSrc(){
+    const video = document.getElementById('cero-film');
+    if(!video) return;
+    const isMobile = window.matchMedia('(max-width:600px)').matches;
+    const target = isMobile ? (video.dataset.mobileSrc) : (video.dataset.desktopSrc);
+    if(target && !video.src.endsWith(target)){
+      video.src = target;
+      video.load();
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', swapVideoSrc);
+  } else {
+    swapVideoSrc();
   }
 
-  video.addEventListener('loadedmetadata', ()=>{
-    if(video.duration && isFinite(video.duration))
-      durEl.textContent = fmt(video.duration);
-  });
+  // ── Player logic ──
+  function init(){
+    const video = document.getElementById('cero-film');
+    const overlay = document.getElementById('film-play-overlay');
+    const playBtn = document.getElementById('film-play-btn');
+    const progressBar = document.getElementById('film-progress-bar');
+    const durEl = document.getElementById('film-dur');
+    const soundBtn = document.getElementById('film-sound-btn');
+    const landing = document.getElementById('landing');
+    const filmSection = document.getElementById('ls-film');
+    if(!video || !landing || !filmSection) return;
 
-  video.addEventListener('timeupdate', ()=>{
-    if(!video.duration) return;
-    progressBar.style.width = (video.currentTime/video.duration*100) + '%';
-    durEl.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
-  });
+    function fmt(s){
+      const m=Math.floor(s/60),sec=Math.floor(s%60);
+      return m+':'+(sec<10?'0':'')+sec;
+    }
+    function showOverlay(){
+      overlay.style.opacity='1';overlay.style.pointerEvents='auto';
+      playBtn.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
+      if(soundBtn) soundBtn.style.display='none';
+    }
+    function hideOverlay(){
+      overlay.style.opacity='0';overlay.style.pointerEvents='none';
+      playBtn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
+      if(soundBtn) soundBtn.style.display='flex';
+    }
 
-  video.addEventListener('ended', ()=>{
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'auto';
-    playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
-    progressBar.style.width = '0%';
-    video.currentTime = 0;
-  });
-
-  // Hover effect on play button
-  overlay.addEventListener('mouseenter', ()=>{
-    playBtn.style.transform = 'scale(1.08)';
-    playBtn.style.borderColor = 'var(--bright)';
-    playBtn.style.background = 'rgba(139,94,42,.35)';
-  });
-  overlay.addEventListener('mouseleave', ()=>{
-    playBtn.style.transform = '';
-    playBtn.style.borderColor = 'rgba(200,169,110,.5)';
-    playBtn.style.background = 'rgba(8,8,10,.7)';
-  });
-
-  // Autoplay on scroll into view (muted — works on all mobile browsers)
-  const soundBtn = document.getElementById('film-sound-btn');
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.intersectionRatio >= 0.6 && video.paused){
-        video.muted = true; // ensure muted for autoplay
-        video.play().then(()=>{
-          overlay.style.opacity = '0';
-          overlay.style.pointerEvents = 'none';
-          playBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="4" height="18" fill="#C8A96E"/><rect x="15" y="3" width="4" height="18" fill="#C8A96E"/></svg>';
-          if(soundBtn) soundBtn.style.display = 'flex';
-        }).catch(()=>{});
-      } else if(entry.intersectionRatio < 0.3 && !video.paused){
-        video.pause();
-        overlay.style.opacity = '1';
-        overlay.style.pointerEvents = 'auto';
-        playBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="#C8A96E"/></svg>';
-        if(soundBtn) soundBtn.style.display = 'none';
-      }
+    video.addEventListener('loadedmetadata',()=>{
+      if(video.duration && isFinite(video.duration)) durEl.textContent=fmt(video.duration);
     });
-  }, {threshold:[0.3, 0.6]});
-  observer.observe(video);
+    video.addEventListener('timeupdate',()=>{
+      if(!video.duration) return;
+      progressBar.style.width=(video.currentTime/video.duration*100)+'%';
+      durEl.textContent=fmt(video.currentTime)+' / '+fmt(video.duration);
+    });
+    video.addEventListener('ended',()=>{
+      showOverlay();
+      progressBar.style.width='0%';
+      video.currentTime=0;
+    });
+
+    // Hover (desktop)
+    overlay.addEventListener('mouseenter',()=>{
+      playBtn.style.transform='scale(1.08)';
+      playBtn.style.borderColor='var(--bright)';
+      playBtn.style.background='rgba(139,94,42,.35)';
+    });
+    overlay.addEventListener('mouseleave',()=>{
+      playBtn.style.transform='';
+      playBtn.style.borderColor='rgba(200,169,110,.5)';
+      playBtn.style.background='rgba(8,8,10,.7)';
+    });
+
+    // ── Scroll-based autoplay: usar getBoundingClientRect sobre #landing ──
+    let autoPlayed = false;
+    function checkFilmVisibility(){
+      const rect = filmSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      const ratio = visible / rect.height;
+      if(ratio >= 0.5 && video.paused && !autoPlayed){
+        video.muted = true;
+        video.play().then(()=>{ hideOverlay(); autoPlayed = true; }).catch(()=>{});
+      } else if(ratio < 0.2 && !video.paused){
+        video.pause();
+        showOverlay();
+        autoPlayed = false;
+      }
+    }
+    landing.addEventListener('scroll', checkFilmVisibility, {passive:true});
+    // Chequear también al cargar por si ya es visible
+    setTimeout(checkFilmVisibility, 500);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 
 function toggleFilmSound(e){
@@ -2525,8 +2556,6 @@ function toggleFilm(){
   const soundBtn = document.getElementById('film-sound-btn');
   if(!video) return;
   if(video.paused){
-    // Ensure src is loaded before playing
-    if(video.readyState === 0 && video.src) video.load();
     video.play().then(()=>{
       overlay.style.opacity = '0';
       overlay.style.pointerEvents = 'none';
@@ -2555,17 +2584,6 @@ function scrubFilm(e){
 
 /* ── INIT ── */
 window.addEventListener("load",()=>{
-  // Mobile video swap: serve vertical version on narrow screens
-  (function(){
-    const video = document.getElementById('cero-film');
-    if(!video) return;
-    const isMobile = window.matchMedia('(max-width:600px)').matches;
-    const src = isMobile ? (video.dataset.mobileSrc || video.src) : (video.dataset.desktopSrc || video.src);
-    if(video.src !== src && src){
-      video.src = src;
-      video.load();
-    }
-  })();
   // Give loader time to show, then transition to hero
   setTimeout(()=>{
     const ld=document.getElementById('pg-ld');
